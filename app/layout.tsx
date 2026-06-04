@@ -19,6 +19,11 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     type: "website"
   },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.title,
+    description: siteConfig.description
+  },
   robots: {
     index: true,
     follow: true

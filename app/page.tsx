@@ -10,6 +10,24 @@ import { siteConfig } from "@/lib/seo";
 
 export default async function HomePage() {
   const [beyblades, combos, guides, tierList] = await Promise.all([getBeyblades(), getCombos(), getGuides(), getTierList()]);
+  const faqs = [
+    {
+      question: "What is BeyVerse?",
+      answer: "BeyVerse is a fan-made Beyblade encyclopedia focused on Beyblade X releases, parts, combo ideas, strategy guides, tier notes, and anime lore."
+    },
+    {
+      question: "Can I use BeyVerse to build Beyblade combos?",
+      answer: "Yes. The Combo Builder lets you choose a Blade, Ratchet, and Bit, then estimates attack, defense, stamina, balance, overall rating, and recommended play style."
+    },
+    {
+      question: "Are the tier lists official?",
+      answer: "No. Tier notes on BeyVerse are fan-made testing references. Local rules, stadiums, launch style, and part condition can change real match results."
+    },
+    {
+      question: "Does BeyVerse show ads?",
+      answer: "BeyVerse is prepared for Google AdSense, but ads can stay disabled until approval. The site is designed to keep content readable and avoid overloaded ad placement."
+    }
+  ];
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -21,10 +39,23 @@ export default async function HomePage() {
       "query-input": "required name=search_term_string"
     }
   };
+  const faqStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer
+      }
+    }))
+  };
 
   return (
     <main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }} />
       <section className="container-page grid min-h-[calc(100vh-64px)] items-center gap-10 py-12 md:grid-cols-[1.15fr_0.85fr]">
         <div>
           <Badge>Everything About Beyblade In One Universe</Badge>
@@ -66,6 +97,23 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <section className="border-y bg-slate-950/35 py-10">
+        <div className="container-page grid gap-6 md:grid-cols-3">
+          <Card>
+            <CardHeader><CardTitle>Research Releases</CardTitle></CardHeader>
+            <CardContent><p className="text-sm leading-6 text-slate-300">Browse Beyblade X releases with type, series, release date, strengths, weaknesses, combo ideas, and beginner-friendly usage notes.</p></CardContent>
+          </Card>
+          <Card>
+            <CardHeader><CardTitle>Compare Parts</CardTitle></CardHeader>
+            <CardContent><p className="text-sm leading-6 text-slate-300">Use the Parts Database to understand Blade, Ratchet, and Bit roles before testing your own custom combinations.</p></CardContent>
+          </Card>
+          <Card>
+            <CardHeader><CardTitle>Build and Test</CardTitle></CardHeader>
+            <CardContent><p className="text-sm leading-6 text-slate-300">Start with the Combo Builder, then use strategy guides to refine launch control, matchup planning, and testing notes.</p></CardContent>
+          </Card>
+        </div>
+      </section>
+
       <section className="container-page py-8">
         <h2 className="text-2xl font-black">Latest Beyblades</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
@@ -104,9 +152,21 @@ export default async function HomePage() {
       <section className="container-page py-8">
         <h2 className="text-2xl font-black">Latest Updates</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
-          <Card><CardHeader><CardTitle>Database seeded</CardTitle></CardHeader><CardContent><p className="text-sm text-slate-300">Demo Beyblade X entries, parts, guides, and tier data are ready for Supabase import.</p></CardContent></Card>
-          <Card><CardHeader><CardTitle>AdSense-ready</CardTitle></CardHeader><CardContent><p className="text-sm text-slate-300">Ad slots reserve space without rendering broken ads before approval.</p></CardContent></Card>
-          <Card><CardHeader><CardTitle>SEO foundation</CardTitle></CardHeader><CardContent><p className="text-sm text-slate-300">Sitemap, robots rules, Open Graph metadata, and structured data are included.</p></CardContent></Card>
+          <Card><CardHeader><CardTitle>Beyblade X Catalog</CardTitle></CardHeader><CardContent><p className="text-sm text-slate-300">BX, UX, CX, and X-Over entries are organized for search, detail pages, and future photo updates.</p></CardContent></Card>
+          <Card><CardHeader><CardTitle>Original Guides</CardTitle></CardHeader><CardContent><p className="text-sm text-slate-300">Strategy content now covers launch control, combo theory, Ratchet height, type roles, and testing methods.</p></CardContent></Card>
+          <Card><CardHeader><CardTitle>AdSense-ready</CardTitle></CardHeader><CardContent><p className="text-sm text-slate-300">Ad spaces are reserved but disabled by default so the reading experience stays clean before approval.</p></CardContent></Card>
+        </div>
+      </section>
+
+      <section className="container-page py-8">
+        <h2 className="text-2xl font-black">BeyVerse FAQ</h2>
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
+          {faqs.map((item) => (
+            <Card key={item.question}>
+              <CardHeader><CardTitle>{item.question}</CardTitle></CardHeader>
+              <CardContent><p className="text-sm leading-6 text-slate-300">{item.answer}</p></CardContent>
+            </Card>
+          ))}
         </div>
       </section>
     </main>
