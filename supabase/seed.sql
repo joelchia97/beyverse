@@ -1,8 +1,18 @@
-insert into public.beyblades (slug, name, series, type, weight, release_date, image_url, description, strengths, weaknesses, recommended_combos, anime_info) values
-('dran-sword-3-60f', 'Dran Sword 3-60F', 'Beyblade X', 'Attack', 36.80, '2023-07-15', '/placeholder-bey.svg', 'A fast attack-type Beyblade built for aggressive Xtreme Dash movement and early knockouts.', array['Explosive contact power', 'Strong stadium movement', 'Excellent opening pressure'], array['Can self-KO when over-launched', 'Lower stamina in long battles'], array['Dran Sword 3-60F', 'Dran Sword 5-60R'], 'Associated with the high-speed battle style that defines Beyblade X.'),
-('hells-scythe-4-60t', 'Hells Scythe 4-60T', 'Beyblade X', 'Balance', 37.20, '2023-07-15', '/placeholder-bey.svg', 'A balanced release with flexible matchups and smooth transitions.', array['Reliable into mixed fields', 'Stable contact shape'], array['Less burst pressure than pure attack builds'], array['Hells Scythe 4-60T', 'Hells Scythe 5-60B'], 'A technical option for bladers who value control.'),
-('wizard-arrow-4-80b', 'Wizard Arrow 4-80B', 'Beyblade X', 'Stamina', 34.90, '2023-07-15', '/placeholder-bey.svg', 'A stamina-focused Beyblade designed to preserve spin.', array['Strong late-game spin', 'Calm movement'], array['Vulnerable to heavy smash attacks'], array['Wizard Arrow 4-80B', 'Wizard Arrow 5-60O'], 'Represents patient, precision-driven battling.')
+insert into public.beyblades (slug, name, product_code, series, type, weight, release_date, image_url, description, strengths, weaknesses, recommended_combos, anime_info) values
+('dran-sword-3-60f', 'Dran Sword 3-60F', 'BX-01', 'Beyblade X Basic Line', 'Attack', 36.80, '2023-07-15', '/placeholder-bey.svg', 'A fast attack-type Beyblade built for aggressive Xtreme Dash movement and early knockouts.', array['Explosive contact power', 'Strong stadium movement', 'Excellent opening pressure'], array['Can self-KO when over-launched', 'Lower stamina in long battles'], array['Dran Sword 3-60F', 'Dran Sword 5-60R'], 'Associated with the high-speed battle style that defines Beyblade X.'),
+('hells-scythe-4-60t', 'Hells Scythe 4-60T', 'BX-02', 'Beyblade X Basic Line', 'Balance', 37.20, '2023-07-15', '/placeholder-bey.svg', 'A balanced release with flexible matchups and smooth transitions.', array['Reliable into mixed fields', 'Stable contact shape'], array['Less burst pressure than pure attack builds'], array['Hells Scythe 4-60T', 'Hells Scythe 5-60B'], 'A technical option for bladers who value control.'),
+('wizard-arrow-4-80b', 'Wizard Arrow 4-80B', 'BX-03', 'Beyblade X Basic Line', 'Stamina', 34.90, '2023-07-15', '/placeholder-bey.svg', 'A stamina-focused Beyblade designed to preserve spin.', array['Strong late-game spin', 'Calm movement'], array['Vulnerable to heavy smash attacks'], array['Wizard Arrow 4-80B', 'Wizard Arrow 5-60O'], 'Represents patient, precision-driven battling.')
 on conflict (slug) do nothing;
+
+update public.beyblades
+set product_code = case slug
+  when 'dran-sword-3-60f' then 'BX-01'
+  when 'hells-scythe-4-60t' then 'BX-02'
+  when 'wizard-arrow-4-80b' then 'BX-03'
+  else product_code
+end
+where slug in ('dran-sword-3-60f', 'hells-scythe-4-60t', 'wizard-arrow-4-80b')
+  and product_code is null;
 
 insert into public.parts (slug, name, category, weight, description, advantages, disadvantages, recommended_uses, attack, defense, stamina, balance) values
 ('dran-sword', 'Dran Sword', 'Blade', 34.60, 'An aggressive blade with pronounced contact points.', array['High attack ceiling'], array['Risky recoil'], array['Attack combos'], 9, 4, 3, 5),

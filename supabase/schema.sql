@@ -4,6 +4,7 @@ create table if not exists public.beyblades (
   id uuid primary key default gen_random_uuid(),
   slug text not null unique,
   name text not null,
+  product_code text,
   series text not null,
   type text not null check (type in ('Attack', 'Defense', 'Stamina', 'Balance')),
   weight numeric(6,2),
@@ -17,6 +18,8 @@ create table if not exists public.beyblades (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+alter table public.beyblades add column if not exists product_code text;
 
 create table if not exists public.parts (
   id uuid primary key default gen_random_uuid(),

@@ -39,6 +39,7 @@ export default async function BeybladeDetailPage({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: item.name,
+    identifier: item.product_code,
     description: item.description,
     datePublished: item.release_date,
     author: { "@type": "Organization", name: "BeyVerse" }
@@ -49,12 +50,16 @@ export default async function BeybladeDetailPage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <div className="grid gap-8 lg:grid-cols-[1fr_300px]">
         <article>
-          <Badge>{item.series}</Badge>
+          <div className="flex flex-wrap gap-2">
+            <Badge>{item.product_code || "Catalog"}</Badge>
+            <Badge>{item.series}</Badge>
+          </div>
           <h1 className="mt-4 text-4xl font-black text-white md:text-6xl">{item.name}</h1>
           <p className="mt-4 text-lg leading-8 text-slate-300">{item.description}</p>
           <BeybladeVisual name={item.name} type={item.type} className="mt-6" />
           <AdBanner slot="beyblade-detail-page-ad" label="Beyblade detail page ad" />
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
+          <div className="mt-6 grid gap-4 md:grid-cols-4">
+            <Card><CardHeader><CardTitle>Product Code</CardTitle></CardHeader><CardContent>{item.product_code || "TBA"}</CardContent></Card>
             <Card><CardHeader><CardTitle>Type</CardTitle></CardHeader><CardContent>{item.type}</CardContent></Card>
             <Card><CardHeader><CardTitle>Weight</CardTitle></CardHeader><CardContent>{item.weight}g</CardContent></Card>
             <Card><CardHeader><CardTitle>Release</CardTitle></CardHeader><CardContent>{item.release_date}</CardContent></Card>

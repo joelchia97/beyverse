@@ -2,6 +2,7 @@ export type Beyblade = {
   id: string;
   slug: string;
   name: string;
+  product_code: string;
   series: string;
   type: "Attack" | "Defense" | "Stamina" | "Balance";
   weight: number;

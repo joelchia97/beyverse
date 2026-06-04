@@ -17,7 +17,7 @@ export default async function BeybladeDatabasePage() {
       <section className="container-page grid gap-8 lg:grid-cols-[1fr_280px]">
         <div className="grid gap-4 md:grid-cols-2">
           {beyblades.map((item) => (
-            <EntityCard key={item.id} href={`/beyblades/${item.slug}`} title={item.name} badge={item.type} meta={`${item.series} / ${item.weight}g`} description={item.description} visualType={item.type} />
+            <EntityCard key={item.id} href={`/beyblades/${item.slug}`} title={item.name} badge={item.product_code || item.type} meta={`${item.series} / ${item.type} / ${item.weight}g`} description={item.description} visualType={item.type} />
           ))}
         </div>
         <aside>

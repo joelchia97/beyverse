@@ -36,7 +36,7 @@ async function fetchTable<T>(table: string, fallback: T[], orderColumn = "create
 
 export async function getBeyblades() {
   const remote = await fetchTable<Beyblade>("beyblades", [], "release_date");
-  return mergeByKey(fallbackBeyblades, normalizeBeyblades(remote), "slug");
+  return mergeBeyblades(fallbackBeyblades, normalizeBeyblades(remote));
 }
 
 export async function getBeybladeBySlug(slug: string) {
@@ -79,6 +79,8 @@ export async function getTierList() {
 function normalizeBeyblades(items: Beyblade[]) {
   return items.map((item) => ({
     ...item,
+    product_code: item.product_code || extractProductCode(item.series),
+    series: cleanSeries(item.series),
     weight: Number(item.weight || 0),
     image_url: item.image_url || "/placeholder-bey.svg",
     strengths: item.strengths || [],
@@ -86,6 +88,29 @@ function normalizeBeyblades(items: Beyblade[]) {
     recommended_combos: item.recommended_combos || [],
     anime_info: item.anime_info || ""
   }));
+}
+
+function mergeBeyblades(fallback: Beyblade[], remote: Beyblade[]) {
+  const map = new Map<string, Beyblade>();
+  fallback.forEach((item) => map.set(item.slug, item));
+  remote.forEach((item) => {
+    const base = map.get(item.slug);
+    map.set(item.slug, {
+      ...base,
+      ...item,
+      product_code: item.product_code || base?.product_code || "",
+      series: cleanSeries(item.series || base?.series || "")
+    });
+  });
+  return Array.from(map.values());
+}
+
+function extractProductCode(series: string) {
+  return series.match(/\b(?:BXG|BX|UX|CX)-\d{2}\b/)?.[0] || "";
+}
+
+function cleanSeries(series: string) {
+  return series.replace(/\s*\/\s*(?:BXG|BX|UX|CX)-\d{2}\b/g, "");
 }
 
 function normalizeParts(items: Part[]) {
