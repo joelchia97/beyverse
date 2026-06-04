@@ -155,7 +155,7 @@ export const beyblades: Beyblade[] = beyRecords.map((record, index) => {
     weight: estimateBeyWeight(record.type, record.series),
     release_date: record.release,
     image_url: "/placeholder-bey.svg",
-    description: `${record.name} is a ${record.type.toLowerCase()}-type Beyblade X release from the ${record.series}. This catalog entry is prepared for encyclopedia expansion with matchup notes, photos, and testing results.`,
+    description: descriptionFor(record.name, record.type, record.series),
     strengths: strengthsFor(record.type),
     weaknesses: weaknessesFor(record.type),
     recommended_combos: [record.name, `${parts.blade} 9-60 ${parts.bit}`, `${parts.blade} 5-70 ${parts.bit}`],
@@ -350,4 +350,19 @@ function weaknessesFor(type: Beyblade["type"]) {
     Stamina: ["Vulnerable to clean knockouts", "Less immediate pressure", "Needs safe positioning"],
     Balance: ["Less specialized", "Requires matchup knowledge", "Can lose to extreme builds"]
   }[type];
+}
+
+function descriptionFor(name: string, type: Beyblade["type"], series: BeyRecord["series"]) {
+  const intro = `${name} is a ${type.toLowerCase()}-type Beyblade X release from the ${series}.`;
+  const detail = {
+    Attack:
+      "It is best understood as a pressure tool: the goal is to create meaningful contact early, force the opponent out of position, and convert speed into a knockout before stamina becomes a problem.",
+    Defense:
+      "Its main value is control. The build should be tested around impact resistance, safe movement, and whether it can survive the opening attacks long enough to win by stability or spin.",
+    Stamina:
+      "It rewards calm launches and efficient movement. The most important testing question is whether it can avoid early knockouts and preserve enough spin to win the late game.",
+    Balance:
+      "It gives players a flexible platform for tuning. The strongest setups usually choose one primary plan, then use secondary traits to cover bad matchups."
+  }[type];
+  return `${intro} ${detail}`;
 }
