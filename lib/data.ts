@@ -316,6 +316,56 @@ export const guides: Guide[] = [
     content:
       "A good beginner collection should cover roles, not just favorite designs. Before buying many releases, try to own at least one attack option, one stamina option, one defense or balance option, and a few useful Ratchets and Bits.\n\nAttack releases teach movement and knockout timing. Stamina releases teach spin preservation and safe launches. Defense releases teach survival and impact control. Balance releases teach tuning and adaptation. Having all four roles makes practice more useful.\n\nAvoid buying only based on tier lists. A strong competitive part may not help if you do not understand how to launch or tune it. It is often better to buy a small set of useful parts and test them deeply than to buy many releases and never learn their behavior.\n\nFor a first upgrade path, focus on variety: a low Ratchet, a stable Ratchet, an attack Bit, a stamina Bit, and a balance Bit. That gives you enough pieces to learn why combos behave differently.\n\nThe best purchase is the one that helps you play more, test more, and understand your own style. BeyVerse can guide choices, but your local battles should shape the final decision.",
     published_at: "2026-06-11"
+  },
+  {
+    id: "guide-dran-sword",
+    slug: "dran-sword-combo-guide",
+    title: "Dran Sword Combo Guide",
+    category: "Beyblade Guide",
+    excerpt: "How to use Dran Sword for controlled attack pressure and beginner-friendly knockout testing.",
+    content:
+      "Dran Sword is one of the clearest attack-style Beyblade X Blades for learning how contact timing works. It rewards players who can reach the opponent quickly, but it also punishes launches that waste movement around the stadium.\n\nThe first thing to learn with Dran Sword is control. A new player may want to launch as hard as possible, but too much power can create wide movement with no meaningful contact. Start with a slightly angled launch and watch whether Dran Sword enters the Xtreme line before or after the opponent settles.\n\nFor beginner testing, try Dran Sword 3-60 Flat, Dran Sword 5-60 Rush, and Dran Sword 9-60 Point. Flat teaches raw speed. Rush gives a little more control while keeping pressure. Point turns Dran Sword into an attack-balance experiment that can still threaten knockouts without becoming completely wild.\n\nDran Sword is strongest when it pressures stamina builds before they stabilize. It can struggle when a defense combo absorbs the first hit or when the launch pattern causes a self-KO. If Dran Sword loses often, test launch angle first before changing parts.\n\nA useful testing question is simple: does Dran Sword make contact in the first five seconds? If the answer is no, the combo is not using its main advantage. Tune the Bit, Ratchet, or launch until early contact becomes repeatable.",
+    published_at: "2026-06-12"
+  },
+  {
+    id: "guide-phoenix-wing",
+    slug: "phoenix-wing-combo-guide",
+    title: "Phoenix Wing Combo Guide",
+    category: "Beyblade Guide",
+    excerpt: "Build Phoenix Wing around heavy impact, controlled movement, and reliable attack pressure.",
+    content:
+      "Phoenix Wing is a powerful attack option because it combines strong contact with meaningful weight. It can create threatening knockouts, but it should still be treated as a combo that needs control rather than pure force.\n\nA common mistake is assuming Phoenix Wing should always use the most aggressive Bit available. Gear Flat can create explosive movement, but it may also burn stamina or miss contact windows. If you are learning the Blade, compare Gear Flat with Rush, Point, or Taper to see how much control you gain.\n\nGood starting ideas include Phoenix Wing 9-60 Gear Flat for maximum attack testing, Phoenix Wing 5-60 Rush for controlled pressure, and Phoenix Wing 9-60 Point for balance-attack use. The 9-60 style setup can make the combo feel safer, while lower and more aggressive setups can increase knockout potential.\n\nPhoenix Wing performs well when it can force opponents off their preferred pattern. Against stamina builds, the goal is to disrupt early. Against defense builds, the goal is to avoid throwing away stamina into safe contact. Against other attack builds, launch control becomes the whole battle.\n\nTrack self-KOs carefully. If Phoenix Wing wins big but also loses by leaving the stadium too often, the combo may be powerful but unreliable. A slightly safer Bit can sometimes improve real match performance even if the attack score feels lower.",
+    published_at: "2026-06-13"
+  },
+  {
+    id: "guide-wizard-rod",
+    slug: "wizard-rod-combo-guide",
+    title: "Wizard Rod Combo Guide",
+    category: "Beyblade Guide",
+    excerpt: "Use Wizard Rod as a stamina benchmark for safe launches, late-game spin, and matchup testing.",
+    content:
+      "Wizard Rod is best understood as a stamina benchmark. When players test a new attack or balance idea, Wizard Rod-style stamina builds are often the kind of opponent they need to prove they can beat.\n\nThe main goal with Wizard Rod is to survive the opening and reach the late game with enough spin to matter. That means the launch should be stable, the Ratchet should not expose the combo unnecessarily, and the Bit should support calm movement.\n\nBeginner-friendly setups include Wizard Rod 9-60 Ball, Wizard Rod 5-70 Orb, and Wizard Rod 9-80 Disk Ball. Ball keeps the idea simple. Orb adds calm center control. Disk Ball or Free Ball-style ideas can be tested when you want to study late-game stamina behavior more deeply.\n\nWizard Rod can do well into passive or inconsistent combos, but it must respect strong attack. If it gets knocked out too often, do not immediately chase more stamina. First ask whether the setup is stable enough to survive the first hit.\n\nThe best way to test Wizard Rod is through matchup notes. Record whether it loses by knockout, destabilization, or spin finish. Each loss type points to a different fix: more stability, safer height, better launch control, or a different Bit.",
+    published_at: "2026-06-14"
+  },
+  {
+    id: "guide-shark-edge",
+    slug: "shark-edge-combo-guide",
+    title: "Shark Edge Combo Guide",
+    category: "Beyblade Guide",
+    excerpt: "A high-risk attack guide for Shark Edge players who want strong hits without losing control.",
+    content:
+      "Shark Edge is a high-risk attack Blade. It can create dangerous smash attacks, but the same contact that makes it threatening can also create recoil and missed opportunities.\n\nThe first lesson with Shark Edge is that power needs a target. If the launch sends Shark Edge into the stadium wall before it touches the opponent, the combo is wasting its best chance. Start with controlled aggression before moving into full-power launch testing.\n\nUseful test combos include Shark Edge 3-60 Low Flat, Shark Edge 5-60 Rush, and Shark Edge 1-60 Flat. Low Flat and Flat create strong early pressure, while Rush can make the movement more manageable. If the combo self-KOs too much, Point can be tested as a safer attack-balance option.\n\nShark Edge is most dangerous against combos that need time to settle. It can punish stamina builds that launch too calmly or balance builds that lack early defense. It can struggle against setups that absorb impact or survive the first exchange.\n\nWhen testing Shark Edge, count clean hits separately from wins. Sometimes it loses despite landing strong hits because the recoil is too high. If that happens, adjust the Bit or Ratchet to keep the attack path dangerous but less reckless.",
+    published_at: "2026-06-15"
+  },
+  {
+    id: "guide-dran-buster",
+    slug: "dran-buster-combo-guide",
+    title: "Dran Buster Combo Guide",
+    category: "Beyblade Guide",
+    excerpt: "How to tune Dran Buster for compact attack, fast finishes, and practical testing.",
+    content:
+      "Dran Buster is an attack Blade that rewards directness. It should be tested around fast finishes, compact setups, and launch patterns that create meaningful contact before the opponent can settle.\n\nBecause Dran Buster can feel unforgiving, new players should avoid changing too many parts at once. Start with Dran Buster 1-60 Low Flat if you want pure attack testing, then compare it with Dran Buster 3-60 Rush and Dran Buster 5-60 Point. Each setup teaches a different version of attack.\n\nLow Flat gives strong speed and low-angle pressure, but it also increases self-KO risk. Rush can make Dran Buster easier to control while keeping attack identity. Point gives a backup plan if the opening attack does not end the battle immediately.\n\nDran Buster wants opponents to make decisions quickly. Against stamina, it should challenge the setup before the late game. Against defense, it needs clean contact rather than repeated weak hits. Against other attack builds, the better launch often decides the match.\n\nA good Dran Buster test is to run ten battles with the same setup and write down the first contact timing. If first contact happens late, the combo is not using its direct attack identity. If first contact happens early but results are unstable, tune for control rather than more speed.",
+    published_at: "2026-06-16"
   }
 ];
 
