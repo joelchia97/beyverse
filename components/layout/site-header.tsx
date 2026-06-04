@@ -17,7 +17,7 @@ export function SiteHeader() {
       <div className="container-page flex h-16 items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-2 font-black tracking-wide text-sky-100">
           <Shield className="h-6 w-6 text-sky-300" />
-          <span>BeyVerse</span>
+          <span>BEYBUKU</span>
         </Link>
         <nav className="hidden items-center gap-1 md:flex">
           {nav.map(([label, href]) => (

@@ -1,8 +1,8 @@
-# BeyVerse
+# BEYBUKU
 
-Everything About Beyblade In One Universe.
+The Ultimate Beyblade X Encyclopedia.
 
-BeyVerse is a Next.js 15, TypeScript, TailwindCSS, Shadcn-style UI, Supabase, Vercel, and GitHub-ready Beyblade encyclopedia website with AdSense-safe monetization support.
+BEYBUKU is a Next.js 15, TypeScript, TailwindCSS, Shadcn-style UI, Supabase, Vercel, and GitHub-ready Beyblade encyclopedia website with AdSense-safe monetization support.
 
 ## Features
 
@@ -85,9 +85,9 @@ The site intentionally uses restrained ad placement because AdSense approval dep
 ```bash
 git init
 git add .
-git commit -m "Initial BeyVerse website"
+git commit -m "Initial BEYBUKU website"
 git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/beyverse.git
+git remote add origin https://github.com/YOUR_USERNAME/beybuku.git
 git push -u origin main
 ```
 

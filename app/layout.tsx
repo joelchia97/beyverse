@@ -19,6 +19,11 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     type: "website"
   },
+  icons: {
+    icon: "/icon.svg",
+    apple: "/icon.svg"
+  },
+  manifest: "/manifest.webmanifest",
   twitter: {
     card: "summary_large_image",
     title: siteConfig.title,

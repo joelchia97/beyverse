@@ -4,7 +4,7 @@ import { trustTranslations } from "@/lib/trust-translations";
 
 export const metadata: Metadata = {
   title: "Terma Perkhidmatan",
-  description: "Terma perkhidmatan BeyVerse Bahasa Melayu dan penafian laman peminat."
+  description: "Terma perkhidmatan BEYBUKU Bahasa Melayu dan penafian laman peminat."
 };
 
 export default function MalayTermsPage() {

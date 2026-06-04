@@ -4,8 +4,8 @@ import { homeTranslations } from "@/lib/home-translations";
 import { siteConfig } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "BeyVerse Bahasa Melayu",
-  description: "BeyVerse Bahasa Melayu untuk data Beyblade X, parts database, combo builder, panduan strategi, nota meta dan lore anime.",
+  title: "BEYBUKU Bahasa Melayu",
+  description: "BEYBUKU Bahasa Melayu untuk data Beyblade X, parts database, combo builder, panduan strategi, nota meta dan lore anime.",
   alternates: {
     canonical: `${siteConfig.url}/ms`,
     languages: {

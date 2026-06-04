@@ -4,7 +4,7 @@ import { trustTranslations } from "@/lib/trust-translations";
 
 export const metadata: Metadata = {
   title: "Polisi Privasi",
-  description: "Polisi privasi BeyVerse Bahasa Melayu untuk privasi, analitik, iklan dan mesej pengguna."
+  description: "Polisi privasi BEYBUKU Bahasa Melayu untuk privasi, analitik, iklan dan mesej pengguna."
 };
 
 export default function MalayPrivacyPage() {

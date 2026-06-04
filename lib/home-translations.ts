@@ -4,8 +4,8 @@ export const homeTranslations = {
   en: {
     path: "/",
     lang: "en",
-    badge: "Everything About Beyblade In One Universe",
-    title: "BeyVerse",
+    badge: "The Ultimate Beyblade X Encyclopedia",
+    title: "BEYBUKU",
     description:
       "Explore Beyblade releases, part stats, combo theory, anime lore, and meta trends in a fast, content-focused encyclopedia built for search and long-term AdSense readiness.",
     searchPlaceholder: "Search Beyblades, parts, guides, combos...",
@@ -33,23 +33,23 @@ export const homeTranslations = {
     updateGuidesText: "Strategy content now covers launch control, combo theory, Ratchet height, type roles, and testing methods.",
     updateAdsTitle: "AdSense-ready",
     updateAdsText: "Ad spaces are reserved but disabled by default so the reading experience stays clean before approval.",
-    faqTitle: "BeyVerse FAQ",
+    faqTitle: "BEYBUKU FAQ",
     faqs: [
       {
-        question: "What is BeyVerse?",
-        answer: "BeyVerse is a fan-made Beyblade encyclopedia focused on Beyblade X releases, parts, combo ideas, strategy guides, tier notes, and anime lore."
+        question: "What is BEYBUKU?",
+        answer: "BEYBUKU is a fan-made Beyblade encyclopedia focused on Beyblade X releases, parts, combo ideas, strategy guides, tier notes, and anime lore."
       },
       {
-        question: "Can I use BeyVerse to build Beyblade combos?",
+        question: "Can I use BEYBUKU to build Beyblade combos?",
         answer: "Yes. The Combo Builder lets you choose a Blade, Ratchet, and Bit, then estimates attack, defense, stamina, balance, overall rating, and recommended play style."
       },
       {
         question: "Are the tier lists official?",
-        answer: "No. Tier notes on BeyVerse are fan-made testing references. Local rules, stadiums, launch style, and part condition can change real match results."
+        answer: "No. Tier notes on BEYBUKU are fan-made testing references. Local rules, stadiums, launch style, and part condition can change real match results."
       },
       {
-        question: "Does BeyVerse show ads?",
-        answer: "BeyVerse is prepared for Google AdSense, but ads can stay disabled until approval. The site is designed to keep content readable and avoid overloaded ad placement."
+        question: "Does BEYBUKU show ads?",
+        answer: "BEYBUKU is prepared for Google AdSense, but ads can stay disabled until approval. The site is designed to keep content readable and avoid overloaded ad placement."
       }
     ]
   },
@@ -57,7 +57,7 @@ export const homeTranslations = {
     path: "/zh",
     lang: "zh",
     badge: "一个 Beyblade 宇宙里的完整百科",
-    title: "BeyVerse 中文",
+    title: "BEYBUKU 中文",
     description:
       "探索 Beyblade X 陀螺资料、零件数据、组合理论、动画设定、攻略文章和 Meta 趋势。适合新手查资料，也适合玩家做组合测试。",
     searchPlaceholder: "搜索陀螺、零件、攻略、组合...",
@@ -85,22 +85,22 @@ export const homeTranslations = {
     updateGuidesText: "攻略内容涵盖发射控制、组合理论、Ratchet 高度、类型定位和测试方法。",
     updateAdsTitle: "AdSense 准备中",
     updateAdsText: "广告位置已预留，但默认关闭，确保申请批准前阅读体验保持干净。",
-    faqTitle: "BeyVerse 常见问题",
+    faqTitle: "BEYBUKU 常见问题",
     faqs: [
       {
-        question: "BeyVerse 是什么？",
-        answer: "BeyVerse 是一个粉丝制作的 Beyblade 百科网站，重点整理 Beyblade X 发售资料、零件、组合思路、攻略、排名笔记和动画设定。"
+        question: "BEYBUKU 是什么？",
+        answer: "BEYBUKU 是一个粉丝制作的 Beyblade 百科网站，重点整理 Beyblade X 发售资料、零件、组合思路、攻略、排名笔记和动画设定。"
       },
       {
-        question: "我可以用 BeyVerse 来配组合吗？",
+        question: "我可以用 BEYBUKU 来配组合吗？",
         answer: "可以。Combo Builder 可以选择 Blade、Ratchet 和 Bit，并估算攻击、防御、持久、平衡、综合评分和推荐玩法。"
       },
       {
         question: "Tier List 是官方的吗？",
-        answer: "不是。BeyVerse 的排名笔记是粉丝测试参考。场地、规则、发射方式和零件状态都会影响实际结果。"
+        answer: "不是。BEYBUKU 的排名笔记是粉丝测试参考。场地、规则、发射方式和零件状态都会影响实际结果。"
       },
       {
-        question: "BeyVerse 会显示广告吗？",
+        question: "BEYBUKU 会显示广告吗？",
         answer: "网站已经为 Google AdSense 做好准备，但在批准前广告保持关闭，避免影响阅读体验。"
       }
     ]
@@ -109,7 +109,7 @@ export const homeTranslations = {
     path: "/ms",
     lang: "ms",
     badge: "Semua Tentang Beyblade Dalam Satu Universe",
-    title: "BeyVerse Bahasa Melayu",
+    title: "BEYBUKU Bahasa Melayu",
     description:
       "Terokai data Beyblade X, statistik parts, teori combo, lore anime, panduan strategi dan nota meta dalam satu ensiklopedia yang mudah digunakan.",
     searchPlaceholder: "Cari Beyblade, parts, panduan, combo...",
@@ -137,23 +137,23 @@ export const homeTranslations = {
     updateGuidesText: "Kandungan strategi merangkumi launch control, teori combo, tinggi Ratchet, jenis permainan dan cara ujian.",
     updateAdsTitle: "Sedia untuk AdSense",
     updateAdsText: "Ruang iklan sudah disediakan tetapi dimatikan secara default supaya pengalaman membaca kekal bersih sebelum kelulusan.",
-    faqTitle: "Soalan Lazim BeyVerse",
+    faqTitle: "Soalan Lazim BEYBUKU",
     faqs: [
       {
-        question: "Apa itu BeyVerse?",
-        answer: "BeyVerse ialah ensiklopedia Beyblade buatan peminat yang fokus kepada keluaran Beyblade X, parts, idea combo, panduan strategi, nota tier dan lore anime."
+        question: "Apa itu BEYBUKU?",
+        answer: "BEYBUKU ialah ensiklopedia Beyblade buatan peminat yang fokus kepada keluaran Beyblade X, parts, idea combo, panduan strategi, nota tier dan lore anime."
       },
       {
-        question: "Boleh guna BeyVerse untuk bina combo?",
+        question: "Boleh guna BEYBUKU untuk bina combo?",
         answer: "Boleh. Combo Builder membolehkan anda pilih Blade, Ratchet dan Bit, kemudian anggarkan attack, defense, stamina, balance, rating keseluruhan dan gaya permainan."
       },
       {
         question: "Adakah tier list ini rasmi?",
-        answer: "Tidak. Nota tier di BeyVerse ialah rujukan ujian peminat. Peraturan tempatan, stadium, cara launch dan keadaan parts boleh mengubah keputusan sebenar."
+        answer: "Tidak. Nota tier di BEYBUKU ialah rujukan ujian peminat. Peraturan tempatan, stadium, cara launch dan keadaan parts boleh mengubah keputusan sebenar."
       },
       {
-        question: "Adakah BeyVerse memaparkan iklan?",
-        answer: "BeyVerse sudah disediakan untuk Google AdSense, tetapi iklan boleh dimatikan sehingga diluluskan supaya kandungan kekal mudah dibaca."
+        question: "Adakah BEYBUKU memaparkan iklan?",
+        answer: "BEYBUKU sudah disediakan untuk Google AdSense, tetapi iklan boleh dimatikan sehingga diluluskan supaya kandungan kekal mudah dibaca."
       }
     ]
   }

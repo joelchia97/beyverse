@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: item.name,
     description: item.description,
     openGraph: {
-      title: `${item.name} - BeyVerse`,
+      title: `${item.name} - BEYBUKU`,
       description: item.description,
       url: `${siteConfig.url}/beyblades/${item.slug}`
     }
@@ -42,7 +42,7 @@ export default async function BeybladeDetailPage({ params }: Props) {
     identifier: item.product_code,
     description: item.description,
     datePublished: item.release_date,
-    author: { "@type": "Organization", name: "BeyVerse" }
+    author: { "@type": "Organization", name: "BEYBUKU" }
   };
 
   return (

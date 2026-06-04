@@ -6,8 +6,8 @@ export function SiteFooter() {
     <footer className="mt-16 border-t bg-slate-950/80">
       <div className="container-page grid gap-8 py-10 md:grid-cols-3">
         <div>
-          <p className="font-black text-sky-100">BeyVerse</p>
-          <p className="mt-2 text-sm text-slate-400">Everything About Beyblade In One Universe.</p>
+          <p className="font-black text-sky-100">BEYBUKU</p>
+          <p className="mt-2 text-sm text-slate-400">The Ultimate Beyblade X Encyclopedia.</p>
         </div>
         <div className="grid gap-2 text-sm text-slate-300">
           <Link href="/about">About</Link>

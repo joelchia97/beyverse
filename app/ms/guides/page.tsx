@@ -3,7 +3,7 @@ import { LocalizedGuidesList } from "@/components/localized/localized-guide-page
 
 export const metadata: Metadata = {
   title: "Panduan Strategi",
-  description: "Panduan BeyVerse Bahasa Melayu untuk launch control, jenis Beyblade dan panduan membeli Beyblade X."
+  description: "Panduan BEYBUKU Bahasa Melayu untuk launch control, jenis Beyblade dan panduan membeli Beyblade X."
 };
 
 export default function MalayGuidesPage() {

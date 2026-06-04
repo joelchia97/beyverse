@@ -7,7 +7,7 @@ import { getBeyblades, getGuides, getParts } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Search",
-  description: "Search the BeyVerse encyclopedia across Beyblades, parts, and strategy guides."
+  description: "Search the BEYBUKU encyclopedia across Beyblades, parts, and strategy guides."
 };
 
 export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
@@ -22,10 +22,10 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
 
   return (
     <main>
-      <PageHeading title="Search BeyVerse" description="Find Beyblades, parts, guides, combo notes, and lore entries." />
+      <PageHeading title="Search BEYBUKU" description="Find Beyblades, parts, guides, combo notes, and lore entries." />
       <section className="container-page">
         <form className="flex gap-3">
-          <Input name="q" defaultValue={q} placeholder="Search BeyVerse..." className="h-12" />
+          <Input name="q" defaultValue={q} placeholder="Search BEYBUKU..." className="h-12" />
           <button className="inline-flex h-12 items-center gap-2 rounded-md bg-sky-400 px-5 font-bold text-slate-950">
             <Search className="h-4 w-4" />
             Search

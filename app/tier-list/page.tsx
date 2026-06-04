@@ -6,7 +6,7 @@ import { getTierList } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Meta Tier List",
-  description: "Current BeyVerse demo meta tier list for Beyblade X combos and testing priorities."
+  description: "Current BEYBUKU demo meta tier list for Beyblade X combos and testing priorities."
 };
 
 export default async function TierListPage() {
