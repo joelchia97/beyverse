@@ -7,10 +7,19 @@ export default function TermsPage() {
   return (
     <main>
       <PageHeading title="Terms of Service" description="Rules and disclaimers for using BeyVerse." />
-      <section className="container-page max-w-3xl space-y-5 leading-8 text-slate-300">
-        <p>BeyVerse provides fan-made informational content for entertainment and educational purposes.</p>
-        <p>Beyblade names, trademarks, characters, and related media belong to their respective owners. BeyVerse is not affiliated with or endorsed by those owners.</p>
-        <p>Competitive notes and tier placements are opinions based on testing and should be verified in your own local format.</p>
+      <section className="container-page max-w-3xl space-y-6 leading-8 text-slate-300">
+        <p>Last updated: June 4, 2026</p>
+        <p>By using BeyVerse, you agree to use the site for informational, educational, and entertainment purposes. If you do not agree with these terms, please do not use the website.</p>
+        <h2 className="text-2xl font-black text-white">Fan-Site Disclaimer</h2>
+        <p>BeyVerse is an independent fan-made encyclopedia. Beyblade names, trademarks, characters, product names, and related media belong to their respective owners. BeyVerse is not affiliated with, sponsored by, or endorsed by those owners.</p>
+        <h2 className="text-2xl font-black text-white">Content Accuracy</h2>
+        <p>We try to keep product data, strategy notes, tier lists, and lore references useful and accurate. However, competitive performance can vary by stadium, launch style, local rules, part condition, and matchup. Always verify important information with your own testing.</p>
+        <h2 className="text-2xl font-black text-white">User Submissions</h2>
+        <p>If you send corrections, combo notes, or suggestions, you allow BeyVerse to review, edit, and use that information to improve the site. Please do not submit content you do not have permission to share.</p>
+        <h2 className="text-2xl font-black text-white">Advertising</h2>
+        <p>BeyVerse may display advertising in selected areas. Ads should not replace core content, and the site is designed to keep navigation and reading experience clear.</p>
+        <h2 className="text-2xl font-black text-white">Changes</h2>
+        <p>These terms may be updated as the site grows. Continued use of BeyVerse after updates means you accept the revised terms.</p>
       </section>
     </main>
   );
