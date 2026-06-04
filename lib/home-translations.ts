@@ -19,8 +19,12 @@ export const homeTranslations = {
     compareText: "Use the Parts Database to understand Blade, Ratchet, and Bit roles before testing your own custom combinations.",
     buildTitle: "Build and Test",
     buildText: "Start with the Combo Builder, then use strategy guides to refine launch control, matchup planning, and testing notes.",
+    localizedGuidesTitle: "Strategy Guides",
+    localizedGuidesText: "Read practical Beyblade X guides for launch control, combo building, parts selection, and beginner buying decisions.",
     latestBeyblades: "Latest Beyblades",
     popularGuides: "Popular Guides",
+    guidesPath: "/guides",
+    allGuidesLabel: "View all guides",
     featuredCombos: "Featured Combos",
     latestUpdates: "Latest Updates",
     updateCatalogTitle: "Beyblade X Catalog",
@@ -67,8 +71,12 @@ export const homeTranslations = {
     compareText: "通过零件数据库理解 Blade、Ratchet、Bit 的定位，再测试自己的自定义组合。",
     buildTitle: "构建与测试",
     buildText: "先用 Combo Builder 规划组合，再阅读攻略来改进发射控制、对局思路和测试记录。",
+    localizedGuidesTitle: "中文攻略入口",
+    localizedGuidesText: "阅读中文 Beyblade X 新手攻略，包含发射控制、类型说明和购买建议。",
     latestBeyblades: "最新陀螺",
     popularGuides: "热门攻略",
+    guidesPath: "/zh/guides",
+    allGuidesLabel: "查看中文攻略",
     featuredCombos: "推荐组合",
     latestUpdates: "最新更新",
     updateCatalogTitle: "Beyblade X 目录",
@@ -115,8 +123,12 @@ export const homeTranslations = {
     compareText: "Gunakan Parts Database untuk faham peranan Blade, Ratchet dan Bit sebelum menguji combo sendiri.",
     buildTitle: "Bina dan Uji",
     buildText: "Mulakan dengan Combo Builder, kemudian guna panduan strategi untuk memperbaiki launch control, matchup dan nota ujian.",
+    localizedGuidesTitle: "Panduan Bahasa Melayu",
+    localizedGuidesText: "Baca panduan Beyblade X dalam Bahasa Melayu untuk launch control, jenis permainan dan pembelian pemula.",
     latestBeyblades: "Beyblade Terkini",
     popularGuides: "Panduan Popular",
+    guidesPath: "/ms/guides",
+    allGuidesLabel: "Lihat panduan BM",
     featuredCombos: "Combo Pilihan",
     latestUpdates: "Kemas Kini Terkini",
     updateCatalogTitle: "Katalog Beyblade X",
@@ -162,8 +174,12 @@ export const homeTranslations = {
   compareText: string;
   buildTitle: string;
   buildText: string;
+  localizedGuidesTitle: string;
+  localizedGuidesText: string;
   latestBeyblades: string;
   popularGuides: string;
+  guidesPath: string;
+  allGuidesLabel: string;
   featuredCombos: string;
   latestUpdates: string;
   updateCatalogTitle: string;

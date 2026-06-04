@@ -7,12 +7,19 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { getBeyblades, getCombos, getGuides, getTierList } from "@/lib/content";
 import type { homeTranslations } from "@/lib/home-translations";
+import { localizedGuides } from "@/lib/localized-guides";
 import { siteConfig } from "@/lib/seo";
 
 type HomeCopy = (typeof homeTranslations)[keyof typeof homeTranslations];
 
 export async function HomePageContent({ copy }: { copy: HomeCopy }) {
   const [beyblades, combos, guides, tierList] = await Promise.all([getBeyblades(), getCombos(), getGuides(), getTierList()]);
+  const displayedGuides =
+    copy.lang === "zh"
+      ? localizedGuides.zh.map((guide) => ({ ...guide, href: `/zh/guides/${guide.slug}` }))
+      : copy.lang === "ms"
+        ? localizedGuides.ms.map((guide) => ({ ...guide, href: `/ms/guides/${guide.slug}` }))
+        : guides.map((guide) => ({ ...guide, href: `/guides/${guide.slug}` }));
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -88,6 +95,12 @@ export async function HomePageContent({ copy }: { copy: HomeCopy }) {
           <InfoCard title={copy.compareTitle} text={copy.compareText} />
           <InfoCard title={copy.buildTitle} text={copy.buildText} />
         </div>
+        <div className="container-page mt-6">
+          <Link href={copy.guidesPath} className="block rounded-lg border bg-card p-5 transition hover:border-sky-400/60 hover:bg-slate-900">
+            <p className="text-lg font-black text-white">{copy.localizedGuidesTitle}</p>
+            <p className="mt-2 text-sm leading-6 text-slate-300">{copy.localizedGuidesText}</p>
+          </Link>
+        </div>
       </section>
 
       <section className="container-page py-8">
@@ -103,10 +116,13 @@ export async function HomePageContent({ copy }: { copy: HomeCopy }) {
 
       <section className="container-page grid gap-8 py-8 lg:grid-cols-3">
         <div className="lg:col-span-2">
-          <h2 className="text-2xl font-black">{copy.popularGuides}</h2>
+          <div className="flex items-center justify-between gap-4">
+            <h2 className="text-2xl font-black">{copy.popularGuides}</h2>
+            <Link href={copy.guidesPath} className="text-sm font-semibold text-sky-300 hover:text-sky-100">{copy.allGuidesLabel}</Link>
+          </div>
           <div className="mt-5 grid gap-4 md:grid-cols-2">
-            {guides.slice(0, 4).map((guide) => (
-              <EntityCard key={guide.id} href={`/guides/${guide.slug}`} title={guide.title} badge={guide.category} description={guide.excerpt} />
+            {displayedGuides.slice(0, 4).map((guide) => (
+              <EntityCard key={guide.slug} href={guide.href} title={guide.title} badge={guide.category} description={guide.excerpt} />
             ))}
           </div>
         </div>
