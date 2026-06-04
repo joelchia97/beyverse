@@ -5,10 +5,11 @@ import { EntityCard } from "@/components/entity-card";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { beyblades, combos, guides, tierList } from "@/lib/data";
+import { getBeyblades, getCombos, getGuides, getTierList } from "@/lib/content";
 import { siteConfig } from "@/lib/seo";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [beyblades, combos, guides, tierList] = await Promise.all([getBeyblades(), getCombos(), getGuides(), getTierList()]);
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -68,7 +69,7 @@ export default function HomePage() {
       <section className="container-page py-8">
         <h2 className="text-2xl font-black">Latest Beyblades</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
-          {beyblades.map((item) => (
+          {beyblades.slice(0, 6).map((item) => (
             <EntityCard key={item.id} href={`/beyblades/${item.slug}`} title={item.name} badge={item.type} meta={item.series} description={item.description} />
           ))}
         </div>
@@ -80,7 +81,7 @@ export default function HomePage() {
         <div className="lg:col-span-2">
           <h2 className="text-2xl font-black">Popular Guides</h2>
           <div className="mt-5 grid gap-4 md:grid-cols-2">
-            {guides.map((guide) => (
+            {guides.slice(0, 4).map((guide) => (
               <EntityCard key={guide.id} href={`/guides/${guide.slug}`} title={guide.title} badge={guide.category} description={guide.excerpt} />
             ))}
           </div>
@@ -90,7 +91,7 @@ export default function HomePage() {
             <CardTitle className="flex items-center gap-2"><Trophy className="h-5 w-5 text-sky-300" /> Featured Combos</CardTitle>
           </CardHeader>
           <CardContent className="grid gap-3">
-            {combos.map((combo) => (
+            {combos.slice(0, 6).map((combo) => (
               <div key={combo.id} className="rounded-md bg-slate-950/55 p-3">
                 <p className="font-semibold">{combo.name}</p>
                 <p className="text-sm text-slate-400">{combo.blade} / {combo.ratchet} / {combo.bit}</p>

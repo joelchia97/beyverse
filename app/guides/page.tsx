@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import { AdBanner } from "@/components/ads/ad-banner";
 import { EntityCard } from "@/components/entity-card";
 import { PageHeading } from "@/components/page-heading";
-import { guides } from "@/lib/data";
+import { getGuides } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Strategy Guides",
   description: "Beyblade strategy guides for launch control, combo theory, matchup planning, and tournament prep."
 };
 
-export default function GuidesPage() {
+export default async function GuidesPage() {
+  const guides = await getGuides();
   return (
     <main>
       <PageHeading title="Strategy Guides" description="Learn launch patterns, combo construction, matchup planning, and meta preparation." />

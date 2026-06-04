@@ -1,0 +1,103 @@
+import { createClient } from "@supabase/supabase-js";
+import {
+  beyblades as fallbackBeyblades,
+  characters as fallbackCharacters,
+  combos as fallbackCombos,
+  guides as fallbackGuides,
+  parts as fallbackParts,
+  tierList as fallbackTierList
+} from "@/lib/data";
+import type { Beyblade, Character, Combo, Guide, Part, TierListItem } from "@/types/database";
+
+export const revalidate = 300;
+
+function supabaseClient() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !anonKey) return null;
+  return createClient(url, anonKey, { auth: { persistSession: false } });
+}
+
+function mergeByKey<T>(fallback: T[], remote: T[], key: keyof T) {
+  const map = new Map<string, T>();
+  fallback.forEach((item) => map.set(String(item[key]), item));
+  remote.forEach((item) => map.set(String(item[key]), item));
+  return Array.from(map.values());
+}
+
+async function fetchTable<T>(table: string, fallback: T[], orderColumn = "created_at") {
+  const client = supabaseClient();
+  if (!client) return fallback;
+
+  const { data, error } = await client.from(table).select("*").order(orderColumn, { ascending: false });
+  if (error || !data || data.length === 0) return fallback;
+  return data as T[];
+}
+
+export async function getBeyblades() {
+  const remote = await fetchTable<Beyblade>("beyblades", [], "release_date");
+  return mergeByKey(fallbackBeyblades, normalizeBeyblades(remote), "slug");
+}
+
+export async function getBeybladeBySlug(slug: string) {
+  return (await getBeyblades()).find((item) => item.slug === slug);
+}
+
+export async function getParts() {
+  const remote = await fetchTable<Part>("parts", [], "created_at");
+  return mergeByKey(fallbackParts, normalizeParts(remote), "slug");
+}
+
+export async function getPartBySlug(slug: string) {
+  return (await getParts()).find((item) => item.slug === slug);
+}
+
+export async function getGuides() {
+  const remote = await fetchTable<Guide>("guides", [], "published_at");
+  return mergeByKey(fallbackGuides, remote, "slug");
+}
+
+export async function getGuideBySlug(slug: string) {
+  return (await getGuides()).find((item) => item.slug === slug);
+}
+
+export async function getCombos() {
+  const remote = await fetchTable<Combo>("combos", [], "created_at");
+  return remote.length ? remote : fallbackCombos;
+}
+
+export async function getCharacters() {
+  const remote = await fetchTable<Character>("characters", [], "created_at");
+  return remote.length ? remote : fallbackCharacters;
+}
+
+export async function getTierList() {
+  const remote = await fetchTable<TierListItem>("tier_lists", [], "created_at");
+  return remote.length ? remote : fallbackTierList;
+}
+
+function normalizeBeyblades(items: Beyblade[]) {
+  return items.map((item) => ({
+    ...item,
+    weight: Number(item.weight || 0),
+    image_url: item.image_url || "/placeholder-bey.svg",
+    strengths: item.strengths || [],
+    weaknesses: item.weaknesses || [],
+    recommended_combos: item.recommended_combos || [],
+    anime_info: item.anime_info || ""
+  }));
+}
+
+function normalizeParts(items: Part[]) {
+  return items.map((item) => ({
+    ...item,
+    weight: Number(item.weight || 0),
+    advantages: item.advantages || [],
+    disadvantages: item.disadvantages || [],
+    recommended_uses: item.recommended_uses || [],
+    attack: Number(item.attack || 5),
+    defense: Number(item.defense || 5),
+    stamina: Number(item.stamina || 5),
+    balance: Number(item.balance || 5)
+  }));
+}

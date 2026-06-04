@@ -3,7 +3,7 @@ import { Search } from "lucide-react";
 import { EntityCard } from "@/components/entity-card";
 import { PageHeading } from "@/components/page-heading";
 import { Input } from "@/components/ui/input";
-import { beyblades, guides, parts } from "@/lib/data";
+import { getBeyblades, getGuides, getParts } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Search",
@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 
 export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
   const { q = "" } = await searchParams;
+  const [beyblades, parts, guides] = await Promise.all([getBeyblades(), getParts(), getGuides()]);
   const query = q.toLowerCase();
   const results = [
     ...beyblades.map((item) => ({ href: `/beyblades/${item.slug}`, title: item.name, badge: "Beyblade", description: item.description })),

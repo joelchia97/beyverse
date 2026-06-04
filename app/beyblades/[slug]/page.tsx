@@ -4,6 +4,7 @@ import { AdBanner } from "@/components/ads/ad-banner";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { beyblades } from "@/lib/data";
+import { getBeybladeBySlug } from "@/lib/content";
 import { siteConfig } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -14,7 +15,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const item = beyblades.find((bey) => bey.slug === slug);
+  const item = await getBeybladeBySlug(slug);
   if (!item) return {};
   return {
     title: item.name,
@@ -29,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BeybladeDetailPage({ params }: Props) {
   const { slug } = await params;
-  const item = beyblades.find((bey) => bey.slug === slug);
+  const item = await getBeybladeBySlug(slug);
   if (!item) notFound();
 
   const structuredData = {

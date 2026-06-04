@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { AdBanner } from "@/components/ads/ad-banner";
 import { Badge } from "@/components/ui/badge";
 import { guides } from "@/lib/data";
+import { getGuideBySlug } from "@/lib/content";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -12,14 +13,14 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const guide = guides.find((item) => item.slug === slug);
+  const guide = await getGuideBySlug(slug);
   if (!guide) return {};
   return { title: guide.title, description: guide.excerpt };
 }
 
 export default async function GuidePage({ params }: Props) {
   const { slug } = await params;
-  const guide = guides.find((item) => item.slug === slug);
+  const guide = await getGuideBySlug(slug);
   if (!guide) notFound();
 
   return (

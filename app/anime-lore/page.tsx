@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import { PageHeading } from "@/components/page-heading";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { characters } from "@/lib/data";
+import { getCharacters } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Anime Lore",
   description: "Beyblade anime character notes, signature Beyblades, and story context."
 };
 
-export default function AnimeLorePage() {
+export default async function AnimeLorePage() {
+  const characters = await getCharacters();
   return (
     <main>
       <PageHeading title="Anime Lore" description="Track major bladers, signature Beyblades, and story context alongside competitive encyclopedia data." />

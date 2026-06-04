@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import { PageHeading } from "@/components/page-heading";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { tierList } from "@/lib/data";
+import { getTierList } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Meta Tier List",
   description: "Current BeyVerse demo meta tier list for Beyblade X combos and testing priorities."
 };
 
-export default function TierListPage() {
+export default async function TierListPage() {
+  const tierList = await getTierList();
   const tiers = ["S", "A", "B", "C"] as const;
   return (
     <main>
