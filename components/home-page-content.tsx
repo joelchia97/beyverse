@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Gauge, Search, Sparkles, Trophy } from "lucide-react";
 import { AdBanner } from "@/components/ads/ad-banner";
@@ -52,6 +53,7 @@ export async function HomePageContent({ copy }: { copy: HomeCopy }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }} />
       <section className="container-page grid min-h-[calc(100vh-64px)] items-center gap-10 py-12 md:grid-cols-[1.15fr_0.85fr]">
         <div>
+          <Image src="/logo.png" alt="BEYBUKU" width={620} height={310} priority className="mb-5 h-auto w-full max-w-xl object-contain" />
           <Badge>{copy.badge}</Badge>
           <h1 className="mt-5 text-5xl font-black leading-tight text-white md:text-7xl">{copy.title}</h1>
           <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">{copy.description}</p>

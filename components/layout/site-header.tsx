@@ -17,7 +17,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b bg-slate-950/85 backdrop-blur">
       <div className="container-page flex h-16 items-center justify-between gap-4">
         <Link href="/" className="flex items-center">
-          <Image src="/logo.svg" alt="BEYBUKU" width={162} height={40} priority className="h-10 w-auto" />
+          <Image src="/logo.png" alt="BEYBUKU" width={180} height={90} priority className="h-10 w-auto object-contain" />
         </Link>
         <nav className="hidden items-center gap-1 md:flex">
           {nav.map(([label, href]) => (
