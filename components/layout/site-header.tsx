@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import { Search, Shield } from "lucide-react";
+import { Search } from "lucide-react";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
 
 const nav = [
@@ -15,9 +16,8 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b bg-slate-950/85 backdrop-blur">
       <div className="container-page flex h-16 items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-2 font-black tracking-wide text-sky-100">
-          <Shield className="h-6 w-6 text-sky-300" />
-          <span>BEYBUKU</span>
+        <Link href="/" className="flex items-center">
+          <Image src="/logo.svg" alt="BEYBUKU" width={162} height={40} priority className="h-10 w-auto" />
         </Link>
         <nav className="hidden items-center gap-1 md:flex">
           {nav.map(([label, href]) => (

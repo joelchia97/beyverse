@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
 
@@ -6,7 +7,7 @@ export function SiteFooter() {
     <footer className="mt-16 border-t bg-slate-950/80">
       <div className="container-page grid gap-8 py-10 md:grid-cols-3">
         <div>
-          <p className="font-black text-sky-100">BEYBUKU</p>
+          <Image src="/logo.svg" alt="BEYBUKU" width={180} height={44} className="h-11 w-auto" />
           <p className="mt-2 text-sm text-slate-400">The Ultimate Beyblade X Encyclopedia.</p>
         </div>
         <div className="grid gap-2 text-sm text-slate-300">
