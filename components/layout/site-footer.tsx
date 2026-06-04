@@ -14,7 +14,14 @@ export function SiteFooter() {
           <Link href="/privacy">Privacy Policy</Link>
           <Link href="/terms">Terms of Service</Link>
         </div>
-        <p className="text-sm text-slate-500">Fan-made encyclopedia. Beyblade is a trademark of its respective owners.</p>
+        <div className="space-y-4">
+          <div className="flex flex-wrap gap-2 text-xs font-semibold text-slate-300">
+            <Link className="rounded-sm border px-2 py-1 hover:bg-slate-800" href="/">EN</Link>
+            <Link className="rounded-sm border px-2 py-1 hover:bg-slate-800" href="/zh">中文</Link>
+            <Link className="rounded-sm border px-2 py-1 hover:bg-slate-800" href="/ms">BM</Link>
+          </div>
+          <p className="text-sm text-slate-500">Fan-made encyclopedia. Beyblade is a trademark of its respective owners.</p>
+        </div>
       </div>
     </footer>
   );
