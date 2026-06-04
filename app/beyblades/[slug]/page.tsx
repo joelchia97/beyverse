@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AdBanner } from "@/components/ads/ad-banner";
+import { BeybladeVisual } from "@/components/beyblade-visual";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { beyblades } from "@/lib/data";
@@ -51,6 +52,7 @@ export default async function BeybladeDetailPage({ params }: Props) {
           <Badge>{item.series}</Badge>
           <h1 className="mt-4 text-4xl font-black text-white md:text-6xl">{item.name}</h1>
           <p className="mt-4 text-lg leading-8 text-slate-300">{item.description}</p>
+          <BeybladeVisual name={item.name} type={item.type} className="mt-6" />
           <AdBanner slot="beyblade-detail-page-ad" label="Beyblade detail page ad" />
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             <Card><CardHeader><CardTitle>Type</CardTitle></CardHeader><CardContent>{item.type}</CardContent></Card>
