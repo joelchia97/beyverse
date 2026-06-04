@@ -21,6 +21,20 @@ export const homeTranslations = {
     buildText: "Start with the Combo Builder, then use strategy guides to refine launch control, matchup planning, and testing notes.",
     localizedGuidesTitle: "Strategy Guides",
     localizedGuidesText: "Read practical Beyblade X guides for launch control, combo building, parts selection, and beginner buying decisions.",
+    aboutTitle: "What is BEYBUKU?",
+    aboutText:
+      "BEYBUKU is built as a practical Beyblade X encyclopedia: a place to identify releases, compare parts, understand combo theory, and keep testing notes organized. The goal is not to replace local play experience, but to give players a clear starting point before they buy, build, or battle.",
+    productLinesTitle: "Beyblade X Product Lines",
+    productLinesText:
+      "Beyblade X releases are grouped across product lines such as BX, UX, CX, and X-Over. BEYBUKU treats these labels as catalog references, not automatic power rankings, so each Beyblade still gets judged by its parts, matchups, and real testing behavior.",
+    beginnerPathTitle: "Beginner Path",
+    beginnerPathText:
+      "New players can start by learning the four roles: Attack, Defense, Stamina, and Balance. After that, compare Blade shapes, Ratchet heights, and Bit movement, then test one change at a time with the Combo Builder and guide notes.",
+    editorialTitle: "Editorial Notes",
+    editorialText:
+      "BEYBUKU is a fan-made resource. Rankings, recommendations, and combo notes are written as testing references and may change as new releases, local formats, and player discoveries evolve.",
+    popularSearchesTitle: "Popular Search Topics",
+    popularSearches: ["UX-03", "Wizard Rod", "Phoenix Wing", "Dran Sword", "Flat", "Launch Control"],
     latestBeyblades: "Latest Beyblades",
     popularGuides: "Popular Guides",
     guidesPath: "/guides",
@@ -73,6 +87,20 @@ export const homeTranslations = {
     buildText: "先用 Combo Builder 规划组合，再阅读攻略来改进发射控制、对局思路和测试记录。",
     localizedGuidesTitle: "中文攻略入口",
     localizedGuidesText: "阅读中文 Beyblade X 新手攻略，包含发射控制、类型说明和购买建议。",
+    aboutTitle: "BEYBUKU 是什么？",
+    aboutText:
+      "BEYBUKU 是一个实用型 Beyblade X 百科入口，用来查询发售资料、比较零件、理解组合理论，并整理测试笔记。它不是要取代你的本地对战经验，而是帮助你在购买、组装和对战前有一个清楚的参考起点。",
+    productLinesTitle: "Beyblade X 产品线",
+    productLinesText:
+      "Beyblade X 有 BX、UX、CX 和 X-Over 等产品线。BEYBUKU 会把这些编号当作目录资料，而不是绝对强度排名。每个陀螺仍然要根据零件、对局和实际测试表现来判断。",
+    beginnerPathTitle: "新手路线",
+    beginnerPathText:
+      "新玩家可以先理解四种定位：攻击、防御、持久和平衡。之后再比较 Blade 形状、Ratchet 高度和 Bit 移动方式，并通过 Combo Builder 和攻略笔记一次只测试一个变化。",
+    editorialTitle: "编辑说明",
+    editorialText:
+      "BEYBUKU 是粉丝制作资料站。排名、推荐和组合笔记都应该被视为测试参考，未来会随着新产品、本地规则和玩家发现继续更新。",
+    popularSearchesTitle: "热门搜索主题",
+    popularSearches: ["UX-03", "Wizard Rod", "Phoenix Wing", "Dran Sword", "Flat", "发射控制"],
     latestBeyblades: "最新陀螺",
     popularGuides: "热门攻略",
     guidesPath: "/zh/guides",
@@ -125,6 +153,20 @@ export const homeTranslations = {
     buildText: "Mulakan dengan Combo Builder, kemudian guna panduan strategi untuk memperbaiki launch control, matchup dan nota ujian.",
     localizedGuidesTitle: "Panduan Bahasa Melayu",
     localizedGuidesText: "Baca panduan Beyblade X dalam Bahasa Melayu untuk launch control, jenis permainan dan pembelian pemula.",
+    aboutTitle: "Apa itu BEYBUKU?",
+    aboutText:
+      "BEYBUKU dibina sebagai ensiklopedia Beyblade X yang praktikal: tempat untuk kenal pasti keluaran, bandingkan parts, faham teori combo dan susun nota ujian. Tujuannya bukan menggantikan pengalaman battle tempatan, tetapi memberi titik mula yang jelas sebelum membeli, membina atau bertanding.",
+    productLinesTitle: "Product Line Beyblade X",
+    productLinesText:
+      "Keluaran Beyblade X disusun dalam line seperti BX, UX, CX dan X-Over. BEYBUKU menggunakan label ini sebagai rujukan katalog, bukan ranking kuasa automatik, jadi setiap Beyblade tetap dinilai melalui parts, matchup dan ujian sebenar.",
+    beginnerPathTitle: "Laluan Pemula",
+    beginnerPathText:
+      "Pemain baru boleh mula dengan empat peranan: Attack, Defense, Stamina dan Balance. Selepas itu, bandingkan bentuk Blade, tinggi Ratchet dan movement Bit, kemudian uji satu perubahan pada satu masa menggunakan Combo Builder dan nota panduan.",
+    editorialTitle: "Nota Editorial",
+    editorialText:
+      "BEYBUKU ialah sumber buatan peminat. Ranking, cadangan dan nota combo ditulis sebagai rujukan ujian dan boleh berubah apabila keluaran baru, format tempatan dan penemuan pemain berkembang.",
+    popularSearchesTitle: "Topik Carian Popular",
+    popularSearches: ["UX-03", "Wizard Rod", "Phoenix Wing", "Dran Sword", "Flat", "Launch Control"],
     latestBeyblades: "Beyblade Terkini",
     popularGuides: "Panduan Popular",
     guidesPath: "/ms/guides",
@@ -176,6 +218,16 @@ export const homeTranslations = {
   buildText: string;
   localizedGuidesTitle: string;
   localizedGuidesText: string;
+  aboutTitle: string;
+  aboutText: string;
+  productLinesTitle: string;
+  productLinesText: string;
+  beginnerPathTitle: string;
+  beginnerPathText: string;
+  editorialTitle: string;
+  editorialText: string;
+  popularSearchesTitle: string;
+  popularSearches: string[];
   latestBeyblades: string;
   popularGuides: string;
   guidesPath: string;

@@ -105,6 +105,38 @@ export async function HomePageContent({ copy }: { copy: HomeCopy }) {
         </div>
       </section>
 
+      <section className="container-page py-10">
+        <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+          <Card>
+            <CardHeader>
+              <CardTitle>{copy.aboutTitle}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm leading-7 text-slate-300">{copy.aboutText}</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>{copy.popularSearchesTitle}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap gap-2">
+                {copy.popularSearches.map((topic) => (
+                  <Link key={topic} href={`/search?q=${encodeURIComponent(topic)}`} className="rounded-sm border border-sky-400/25 bg-sky-400/10 px-3 py-2 text-xs font-semibold text-sky-100 hover:bg-sky-400/20">
+                    {topic}
+                  </Link>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+        <div className="mt-6 grid gap-6 md:grid-cols-3">
+          <InfoCard title={copy.productLinesTitle} text={copy.productLinesText} />
+          <InfoCard title={copy.beginnerPathTitle} text={copy.beginnerPathText} />
+          <InfoCard title={copy.editorialTitle} text={copy.editorialText} />
+        </div>
+      </section>
+
       <section className="container-page py-8">
         <h2 className="text-2xl font-black">{copy.latestBeyblades}</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
