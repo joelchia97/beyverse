@@ -29,6 +29,11 @@ export function SiteHeader() {
           <Search className="h-4 w-4" />
           Search
         </Link>
+        <div className="hidden items-center gap-1 rounded-md border bg-slate-950/60 p-1 text-xs font-semibold text-slate-300 sm:flex">
+          <Link href="/" className="rounded-sm px-2 py-1 hover:bg-slate-800 hover:text-white">EN</Link>
+          <Link href="/zh" className="rounded-sm px-2 py-1 hover:bg-slate-800 hover:text-white">中文</Link>
+          <Link href="/ms" className="rounded-sm px-2 py-1 hover:bg-slate-800 hover:text-white">BM</Link>
+        </div>
       </div>
     </header>
   );

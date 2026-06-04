@@ -27,6 +27,14 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true
+  },
+  alternates: {
+    canonical: siteConfig.url,
+    languages: {
+      en: siteConfig.url,
+      zh: `${siteConfig.url}/zh`,
+      ms: `${siteConfig.url}/ms`
+    }
   }
 };
 
