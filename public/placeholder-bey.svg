@@ -1,0 +1,8 @@
+<svg width="640" height="480" viewBox="0 0 640 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="480" fill="#07111f"/>
+  <circle cx="320" cy="240" r="150" fill="#0f2742" stroke="#7dd3fc" stroke-width="8"/>
+  <circle cx="320" cy="240" r="92" fill="#cbd5e1" stroke="#2563eb" stroke-width="12"/>
+  <circle cx="320" cy="240" r="34" fill="#38bdf8"/>
+  <path d="M320 70L358 190L490 168L396 255L456 374L320 310L184 374L244 255L150 168L282 190L320 70Z" stroke="#93c5fd" stroke-width="10" stroke-linejoin="round"/>
+  <text x="320" y="434" text-anchor="middle" fill="#e2e8f0" font-family="Arial" font-size="28" font-weight="700">BeyVerse</text>
+</svg>
