@@ -236,6 +236,86 @@ export const guides: Guide[] = [
     content:
       "Good combo testing is boring in the best way. It repeats the same conditions enough times that your results become useful instead of random.\n\nStart with one question. For example: can Phoenix Wing 9-60GF beat Wizard Rod stamina builds often enough to justify the risk? If you test too many questions at once, the results become confusing.\n\nRun sets of ten battles. Keep the same stadium, launchers, launch order, and matchup. Switch launch order after a set if you want to reduce player-side bias. Record win type: knockout, spin finish, burst, or self-KO. A combo with many self-KOs may have high power but low reliability.\n\nChange one part at a time. If you swap the Blade, Ratchet, and Bit together, you will not know which change mattered. Try one Ratchet swap first. Then try one Bit swap. This makes your notes more valuable.\n\nAfter testing, write a short conclusion. Do not just write 'good' or 'bad'. Write when it is good. A combo might be excellent into stamina, average into defense, and risky into attack. That kind of detail is what turns BeyVerse from a list into a real encyclopedia.",
     published_at: "2026-06-03"
+  },
+  {
+    id: "guide-beginner-attack-combos",
+    slug: "best-attack-combos-for-beginners",
+    title: "Best Attack Combos for Beginners",
+    category: "Beginner Strategy",
+    excerpt: "Simple attack combo ideas that teach speed, contact timing, and launch control.",
+    content:
+      "Beginner attack combos should teach control before they chase maximum power. A combo that knocks itself out often may look exciting, but it will not help a new player understand why a battle was won or lost.\n\nStart with a strong attack Blade, a low Ratchet, and a Bit that moves quickly but still gives you a chance to aim. Dran Sword, Shark Edge, Phoenix Wing, Dran Buster, and Impact Drake are useful attack examples because they clearly show how contact timing changes results.\n\nFor the Ratchet, low options such as 3-60, 5-60, 9-60, or 1-60 are easy to understand. They keep the combo compact and make direct contact more likely. For the Bit, Flat and Low Flat are more aggressive, while Rush, Point, or Gear Flat can teach different styles of attack movement.\n\nA good beginner test is simple: launch the same attack combo ten times against a stamina setup. Count how often it gets an early knockout, how often it misses, and how often it self-KOs. If the combo wins only when the opponent makes a mistake, adjust the launch before blaming the parts.",
+    published_at: "2026-06-04"
+  },
+  {
+    id: "guide-beginner-stamina-combos",
+    slug: "best-stamina-combos-for-beginners",
+    title: "Best Stamina Combos for Beginners",
+    category: "Beginner Strategy",
+    excerpt: "How to build stamina combos that survive early hits and win late.",
+    content:
+      "Stamina combos are often easier to understand than attack combos, but they are not automatic wins. A stamina build must survive the opening, avoid bad movement, and preserve spin long enough for its advantage to matter.\n\nStart with a Blade that has smooth contact and good stability. Wizard Rod, Wizard Arrow, Silver Wolf, Ghost Circle, Phoenix Rudder, and Wolf Hunt are examples of stamina-leaning ideas that can teach efficient movement. Pair them with Ratchets that keep the combo safe, such as 9-60, 5-70, 9-70, or 9-80.\n\nBits such as Ball, Orb, Disk Ball, Free Ball, Gear Ball, and Low Orb can help stamina builds stay calm. The choice depends on whether you need more center control, more spin time, or more resistance to being pushed around.\n\nWhen testing stamina, do not only ask whether it wins by spin finish. Ask whether it survives attack, whether it gets destabilized, and whether it loses because the launch was too weak. The best beginner stamina combo is one that teaches consistency, not one that wins only in a perfect quiet battle.",
+    published_at: "2026-06-05"
+  },
+  {
+    id: "guide-choose-bit",
+    slug: "how-to-choose-a-beyblade-x-bit",
+    title: "How to Choose a Beyblade X Bit",
+    category: "Parts Guide",
+    excerpt: "Bits decide movement, stamina behavior, and how your combo uses the Xtreme line.",
+    content:
+      "The Bit is one of the most important choices in Beyblade X because it decides how the combo moves. Two combos with the same Blade and Ratchet can behave completely differently if the Bit changes.\n\nAttack Bits such as Flat, Low Flat, Rush, Gear Flat, Low Rush, and Under Flat create speed and pressure. They are useful when your win condition is knockout, but they can spend stamina quickly. If your attack combo misses too often, the Bit may be too wild for the launch style.\n\nStamina Bits such as Ball, Orb, Disk Ball, Free Ball, Gear Ball, and Low Orb usually move more calmly. They help preserve spin, but they may not create enough pressure to stop an opponent from setting up safely.\n\nDefense and balance Bits such as Needle, High Needle, Hexa, Point, Taper, Wedge, and Trans Point can be used to tune risk. They may not be the most extreme choice, but they can make a combo easier to control and more consistent across matchups.\n\nChoose the Bit after you know the combo's job. If the combo needs early contact, choose movement. If it needs to survive, choose stability. If it needs to adapt, choose a Bit that can change behavior during the battle.",
+    published_at: "2026-06-06"
+  },
+  {
+    id: "guide-choose-ratchet",
+    slug: "how-to-choose-a-beyblade-x-ratchet",
+    title: "How to Choose a Beyblade X Ratchet",
+    category: "Parts Guide",
+    excerpt: "A practical way to choose Ratchet height and shape for your combo plan.",
+    content:
+      "A Ratchet is easy to overlook because it does not move as visibly as the Bit, but it changes height, exposure, contact angles, and how the combo handles pressure.\n\nLow Ratchets are usually the safest starting point. Options such as 3-60, 5-60, 9-60, 1-60, and 2-60 keep the combo compact. Attack players like low setups for direct contact, while stamina and balance players like them because they reduce unnecessary exposure.\n\nMid Ratchets such as 5-70, 9-70, and 3-70 are useful when the combo needs slightly more height or better clearance. They can help certain Bits behave more naturally, but they may also change how the Blade receives hits.\n\nTall Ratchets such as 3-80, 4-80, 5-80, 9-80, and 3-85 should be tested carefully. They can support defense or stamina experiments, but they may become easier to tilt or destabilize.\n\nWhen choosing a Ratchet, change only the Ratchet during testing. If the combo suddenly becomes more stable or more dangerous, the Ratchet was doing real work. That is the kind of detail worth recording in your BeyVerse notes.",
+    published_at: "2026-06-07"
+  },
+  {
+    id: "guide-tier-list-reading",
+    slug: "how-to-read-a-beyblade-tier-list",
+    title: "How to Read a Beyblade Tier List",
+    category: "Meta Guide",
+    excerpt: "Use tier lists as testing maps instead of absolute truth.",
+    content:
+      "A tier list is a snapshot of testing, not a permanent law. It can help you decide what to test first, but it should never replace your own results.\n\nS-tier usually means a combo or part has strong performance across many matchups. That does not mean it wins every battle. It means the option is worth respecting and preparing for. A-tier options may be very strong but more matchup dependent. B-tier options can still win in the right hands or local meta.\n\nThe most useful tier lists explain why something is ranked. Does it win by knockout? Does it survive attack? Does it dominate stamina mirrors? Without notes, a tier list becomes a popularity chart instead of a testing tool.\n\nLocal environment matters. Your stadium, launch strength, available parts, and opponent habits can make a lower-ranked combo perform better than expected. Use tier lists to ask smarter questions, then answer those questions through repeated battles.",
+    published_at: "2026-06-08"
+  },
+  {
+    id: "guide-combo-builder-mistakes",
+    slug: "common-combo-builder-mistakes",
+    title: "Common Combo Builder Mistakes",
+    category: "Combo Theory",
+    excerpt: "Avoid the most common mistakes when building custom Beyblade X combos.",
+    content:
+      "The most common combo building mistake is chasing the highest overall score without understanding how the combo actually wins. A balanced-looking score can hide a weak plan.\n\nMistake one is mixing parts with opposite goals. A very aggressive Blade on a very passive Bit may become inconsistent unless the player knows exactly why that pairing works. Mistake two is ignoring height. A Ratchet change can turn a stable combo into one that scrapes, tilts, or exposes itself to bad contact.\n\nMistake three is judging too quickly. A combo that loses three times may still be good if the launch was wrong. A combo that wins three times may still be bad if the opponent made mistakes. Testing needs enough battles to show patterns.\n\nMistake four is copying a combo without copying the launch. In Beyblade X, movement and Xtreme line timing matter. If you use a strong combo with the wrong launch pattern, it may feel weaker than it really is.\n\nThe fix is simple: build around one primary win condition, test one change at a time, and write down how the combo wins or loses.",
+    published_at: "2026-06-09"
+  },
+  {
+    id: "guide-maintain-parts",
+    slug: "how-to-maintain-beyblade-parts",
+    title: "How to Maintain Beyblade Parts",
+    category: "Care Guide",
+    excerpt: "Keep parts clean, legal, and consistent for better testing results.",
+    content:
+      "Part condition matters. A dirty Bit, worn contact point, or damaged Ratchet can change how a combo performs. If you want useful test results, your parts need to be consistent.\n\nKeep Bits clean and dry. Dust or small debris can change movement, especially on Bits that rely on smooth contact with the stadium. Wipe parts gently with a dry soft cloth after play. Avoid harsh chemicals that may damage plastic or rubber-like surfaces.\n\nInspect Ratchets for cracks or unusual wear. A Ratchet that no longer locks properly can make testing unreliable and may create safety issues. If a part feels loose, compare it with another copy before using it for serious testing.\n\nStore Beyblades separately when possible. Throwing all parts together in a bag can scratch surfaces and make it harder to find damage. A simple organizer box is enough for most players.\n\nMaintenance is not about making parts perform better than intended. It is about keeping them clean, safe, and consistent so your battles reflect the combo, not random part condition.",
+    published_at: "2026-06-10"
+  },
+  {
+    id: "guide-buying-guide",
+    slug: "beginner-buying-guide-for-beyblade-x",
+    title: "Beginner Buying Guide for Beyblade X",
+    category: "Buying Guide",
+    excerpt: "How new players can choose first purchases without buying random parts.",
+    content:
+      "A good beginner collection should cover roles, not just favorite designs. Before buying many releases, try to own at least one attack option, one stamina option, one defense or balance option, and a few useful Ratchets and Bits.\n\nAttack releases teach movement and knockout timing. Stamina releases teach spin preservation and safe launches. Defense releases teach survival and impact control. Balance releases teach tuning and adaptation. Having all four roles makes practice more useful.\n\nAvoid buying only based on tier lists. A strong competitive part may not help if you do not understand how to launch or tune it. It is often better to buy a small set of useful parts and test them deeply than to buy many releases and never learn their behavior.\n\nFor a first upgrade path, focus on variety: a low Ratchet, a stable Ratchet, an attack Bit, a stamina Bit, and a balance Bit. That gives you enough pieces to learn why combos behave differently.\n\nThe best purchase is the one that helps you play more, test more, and understand your own style. BeyVerse can guide choices, but your local battles should shape the final decision.",
+    published_at: "2026-06-11"
   }
 ];
 
