@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getBeyblades, getGuides, getParts } from "@/lib/content";
+import { localizedGuides } from "@/lib/localized-guides";
 import { siteConfig } from "@/lib/seo";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -34,9 +35,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...beyblades.map((item) => ({ url: `${siteConfig.url}/beyblades/${item.slug}`, lastModified: new Date(item.release_date) })),
     ...parts.map((item) => ({ url: `${siteConfig.url}/parts/${item.slug}`, lastModified: new Date() })),
     ...guides.map((item) => ({ url: `${siteConfig.url}/guides/${item.slug}`, lastModified: new Date(item.published_at) })),
-    ...["launch-control-for-beyblade-x", "attack-defense-stamina-balance-types", "beginner-buying-guide-for-beyblade-x"].flatMap((slug) => [
-      { url: `${siteConfig.url}/zh/guides/${slug}`, lastModified: new Date() },
-      { url: `${siteConfig.url}/ms/guides/${slug}`, lastModified: new Date() }
-    ])
+    ...localizedGuides.zh.map((guide) => ({
+      url: `${siteConfig.url}/zh/guides/${guide.slug}`,
+      lastModified: new Date(guide.published_at)
+    })),
+    ...localizedGuides.ms.map((guide) => ({
+      url: `${siteConfig.url}/ms/guides/${guide.slug}`,
+      lastModified: new Date(guide.published_at)
+    }))
   ];
 }
