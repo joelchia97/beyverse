@@ -30,7 +30,11 @@ export default async function GuidePage({ params }: Props) {
         <h1 className="mt-4 max-w-4xl text-4xl font-black text-white md:text-6xl">{guide.title}</h1>
         <p className="mt-4 text-slate-400">{guide.published_at}</p>
         <AdBanner slot="article-top-ad" label="Article top ad" />
-        <p className="mt-6 text-lg leading-9 text-slate-300">{guide.content}</p>
+        <div className="mt-6 space-y-6">
+          {guide.content.split("\n\n").map((paragraph) => (
+            <p key={paragraph.slice(0, 48)} className="text-lg leading-9 text-slate-300">{paragraph}</p>
+          ))}
+        </div>
         <AdBanner slot="article-middle-ad" label="Article middle ad" />
         <p className="text-lg leading-9 text-slate-300">
           Treat every guide as a starting point for testing. Record your launch angle, opponent combo, win condition, and failure mode so your notes become more useful than a generic ranking.

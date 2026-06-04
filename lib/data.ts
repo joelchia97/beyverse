@@ -184,7 +184,7 @@ export const guides: Guide[] = [
     category: "Beginner Strategy",
     excerpt: "How angle, power, and rail timing change your opening pattern.",
     content:
-      "Launch control decides whether an attack combo creates pressure or wastes stamina. Start by testing flat, angled, and flower-pattern launches, then record which pattern reaches the opponent fastest without self-KO risk.",
+      "Launch control decides whether an attack combo creates pressure or wastes stamina. A strong Beyblade X launch is not only about pulling hard; it is about choosing a pattern that matches the combo's win condition.\n\nFor attack builds, begin by testing three launches: flat launch, slight-angle launch, and controlled flower pattern. Flat launches usually create direct speed but can waste stamina if the Beyblade circles without contact. Slight-angle launches can help the Beyblade touch the rail and enter the Xtreme line earlier. Flower launches create repeated approach angles, which is useful when you need several chances to land a knockout.\n\nFor stamina and defense builds, the goal is usually the opposite. You want the Beyblade to settle safely, avoid unnecessary wall hits, and force the opponent to spend energy first. Try a calmer launch with less tilt, then compare whether your combo survives the first ten seconds more consistently.\n\nKeep a testing notebook. Write down the combo, opponent, launch angle, launch strength, and result. After ten matches, patterns become clearer. You may discover that a combo loses not because the parts are weak, but because the launch pattern is giving away its best matchup.",
     published_at: "2026-01-10"
   },
   {
@@ -194,7 +194,7 @@ export const guides: Guide[] = [
     category: "Combo Theory",
     excerpt: "A practical framework for mixing attack threat with late-game stability.",
     content:
-      "A good balance combo should have one clear win condition and one backup route. Pair a stable blade with a ratchet that protects your height plan, then choose a bit that gives enough movement to contest the center.",
+      "A good balance combo should have one clear win condition and one backup route. If a build tries to do everything equally, it often ends up doing nothing well enough to matter.\n\nStart with the Blade. A balanced Blade should either have safe contact points or enough attack shape to punish opponents that lose control. Then choose a Ratchet that supports the height plan. Low Ratchets are better when you want direct contact and less exposure. Taller Ratchets can help stamina or defense ideas, but they may become easier to destabilize.\n\nThe Bit is where the combo's personality becomes obvious. Point-style Bits can move aggressively early and settle later. Ball-style Bits preserve spin but may lack pressure. Gear Bits can create dramatic rail movement but demand launch control. Pick the Bit based on your intended win condition, not only the highest score.\n\nWhen testing balance builds, do not only record wins and losses. Record how they win. If the combo wins by spin finish, protect that strength. If it wins by late knockouts, keep enough movement. If it only wins when the opponent makes a mistake, the combo probably needs a clearer identity.",
     published_at: "2026-02-02"
   },
   {
@@ -204,8 +204,38 @@ export const guides: Guide[] = [
     category: "Product Guide",
     excerpt: "A plain-language guide to Beyblade X product lines and how they affect customization.",
     content:
-      "BX is the basic Beyblade X line, UX focuses on unique gimmicks and special performance identity, and CX introduces custom blade construction. Treat the line label as a starting point, then test the actual Blade, Ratchet, and Bit together.",
+      "BX, UX, and CX are useful labels, but they should not be treated as automatic power rankings. They describe product direction more than guaranteed performance.\n\nBX is the basic Beyblade X line. It introduces many foundational parts, including important attack, stamina, defense, and balance releases. Many BX parts remain useful because simple shapes can be easier to understand, test, and customize.\n\nUX stands for Unique Line. These releases usually highlight a stronger identity, special gimmick, or more focused performance idea. UX parts can be powerful, but they still need the right Ratchet and Bit to turn their gimmick into a consistent win condition.\n\nCX is the Custom Line. It expands customization by making the Blade itself more modular. This is exciting for collectors and competitive players because it creates more build paths, but it also means testing becomes more important. A CX setup that looks strong on paper may need several part swaps before it becomes tournament-ready.\n\nUse the product line as a map, not a final answer. The best BeyVerse approach is to test the actual Blade, Ratchet, Bit, stadium behavior, and matchup data together.",
     published_at: "2026-05-27"
+  },
+  {
+    id: "guide-attack-stamina-defense",
+    slug: "attack-defense-stamina-balance-types",
+    title: "Attack, Defense, Stamina, and Balance Types",
+    category: "Beginner Strategy",
+    excerpt: "Understand the four main Beyblade roles before building combos.",
+    content:
+      "Every Beyblade type is a shortcut for understanding its most natural win condition. Attack wants to end the battle quickly. Defense wants to survive heavy contact. Stamina wants to keep spinning longer. Balance tries to combine two or more of those ideas.\n\nAttack types need movement and contact. They often use aggressive Bits and lower setups to reach the opponent quickly. Their weakness is that missed attacks cost stamina. A strong attack combo is not just fast; it must reach the opponent at the right time.\n\nDefense types are built to take hits. They often prefer stable shapes, safer Bits, and setups that avoid unnecessary movement. Their challenge is pressure. If a defense combo only survives but cannot outspin or counter, it may still lose.\n\nStamina types focus on efficiency. They try to avoid bad contact, preserve spin, and win late. Their biggest danger is being knocked out before stamina matters. A good stamina build needs enough stability to survive early attacks.\n\nBalance types are the most flexible but also the easiest to misunderstand. A real balance combo should still have a primary plan. The backup plan is what makes it flexible; the primary plan is what makes it dangerous.",
+    published_at: "2026-05-30"
+  },
+  {
+    id: "guide-ratchet-height",
+    slug: "ratchet-height-guide",
+    title: "Ratchet Height Guide",
+    category: "Parts Guide",
+    excerpt: "How low, mid, and tall Ratchets change contact, stability, and risk.",
+    content:
+      "Ratchet height changes how a combo makes contact. In Beyblade X, this can affect attack angles, burst risk, stamina stability, and how easily the combo gets destabilized.\n\nLow Ratchets such as 1-60, 3-60, 5-60, and 9-60 are popular because they keep the combo compact. Attack builds often like low height because they can make direct contact and reduce exposure. Stamina and balance builds also use low Ratchets when they want safer, more stable movement.\n\nMid-height Ratchets such as 5-70 and 9-70 can be useful when a combo needs a little more clearance. They may help certain Bits move properly or help a Blade avoid awkward scraping. The tradeoff is that they can expose more of the combo to hits.\n\nTall Ratchets such as 3-80, 4-80, 5-80, 9-80, and 3-85 are useful for experiments, defense ideas, and specific stamina plans. They can also become easier to destabilize if the opponent lands clean upward or side contact.\n\nThe best Ratchet is not always the lowest or newest one. Choose height based on the Blade's shape, Bit behavior, and matchup. If you change only the Ratchet and the combo suddenly loses less often, you found a real tuning point.",
+    published_at: "2026-06-01"
+  },
+  {
+    id: "guide-testing-method",
+    slug: "how-to-test-beyblade-combos",
+    title: "How to Test Beyblade Combos Properly",
+    category: "Testing Method",
+    excerpt: "A simple testing system for turning casual battles into useful data.",
+    content:
+      "Good combo testing is boring in the best way. It repeats the same conditions enough times that your results become useful instead of random.\n\nStart with one question. For example: can Phoenix Wing 9-60GF beat Wizard Rod stamina builds often enough to justify the risk? If you test too many questions at once, the results become confusing.\n\nRun sets of ten battles. Keep the same stadium, launchers, launch order, and matchup. Switch launch order after a set if you want to reduce player-side bias. Record win type: knockout, spin finish, burst, or self-KO. A combo with many self-KOs may have high power but low reliability.\n\nChange one part at a time. If you swap the Blade, Ratchet, and Bit together, you will not know which change mattered. Try one Ratchet swap first. Then try one Bit swap. This makes your notes more valuable.\n\nAfter testing, write a short conclusion. Do not just write 'good' or 'bad'. Write when it is good. A combo might be excellent into stamina, average into defense, and risky into attack. That kind of detail is what turns BeyVerse from a list into a real encyclopedia.",
+    published_at: "2026-06-03"
   }
 ];
 

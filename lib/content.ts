@@ -54,7 +54,7 @@ export async function getPartBySlug(slug: string) {
 
 export async function getGuides() {
   const remote = await fetchTable<Guide>("guides", [], "published_at");
-  return mergeByKey(fallbackGuides, remote, "slug");
+  return mergeGuides(fallbackGuides, remote);
 }
 
 export async function getGuideBySlug(slug: string) {
@@ -100,4 +100,16 @@ function normalizeParts(items: Part[]) {
     stamina: Number(item.stamina || 5),
     balance: Number(item.balance || 5)
   }));
+}
+
+function mergeGuides(fallback: Guide[], remote: Guide[]) {
+  const map = new Map<string, Guide>();
+  fallback.forEach((item) => map.set(item.slug, item));
+  remote.forEach((item) => {
+    const current = map.get(item.slug);
+    if (!current || item.content.length > current.content.length) {
+      map.set(item.slug, item);
+    }
+  });
+  return Array.from(map.values()).sort((a, b) => b.published_at.localeCompare(a.published_at));
 }
