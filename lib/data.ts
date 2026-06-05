@@ -693,7 +693,8 @@ function weaknessesFor(type: Beyblade["type"]) {
 }
 
 function descriptionFor(name: string, type: Beyblade["type"], series: BeyRecord["series"]) {
-  const intro = `${name} is a ${type.toLowerCase()}-type Beyblade X release from the ${series}.`;
+  const typeLabel = `${type.toLowerCase()}-type`;
+  const intro = `${name} is ${articleFor(typeLabel)} ${typeLabel} Beyblade X release from ${seriesLabel(series)}.`;
   const detail = {
     Attack:
       "It is best understood as a pressure tool: the goal is to create meaningful contact early, force the opponent out of position, and convert speed into a knockout before stamina becomes a problem.",
@@ -705,6 +706,17 @@ function descriptionFor(name: string, type: Beyblade["type"], series: BeyRecord[
       "It gives players a flexible platform for tuning. The strongest setups usually choose one primary plan, then use secondary traits to cover bad matchups."
   }[type];
   return `${intro} ${detail}`;
+}
+
+function articleFor(value: string) {
+  return /^[aeiou]/i.test(value) ? "an" : "a";
+}
+
+function seriesLabel(series: BeyRecord["series"] | PartRecord["system"]) {
+  if (series === "Hasbro Release") return "Hasbro's western release catalog";
+  if (series === "Event Release") return "the special event release catalog";
+  if (series === "X-Over Project") return "the X-Over Project";
+  return `the ${series}`;
 }
 
 function beyProfileFor(name: string) {
@@ -807,7 +819,7 @@ function beyProfileFor(name: string) {
 
 function partDescriptionFor(record: PartRecord) {
   if (record.category === "Blade") {
-    return `${record.name} is a ${record.role.toLowerCase()}-leaning Beyblade X Blade from the ${record.system}. Use it as the main identity of a combo: the Blade decides contact shape, recoil behavior, and the primary matchup plan.`;
+    return `${record.name} is ${articleFor(record.role)} ${record.role.toLowerCase()}-leaning Beyblade X Blade from ${seriesLabel(record.system)}. Use it as the main identity of a combo: the Blade decides contact shape, recoil behavior, and the primary matchup plan.`;
   }
 
   if (record.category === "Ratchet") {
