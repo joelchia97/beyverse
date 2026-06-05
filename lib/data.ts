@@ -3,7 +3,7 @@ import type { Beyblade, Character, Combo, Guide, Part, TierListItem } from "@/ty
 type BeyRecord = {
   code: string;
   name: string;
-  series: "Basic Line" | "Unique Line" | "Custom Line" | "X-Over Project" | "Event Release";
+  series: "Basic Line" | "Unique Line" | "Custom Line" | "X-Over Project" | "Event Release" | "Hasbro Release";
   type: Beyblade["type"];
   release: string;
   weight?: number;
@@ -13,7 +13,7 @@ type PartRecord = {
   code: string;
   name: string;
   category: Part["category"];
-  system: "Basic Line" | "Unique Line" | "Custom Line" | "X-Over Project";
+  system: "Basic Line" | "Unique Line" | "Custom Line" | "X-Over Project" | "Hasbro Release";
   role: Beyblade["type"];
 };
 
@@ -100,7 +100,57 @@ const beyRecords: BeyRecord[] = [
   { code: "BX-00", name: "Megatron 4-80B", series: "Event Release", type: "Stamina", release: "2025-05-17" },
   { code: "CX-00", name: "Eva Arc B0-70E", series: "Event Release", type: "Defense", release: "2026-08-29" },
   { code: "CX-00", name: "Eva Brave A1-70V", series: "Event Release", type: "Attack", release: "2026-08-29" },
-  { code: "CX-00", name: "Eva Brush T2-70A", series: "Event Release", type: "Balance", release: "2026-08-29" }
+  { code: "CX-00", name: "Eva Brush T2-70A", series: "Event Release", type: "Balance", release: "2026-08-29" },
+  { code: "F9580", name: "Sword Dran 3-60F", series: "Hasbro Release", type: "Attack", release: "2024-06-01" },
+  { code: "F9581", name: "Helm Knight 3-80N", series: "Hasbro Release", type: "Defense", release: "2024-06-01" },
+  { code: "F9582", name: "Arrow Wizard 4-80B", series: "Hasbro Release", type: "Stamina", release: "2024-06-01" },
+  { code: "F9583", name: "Scythe Incendio 4-60T", series: "Hasbro Release", type: "Balance", release: "2024-06-01" },
+  { code: "G0184", name: "Lance Knight 4-80HN", series: "Hasbro Release", type: "Defense", release: "2024-07-01" },
+  { code: "G0193", name: "Claw Leon 5-60P", series: "Hasbro Release", type: "Balance", release: "2024-07-01" },
+  { code: "G0188", name: "Steel Samurai 4-80T", series: "Hasbro Release", type: "Balance", release: "2024-06-01" },
+  { code: "G0192", name: "Horn Rhino 3-80S", series: "Hasbro Release", type: "Defense", release: "2024-06-01" },
+  { code: "G0194", name: "Keel Shark 3-60LF", series: "Hasbro Release", type: "Attack", release: "2024-06-01" },
+  { code: "G0195", name: "Talon Ptera 3-80B", series: "Hasbro Release", type: "Stamina", release: "2024-06-01" },
+  { code: "G0283", name: "Sting Unicorn 5-60GP", series: "Hasbro Release", type: "Balance", release: "2024-07-01" },
+  { code: "G0284", name: "Roar Tyranno 9-60GF", series: "Hasbro Release", type: "Attack", release: "2024-07-01" },
+  { code: "G1536", name: "Buster Dran 1-60A", series: "Hasbro Release", type: "Attack", release: "2024-12-01" },
+  { code: "G1537", name: "Wand Wizard 5-70DB", series: "Hasbro Release", type: "Stamina", release: "2024-12-01" },
+  { code: "G1538", name: "Wand Wizard 1-60R", series: "Hasbro Release", type: "Stamina", release: "2025-03-07" },
+  { code: "G1539", name: "Shadow Shinobi 1-80MN", series: "Hasbro Release", type: "Defense", release: "2025-03-07" },
+  { code: "G1751", name: "Buster Dran 5-70DB", series: "Hasbro Release", type: "Attack", release: "2025-03-07" },
+  { code: "G1752", name: "Hammer Incendio 3-70H", series: "Hasbro Release", type: "Attack", release: "2025-03-07" },
+  { code: "G1673", name: "Scarlet Garuda 4-70TP", series: "Hasbro Release", type: "Balance", release: "2025-06-01" },
+  { code: "G1674", name: "Sterling Wolf 3-80FB", series: "Hasbro Release", type: "Stamina", release: "2025-06-01" },
+  { code: "G1675", name: "Shelter Drake 7-80GP", series: "Hasbro Release", type: "Balance", release: "2025-08-01" },
+  { code: "G1676", name: "Rock Golem 1-60UN", series: "Hasbro Release", type: "Defense", release: "2025-08-01" },
+  { code: "G1677", name: "Courage Dran S 6-60V", series: "Hasbro Release", type: "Attack", release: "2025-06-01" },
+  { code: "G1678", name: "Reaper Incendio T 4-70K", series: "Hasbro Release", type: "Balance", release: "2025-06-01" },
+  { code: "G1679", name: "Arc Wizard R 4-55LO", series: "Hasbro Release", type: "Stamina", release: "2025-06-01" },
+  { code: "G1680", name: "Dark Perseus B 6-80W", series: "Hasbro Release", type: "Balance", release: "2025-06-01" },
+  { code: "G1681", name: "Brush Fox J 9-70GR", series: "Hasbro Release", type: "Balance", release: "2025-08-01" },
+  { code: "G1682", name: "Fort Hornet R 7-60T", series: "Hasbro Release", type: "Defense", release: "2025-08-01" },
+  { code: "G1683", name: "Wriggle Kraken S 3-85O", series: "Hasbro Release", type: "Stamina", release: "2025-08-01" },
+  { code: "G1684", name: "Antler Stag B 2-60HN", series: "Hasbro Release", type: "Defense", release: "2025-08-01" },
+  { code: "G2738", name: "Stun Medusa 9-60GB", series: "Hasbro Release", type: "Balance", release: "2026-01-30" },
+  { code: "G2739", name: "Rudder Phoenix 4-70LF", series: "Hasbro Release", type: "Stamina", release: "2026-01-30" },
+  { code: "G2740", name: "Feather Phoenix 2-60N", series: "Hasbro Release", type: "Defense", release: "2026-01-30" },
+  { code: "G2746", name: "Reaper Rhino C 4-55D", series: "Hasbro Release", type: "Defense", release: "2026-01-30" },
+  { code: "G2747", name: "Flame Cerberus W 5-80WB", series: "Hasbro Release", type: "Defense", release: "2026-01-30" },
+  { code: "G2748", name: "Fang Leon T 4-60U", series: "Hasbro Release", type: "Balance", release: "2026-01-30" },
+  { code: "G2731", name: "Scale Shark 4-50UF", series: "Hasbro Release", type: "Attack", release: "2026-01-30" },
+  { code: "G2732", name: "Shelter Drake 5-70O", series: "Hasbro Release", type: "Balance", release: "2026-01-30" },
+  { code: "G2733", name: "Gust Bat 3-85GP", series: "Hasbro Release", type: "Balance", release: "2026-04-01" },
+  { code: "G2734", name: "Curse Mummy 7-55W", series: "Hasbro Release", type: "Defense", release: "2026-04-01" },
+  { code: "G2735", name: "Savage Bear 5-60F", series: "Hasbro Release", type: "Attack", release: "2026-04-01" },
+  { code: "G3392", name: "Ridge Triceratops 9-80GN", series: "Hasbro Release", type: "Defense", release: "2026-01-30" },
+  { code: "G3611", name: "Buster Dran 5-70DB Booster", series: "Hasbro Release", type: "Attack", release: "2026-04-01" },
+  { code: "F9584", name: "Dranzer Spiral 3-80T Red", series: "Hasbro Release", type: "Balance", release: "2024-06-01" },
+  { code: "G2218", name: "Draciel Shield 7-60D", series: "Hasbro Release", type: "Defense", release: "2026-01-01" },
+  { code: "G2742", name: "Strike Dran 4-50FF", series: "Hasbro Release", type: "Attack", release: "2026-07-15" },
+  { code: "G4561", name: "Rocket Griffon H", series: "Hasbro Release", type: "Balance", release: "2026-07-15" },
+  { code: "G4562", name: "Rage Ragna FE 4-55Y", series: "Hasbro Release", type: "Stamina", release: "2026-07-15" },
+  { code: "G4563", name: "Armor Knight GV 8-70UN", series: "Hasbro Release", type: "Defense", release: "2026-07-15" },
+  { code: "G4572", name: "Blitz Bahamut BK 1-50I", series: "Hasbro Release", type: "Attack", release: "2026-07-15" }
 ];
 
 const partRecords: PartRecord[] = [
@@ -180,6 +230,36 @@ const partRecords: PartRecord[] = [
   { code: "CX-00", name: "Eva Arc", category: "Blade", system: "Custom Line", role: "Defense" },
   { code: "CX-00", name: "Eva Brave", category: "Blade", system: "Custom Line", role: "Attack" },
   { code: "CX-00", name: "Eva Brush", category: "Blade", system: "Custom Line", role: "Balance" },
+  { code: "F9580", name: "Sword Dran", category: "Blade", system: "Hasbro Release", role: "Attack" },
+  { code: "F9581", name: "Helm Knight", category: "Blade", system: "Hasbro Release", role: "Defense" },
+  { code: "F9582", name: "Arrow Wizard", category: "Blade", system: "Hasbro Release", role: "Stamina" },
+  { code: "F9583", name: "Scythe Incendio", category: "Blade", system: "Hasbro Release", role: "Balance" },
+  { code: "G0194", name: "Keel Shark", category: "Blade", system: "Hasbro Release", role: "Attack" },
+  { code: "G0195", name: "Talon Ptera", category: "Blade", system: "Hasbro Release", role: "Stamina" },
+  { code: "G0284", name: "Roar Tyranno", category: "Blade", system: "Hasbro Release", role: "Attack" },
+  { code: "G1537", name: "Wand Wizard", category: "Blade", system: "Hasbro Release", role: "Stamina" },
+  { code: "G1674", name: "Sterling Wolf", category: "Blade", system: "Hasbro Release", role: "Stamina" },
+  { code: "G1675", name: "Shelter Drake", category: "Blade", system: "Hasbro Release", role: "Balance" },
+  { code: "G2738", name: "Stun Medusa", category: "Blade", system: "Hasbro Release", role: "Balance" },
+  { code: "G2739", name: "Rudder Phoenix", category: "Blade", system: "Hasbro Release", role: "Stamina" },
+  { code: "G2740", name: "Feather Phoenix", category: "Blade", system: "Hasbro Release", role: "Defense" },
+  { code: "G1677", name: "Courage Dran", category: "Blade", system: "Hasbro Release", role: "Attack" },
+  { code: "G1678", name: "Reaper Incendio", category: "Blade", system: "Hasbro Release", role: "Balance" },
+  { code: "G1679", name: "Arc Wizard", category: "Blade", system: "Hasbro Release", role: "Stamina" },
+  { code: "G1680", name: "Dark Perseus", category: "Blade", system: "Hasbro Release", role: "Balance" },
+  { code: "G1681", name: "Brush Fox", category: "Blade", system: "Hasbro Release", role: "Balance" },
+  { code: "G1682", name: "Fort Hornet", category: "Blade", system: "Hasbro Release", role: "Defense" },
+  { code: "G1683", name: "Wriggle Kraken", category: "Blade", system: "Hasbro Release", role: "Stamina" },
+  { code: "G1684", name: "Antler Stag", category: "Blade", system: "Hasbro Release", role: "Defense" },
+  { code: "G2733", name: "Gust Bat", category: "Blade", system: "Hasbro Release", role: "Balance" },
+  { code: "G2734", name: "Curse Mummy", category: "Blade", system: "Hasbro Release", role: "Defense" },
+  { code: "G2735", name: "Savage Bear", category: "Blade", system: "Hasbro Release", role: "Attack" },
+  { code: "G3392", name: "Ridge Triceratops", category: "Blade", system: "Hasbro Release", role: "Defense" },
+  { code: "G2218", name: "Draciel Shield", category: "Blade", system: "Hasbro Release", role: "Defense" },
+  { code: "G4561", name: "Rocket Griffon", category: "Blade", system: "Hasbro Release", role: "Balance" },
+  { code: "G4562", name: "Rage Ragna", category: "Blade", system: "Hasbro Release", role: "Stamina" },
+  { code: "G4563", name: "Armor Knight", category: "Blade", system: "Hasbro Release", role: "Defense" },
+  { code: "G4572", name: "Blitz Bahamut", category: "Blade", system: "Hasbro Release", role: "Attack" },
   ...[
     "0-60", "0-70", "0-80", "1-50", "1-60", "1-70", "1-80", "2-60", "2-70", "2-80", "3-60", "3-70", "3-80", "3-85",
     "4-50", "4-55", "4-60", "4-70", "4-80", "5-60", "5-70", "5-80", "6-60", "6-70", "6-80", "7-55", "7-60",
@@ -435,6 +515,16 @@ export const guides: Guide[] = [
     excerpt: "Track Beyblade X collaboration releases from Marvel, Star Wars, Transformers, Evangelion, and other licensed collections.",
     content:
       "Collaboration releases are special Beyblade X products based on licensed characters, franchises, or event themes. They are important for collectors because they can disappear faster than normal boosters, but players should still judge them by the actual Blade, Ratchet, and Bit combination.\n\nThe Marvel collaboration includes Iron Man 4-80B, Thanos 4-60P, Spider-Man 3-60F, and Venom 3-80N. These releases are best treated as collector-friendly event entries first, then tested like any other stock combo after you confirm the parts and condition.\n\nThe Star Wars collaboration includes Luke Skywalker 4-80B, Darth Vader 4-60P, The Mandalorian 3-60F, and Moff Gideon 3-80N. For BEYBUKU, these pages are useful because many fans search by character name instead of part name, so each collaboration entry needs clean names, codes, and simple role labels.\n\nThe Transformers collaboration includes Optimus Prime 4-60P and Megatron 4-80B. These are useful to separate from regular competitive releases because a collector may care about character theme, packaging, and availability more than tournament priority.\n\nThe Evangelion collaboration is an upcoming CX event set with Eva Arc B0-70E, Eva Brave A1-70V, and Eva Brush T2-70A. Because these are Custom Line style entries, BEYBUKU marks their parts separately so future updates can add more detailed testing notes once the set is available.\n\nThe safest way to cover collaboration Beyblades is to avoid copying promotional text and instead build original notes: release date, stock combo, likely play role, collector status, and whether the parts are new, recolored, or borrowed from another release. That keeps the page useful for readers and healthier for long-term search quality.",
+    published_at: "2026-06-05"
+  },
+  {
+    id: "guide-hasbro-release-names",
+    slug: "beyblade-x-hasbro-release-names-guide",
+    title: "Beyblade X Hasbro Release Names Guide",
+    category: "Product Guide",
+    excerpt: "Understand Hasbro Beyblade X names, product codes, western releases, and how they relate to Takara Tomy releases.",
+    content:
+      "Hasbro Beyblade X releases are important for players in western markets because many products use English-localized names. A player may search for Sword Dran, Helm Knight, Arrow Wizard, Scythe Incendio, Keel Shark, Wand Wizard, or Sterling Wolf even when another region uses a different naming style.\n\nBEYBUKU tracks Hasbro entries separately when the product name, product code, or release context is useful for search and collecting. This does not mean every Hasbro entry is a brand-new performance design. Some are localized names, some are alternate releases, and some are western-market packs or boosters.\n\nFor beginners, Hasbro names are often easier to find in stores and online listings. If you are buying locally in the United States, Canada, Australia, or other Hasbro-supported markets, search both the Hasbro name and the Japanese-style name before deciding that a product is missing.\n\nFor collectors, product codes such as F9580, G0194, G1537, G1677, G2738, and G2742 matter because they separate similar-looking releases. BEYBUKU includes these codes so the database can help with checklist building, duplicate checking, and future image updates.\n\nFor competitive players, the name matters less than the actual Blade, Ratchet, and Bit. Always check the stock combo, part condition, and whether the release is a recolor, alternate pack, or distinct part combination before treating it as a new testing priority.",
     published_at: "2026-06-05"
   },
   {
