@@ -1,37 +1,7 @@
-# BEYBUKU Beyblade Images
+# BEYBUKU Beyblade Visuals
 
-This folder stores BEYBUKU's Beyblade image assets.
+These SVG files are original, fan-safe 2D encyclopedia visuals generated from visual profiles.
 
-Current assets are original, fan-safe 2D SVG visuals generated for encyclopedia use. They are not official product photos and are not intended to copy Takara Tomy, Hasbro, or licensed collaboration artwork exactly.
+They are not official product photography and are not exact copies of Takara Tomy, Hasbro, or licensed collaboration artwork. Each profile uses broad recognizable cues such as color family, blade count, silhouette rhythm, and motif language to help users distinguish releases while keeping the site copyright-conscious.
 
-Later, you can replace individual SVG files with your own photos or hand-made artwork if you own the rights.
-
-Recommended naming:
-
-```text
-dran-sword-3-60f.svg
-phoenix-wing-9-60gf.svg
-wizard-rod-5-70db.svg
-```
-
-Use the same slug as the Beyblade page URL.
-
-Example:
-
-```text
-/beyblades/dran-sword-3-60f
-```
-
-Image path:
-
-```text
-/beyblades/dran-sword-3-60f.svg
-```
-
-Photo tips:
-
-- Use your own photos when possible if replacing these generated assets.
-- Shoot on a clean background.
-- Use landscape or square crop.
-- Export as `.webp` for faster loading.
-- Avoid using official product photos unless you have permission.
+Generated count: 131

@@ -1,22 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Wyvern Hover 2-80GN original 2D Beyblade style visual">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Wyvern Hover 2-80GN original 2D fan-safe visual: defense armor profile">
   <defs>
-    <radialGradient id="bg" cx="50%" cy="50%" r="55%"><stop offset="0" stop-color="#1e293b"/><stop offset="0.62" stop-color="#07111f"/><stop offset="1" stop-color="#020617"/></radialGradient>
-    <linearGradient id="bladeGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#cbd5e1"/><stop offset="0.55" stop-color="#60a5fa"/><stop offset="1" stop-color="#1d4ed8"/></linearGradient>
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="8" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <radialGradient id="bg" cx="46%" cy="38%" r="75%">
+      <stop offset="0" stop-color="#1e3a8a"/>
+      <stop offset="0.72" stop-color="#020617"/>
+      <stop offset="1" stop-color="#020617"/>
+    </radialGradient>
+    <radialGradient id="core" cx="40%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="0.52" stop-color="#bfdbfe"/>
+      <stop offset="1" stop-color="#64748b"/>
+    </radialGradient>
+    <filter id="glow" x="-22%" y="-22%" width="144%" height="144%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
-  <rect width="512" height="512" rx="48" fill="url(#bg)"/>
-  <circle cx="256" cy="256" r="194" fill="#020617" opacity="0.55" stroke="#60a5fa" stroke-width="3"/>
-  <ellipse cx="256" cy="256" rx="142" ry="86" fill="none" stroke="#facc15" stroke-width="8" opacity="0.42" transform="rotate(34 256 256)"/><ellipse cx="256" cy="256" rx="124" ry="76" fill="none" stroke="#60a5fa" stroke-width="8" opacity="0.36" transform="rotate(76 256 256)"/><ellipse cx="256" cy="256" rx="106" ry="66" fill="none" stroke="#facc15" stroke-width="8" opacity="0.3" transform="rotate(118 256 256)"/><ellipse cx="256" cy="256" rx="88" ry="56" fill="none" stroke="#60a5fa" stroke-width="8" opacity="0.24" transform="rotate(160 256 256)"/>
+  <rect width="512" height="512" rx="44" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="216" fill="#020617" opacity="0.38" stroke="#bfdbfe" stroke-width="3"/>
+  <circle cx="256" cy="256" r="184" fill="none" stroke="#2563eb" stroke-width="7" stroke-dasharray="18 16" opacity="0.72"/>
   <g filter="url(#glow)">
-    <path d="M256 94 L389.6153757354263 294.3135924585629 L314.9789471888074 297.2975034172753 Z" fill="url(#bladeGrad)" stroke="#020617" stroke-width="8" stroke-linejoin="round" transform="rotate(7 256 256)" opacity="0.96"/><path d="M256 94 L333.7278135824338 371.2362225851508 L274.6349712473815 325.5466594928129 Z" fill="url(#bladeGrad)" stroke="#020617" stroke-width="8" stroke-linejoin="round" transform="rotate(47 256 256)" opacity="0.96"/><path d="M256 94 L241.4705436057962 394.23854345619 L225.57148515466966 321.25416066663877 Z" fill="url(#bladeGrad)" stroke="#020617" stroke-width="8" stroke-linejoin="round" transform="rotate(87 256 256)" opacity="0.96"/><path d="M256 94 L156.01176775292748 352.55751349380057 L190.7458393333612 286.42851484533037 Z" fill="url(#bladeGrad)" stroke="#020617" stroke-width="8" stroke-linejoin="round" transform="rotate(127 256 256)" opacity="0.96"/><path d="M256 94 L117.33859701388442 265.69614985043347 L186.45334050718708 237.36502875261854 Z" fill="url(#bladeGrad)" stroke="#020617" stroke-width="8" stroke-linejoin="round" transform="rotate(167 256 256)" opacity="0.96"/><path d="M256 94 L143.5466377818823 174.29784993134626 L214.70249658272468 197.0210528111926 Z" fill="url(#bladeGrad)" stroke="#020617" stroke-width="8" stroke-linejoin="round" transform="rotate(207 256 256)" opacity="0.96"/><path d="M256 94 L222.37285651164618 121.12889404763649 L262.27521347783136 184.2739817373943 Z" fill="url(#bladeGrad)" stroke="#020617" stroke-width="8" stroke-linejoin="round" transform="rotate(247 256 256)" opacity="0.96"/><path d="M256 94 L316.93358940368176 131.06762756441577 L306.9116882454314 205.08831175456856 Z" fill="url(#bladeGrad)" stroke="#020617" stroke-width="8" stroke-linejoin="round" transform="rotate(287 256 256)" opacity="0.96"/><path d="M256 94 L382.9828186123215 199.46360661246376 L327.7260182626057 249.7247865221686 Z" fill="url(#bladeGrad)" stroke="#020617" stroke-width="8" stroke-linejoin="round" transform="rotate(327 256 256)" opacity="0.96"/>
-    <circle cx="256" cy="256" r="154" fill="none" stroke="#facc15" stroke-width="14" opacity="0.6" stroke-dasharray="44 20" transform="rotate(259 256 256)"/>
-    <rect x="250" y="65" width="12" height="38" rx="6" fill="#1d4ed8" opacity="0.75" transform="rotate(7 256 256)"/><rect x="250" y="65" width="12" height="38" rx="6" fill="#0f172a" opacity="0.75" transform="rotate(37 256 256)"/><rect x="250" y="65" width="12" height="38" rx="6" fill="#0f172a" opacity="0.75" transform="rotate(67 256 256)"/><rect x="250" y="65" width="12" height="38" rx="6" fill="#1d4ed8" opacity="0.75" transform="rotate(97 256 256)"/><rect x="250" y="65" width="12" height="38" rx="6" fill="#0f172a" opacity="0.75" transform="rotate(127 256 256)"/><rect x="250" y="65" width="12" height="38" rx="6" fill="#0f172a" opacity="0.75" transform="rotate(157 256 256)"/><rect x="250" y="65" width="12" height="38" rx="6" fill="#1d4ed8" opacity="0.75" transform="rotate(187 256 256)"/><rect x="250" y="65" width="12" height="38" rx="6" fill="#0f172a" opacity="0.75" transform="rotate(217 256 256)"/><rect x="250" y="65" width="12" height="38" rx="6" fill="#0f172a" opacity="0.75" transform="rotate(247 256 256)"/><rect x="250" y="65" width="12" height="38" rx="6" fill="#1d4ed8" opacity="0.75" transform="rotate(277 256 256)"/><rect x="250" y="65" width="12" height="38" rx="6" fill="#0f172a" opacity="0.75" transform="rotate(307 256 256)"/><rect x="250" y="65" width="12" height="38" rx="6" fill="#0f172a" opacity="0.75" transform="rotate(337 256 256)"/>
-    <circle cx="256" cy="256" r="118" fill="#e5e7eb" stroke="#020617" stroke-width="12"/>
-    <circle cx="256" cy="256" r="86" fill="url(#bladeGrad)" stroke="#f8fafc" stroke-width="8"/>
-    <circle cx="256" cy="256" r="51" fill="#020617" stroke="#facc15" stroke-width="8"/>
-    <circle cx="256" cy="256" r="24" fill="#1d4ed8" stroke="#020617" stroke-width="8"/>
+      <polygon points="224.4,152.7 189.3,91.0 256.0,44.0 322.7,91.0 287.6,152.7" fill="#64748b" stroke="#020617" stroke-width="7" stroke-linejoin="round"/>
+      <rect x="234" y="62" width="52" height="82" rx="10" fill="#2563eb" opacity="0.82" transform="rotate(0 256 256)"/>
+      <polygon points="329.7,177.0 365.6,115.7 439.6,150.0 432.3,231.2 361.2,231.7" fill="#bfdbfe" stroke="#020617" stroke-width="7" stroke-linejoin="round"/>
+      <rect x="234" y="62" width="52" height="82" rx="10" fill="#f8fafc" opacity="0.82" transform="rotate(60 256 256)"/>
+      <polygon points="361.2,280.3 432.3,280.8 439.6,362.0 365.6,396.3 329.7,335.0" fill="#64748b" stroke="#020617" stroke-width="7" stroke-linejoin="round"/>
+      <rect x="234" y="62" width="52" height="82" rx="10" fill="#2563eb" opacity="0.82" transform="rotate(120 256 256)"/>
+      <polygon points="287.6,359.3 322.7,421.0 256.0,468.0 189.3,421.0 224.4,359.3" fill="#bfdbfe" stroke="#020617" stroke-width="7" stroke-linejoin="round"/>
+      <rect x="234" y="62" width="52" height="82" rx="10" fill="#f8fafc" opacity="0.82" transform="rotate(180 256 256)"/>
+      <polygon points="182.3,335.0 146.4,396.3 72.4,362.0 79.7,280.8 150.8,280.3" fill="#64748b" stroke="#020617" stroke-width="7" stroke-linejoin="round"/>
+      <rect x="234" y="62" width="52" height="82" rx="10" fill="#2563eb" opacity="0.82" transform="rotate(240 256 256)"/>
+      <polygon points="150.8,231.7 79.7,231.2 72.4,150.0 146.4,115.7 182.3,177.0" fill="#bfdbfe" stroke="#020617" stroke-width="7" stroke-linejoin="round"/>
+      <rect x="234" y="62" width="52" height="82" rx="10" fill="#f8fafc" opacity="0.82" transform="rotate(300 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#bfdbfe" opacity="0.72" transform="rotate(12 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#64748b" opacity="0.72" transform="rotate(48 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#bfdbfe" opacity="0.72" transform="rotate(84 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#64748b" opacity="0.72" transform="rotate(120 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#bfdbfe" opacity="0.72" transform="rotate(156 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#64748b" opacity="0.72" transform="rotate(192 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#bfdbfe" opacity="0.72" transform="rotate(228 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#64748b" opacity="0.72" transform="rotate(264 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#bfdbfe" opacity="0.72" transform="rotate(300 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#64748b" opacity="0.72" transform="rotate(336 256 256)"/>
   </g>
-  <text x="256" y="264" text-anchor="middle" dominant-baseline="middle" font-family="Arial Black, Arial, sans-serif" font-size="30" fill="#f8fafc" stroke="#020617" stroke-width="3" paint-order="stroke">WH</text>
-  <text x="256" y="458" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#cbd5e1">UX-00</text>
+  <circle cx="256" cy="256" r="124" fill="#0f172a" stroke="#020617" stroke-width="14"/>
+  <circle cx="256" cy="256" r="104" fill="none" stroke="#f8fafc" stroke-width="12" opacity="0.8"/>
+  <circle cx="256" cy="256" r="82" fill="url(#core)" stroke="#f8fafc" stroke-width="8"/>
+  <circle cx="256" cy="256" r="46" fill="#020617" stroke="#2563eb" stroke-width="9"/>
+  <text x="256" y="265" text-anchor="middle" dominant-baseline="middle" font-family="Arial Black, Arial, sans-serif" font-size="28" fill="#f8fafc">WH</text>
+  <text x="256" y="456" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#cbd5e1">UX-00</text>
 </svg>

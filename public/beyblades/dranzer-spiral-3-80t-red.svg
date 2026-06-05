@@ -1,22 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Dranzer Spiral 3-80T Red original 2D Beyblade style visual">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Dranzer Spiral 3-80T Red original 2D fan-safe visual: balanced mixed profile">
   <defs>
-    <radialGradient id="bg" cx="50%" cy="50%" r="55%"><stop offset="0" stop-color="#1e293b"/><stop offset="0.62" stop-color="#07111f"/><stop offset="1" stop-color="#020617"/></radialGradient>
-    <linearGradient id="bladeGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a78bfa"/><stop offset="0.55" stop-color="#38bdf8"/><stop offset="1" stop-color="#f8fafc"/></linearGradient>
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="8" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <radialGradient id="bg" cx="46%" cy="38%" r="75%">
+      <stop offset="0" stop-color="#312e81"/>
+      <stop offset="0.72" stop-color="#020617"/>
+      <stop offset="1" stop-color="#020617"/>
+    </radialGradient>
+    <radialGradient id="core" cx="40%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#f59e0b"/>
+      <stop offset="0.52" stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#8b5cf6"/>
+    </radialGradient>
+    <filter id="glow" x="-22%" y="-22%" width="144%" height="144%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
-  <rect width="512" height="512" rx="48" fill="url(#bg)"/>
-  <circle cx="256" cy="256" r="194" fill="#020617" opacity="0.55" stroke="#38bdf8" stroke-width="3"/>
-  <ellipse cx="256" cy="256" rx="142" ry="86" fill="none" stroke="#06b6d4" stroke-width="8" opacity="0.42" transform="rotate(27 256 256)"/><ellipse cx="256" cy="256" rx="124" ry="76" fill="none" stroke="#38bdf8" stroke-width="8" opacity="0.36" transform="rotate(69 256 256)"/><ellipse cx="256" cy="256" rx="106" ry="66" fill="none" stroke="#06b6d4" stroke-width="8" opacity="0.3" transform="rotate(111 256 256)"/><ellipse cx="256" cy="256" rx="88" ry="56" fill="none" stroke="#38bdf8" stroke-width="8" opacity="0.24" transform="rotate(153 256 256)"/>
+  <rect width="512" height="512" rx="44" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="216" fill="#020617" opacity="0.38" stroke="#38bdf8" stroke-width="3"/>
+  <circle cx="256" cy="256" r="184" fill="none" stroke="#e5e7eb" stroke-width="7" stroke-dasharray="18 16" opacity="0.72"/>
   <g filter="url(#glow)">
-    <path d="M256 94 L380.4487309149874 275.71074259506906 L319.57222668584274 289.8019525205841 Z" fill="url(#bladeGrad)" stroke="#020617" stroke-width="8" stroke-linejoin="round" transform="rotate(0 256 256)" opacity="0.96"/><path d="M256 94 L330.0609417888516 357.93614129124336 L277.05076274003704 324.85394242933853 Z" fill="url(#bladeGrad)" stroke="#020617" stroke-width="8" stroke-linejoin="round" transform="rotate(45 256 256)" opacity="0.96"/><path d="M256 94 L236.28925740493088 380.4487309149873 L222.1980474794159 319.57222668584274 Z" fill="url(#bladeGrad)" stroke="#020617" stroke-width="8" stroke-linejoin="round" transform="rotate(90 256 256)" opacity="0.96"/><path d="M256 94 L154.06385870875664 330.06094178885166 L187.14605757066147 277.05076274003704 Z" fill="url(#bladeGrad)" stroke="#020617" stroke-width="8" stroke-linejoin="round" transform="rotate(135 256 256)" opacity="0.96"/><path d="M256 94 L131.55126908501262 236.28925740493094 L192.42777331415726 222.19804747941586 Z" fill="url(#bladeGrad)" stroke="#020617" stroke-width="8" stroke-linejoin="round" transform="rotate(180 256 256)" opacity="0.96"/><path d="M256 94 L181.93905821114836 154.06385870875664 L234.94923725996293 187.14605757066147 Z" fill="url(#bladeGrad)" stroke="#020617" stroke-width="8" stroke-linejoin="round" transform="rotate(225 256 256)" opacity="0.96"/><path d="M256 94 L275.71074259506906 131.55126908501262 L289.8019525205841 192.42777331415726 Z" fill="url(#bladeGrad)" stroke="#020617" stroke-width="8" stroke-linejoin="round" transform="rotate(270 256 256)" opacity="0.96"/><path d="M256 94 L357.93614129124336 181.93905821114836 L324.8539424293386 234.94923725996298 Z" fill="url(#bladeGrad)" stroke="#020617" stroke-width="8" stroke-linejoin="round" transform="rotate(315 256 256)" opacity="0.96"/>
-    <circle cx="256" cy="256" r="154" fill="none" stroke="#06b6d4" stroke-width="14" opacity="0.6" stroke-dasharray="44 20" transform="rotate(342 256 256)"/>
-    <rect x="250" y="58" width="12" height="38" rx="6" fill="#f8fafc" opacity="0.75" transform="rotate(6 256 256)"/><rect x="250" y="58" width="12" height="38" rx="6" fill="#0f172a" opacity="0.75" transform="rotate(36 256 256)"/><rect x="250" y="58" width="12" height="38" rx="6" fill="#0f172a" opacity="0.75" transform="rotate(66 256 256)"/><rect x="250" y="58" width="12" height="38" rx="6" fill="#f8fafc" opacity="0.75" transform="rotate(96 256 256)"/><rect x="250" y="58" width="12" height="38" rx="6" fill="#0f172a" opacity="0.75" transform="rotate(126 256 256)"/><rect x="250" y="58" width="12" height="38" rx="6" fill="#0f172a" opacity="0.75" transform="rotate(156 256 256)"/><rect x="250" y="58" width="12" height="38" rx="6" fill="#f8fafc" opacity="0.75" transform="rotate(186 256 256)"/><rect x="250" y="58" width="12" height="38" rx="6" fill="#0f172a" opacity="0.75" transform="rotate(216 256 256)"/><rect x="250" y="58" width="12" height="38" rx="6" fill="#0f172a" opacity="0.75" transform="rotate(246 256 256)"/><rect x="250" y="58" width="12" height="38" rx="6" fill="#f8fafc" opacity="0.75" transform="rotate(276 256 256)"/><rect x="250" y="58" width="12" height="38" rx="6" fill="#0f172a" opacity="0.75" transform="rotate(306 256 256)"/><rect x="250" y="58" width="12" height="38" rx="6" fill="#0f172a" opacity="0.75" transform="rotate(336 256 256)"/>
-    <circle cx="256" cy="256" r="118" fill="#e5e7eb" stroke="#020617" stroke-width="12"/>
-    <circle cx="256" cy="256" r="86" fill="url(#bladeGrad)" stroke="#f8fafc" stroke-width="8"/>
-    <circle cx="256" cy="256" r="50" fill="#020617" stroke="#06b6d4" stroke-width="8"/>
-    <circle cx="256" cy="256" r="24" fill="#f8fafc" stroke="#020617" stroke-width="8"/>
+      <polygon points="233.3,164.8 256.0,54.0 278.7,164.8" fill="#8b5cf6" stroke="#020617" stroke-width="7" stroke-linejoin="round"/>
+      <polygon points="347.2,233.3 458.0,256.0 347.2,278.7" fill="#38bdf8" stroke="#020617" stroke-width="7" stroke-linejoin="round"/>
+      <polygon points="278.7,347.2 256.0,458.0 233.3,347.2" fill="#8b5cf6" stroke="#020617" stroke-width="7" stroke-linejoin="round"/>
+      <polygon points="164.8,278.7 54.0,256.0 164.8,233.3" fill="#38bdf8" stroke="#020617" stroke-width="7" stroke-linejoin="round"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#38bdf8" opacity="0.72" transform="rotate(12 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#8b5cf6" opacity="0.72" transform="rotate(48 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#38bdf8" opacity="0.72" transform="rotate(84 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#8b5cf6" opacity="0.72" transform="rotate(120 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#38bdf8" opacity="0.72" transform="rotate(156 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#8b5cf6" opacity="0.72" transform="rotate(192 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#38bdf8" opacity="0.72" transform="rotate(228 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#8b5cf6" opacity="0.72" transform="rotate(264 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#38bdf8" opacity="0.72" transform="rotate(300 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#8b5cf6" opacity="0.72" transform="rotate(336 256 256)"/>
   </g>
-  <text x="256" y="264" text-anchor="middle" dominant-baseline="middle" font-family="Arial Black, Arial, sans-serif" font-size="30" fill="#f8fafc" stroke="#020617" stroke-width="3" paint-order="stroke">DS</text>
-  <text x="256" y="458" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#cbd5e1">F9584</text>
+  <circle cx="256" cy="256" r="124" fill="#0f172a" stroke="#020617" stroke-width="14"/>
+  <circle cx="256" cy="256" r="104" fill="none" stroke="#f59e0b" stroke-width="12" opacity="0.8"/>
+  <circle cx="256" cy="256" r="82" fill="url(#core)" stroke="#f8fafc" stroke-width="8"/>
+  <circle cx="256" cy="256" r="46" fill="#020617" stroke="#e5e7eb" stroke-width="9"/>
+  <text x="256" y="265" text-anchor="middle" dominant-baseline="middle" font-family="Arial Black, Arial, sans-serif" font-size="28" fill="#f8fafc">DS</text>
+  <text x="256" y="456" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#cbd5e1">F9584</text>
 </svg>

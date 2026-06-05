@@ -1,18 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Bahamut Blitz BK1-50I original 2D fan-safe visual inspired by Attack style">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Bahamut Blitz BK1-50I original 2D fan-safe visual: purple dragon horns, one heavy break wing, lightning core">
   <defs>
-    <radialGradient id="bg" cx="50%" cy="48%" r="56%"><stop offset="0" stop-color="#1e293b"/><stop offset="0.7" stop-color="#07111f"/><stop offset="1" stop-color="#020617"/></radialGradient>
-    <radialGradient id="core" cx="42%" cy="36%" r="65%"><stop offset="0" stop-color="#e9d5ff"/><stop offset="0.48" stop-color="#7c3aed"/><stop offset="1" stop-color="#111827"/></radialGradient>
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="7" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <radialGradient id="bg" cx="46%" cy="38%" r="75%">
+      <stop offset="0" stop-color="#2e1065"/>
+      <stop offset="0.72" stop-color="#020617"/>
+      <stop offset="1" stop-color="#020617"/>
+    </radialGradient>
+    <radialGradient id="core" cx="40%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="0.52" stop-color="#a855f7"/>
+      <stop offset="1" stop-color="#581c87"/>
+    </radialGradient>
+    <filter id="glow" x="-22%" y="-22%" width="144%" height="144%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
-  <rect width="512" height="512" rx="48" fill="url(#bg)"/>
-  <circle cx="256" cy="256" r="214" fill="#020617" opacity="0.5" stroke="#111827" stroke-width="3"/>
-  <g filter="url(#glow)"><polygon points="278.9,148.4 341.4,44.6 326.7,171.7 291.1,184.1" fill="#111827" stroke="#020617" stroke-width="7" stroke-linejoin="round"/><polygon points="348.3,196.1 465.9,166.9 365.6,246.4 331.6,230.0" fill="#111827" stroke="#020617" stroke-width="7" stroke-linejoin="round"/><polygon points="363.6,278.9 467.4,341.4 340.3,326.7 327.9,291.1" fill="#111827" stroke="#020617" stroke-width="7" stroke-linejoin="round"/><polygon points="315.9,348.3 345.1,465.9 265.6,365.6 282.0,331.6" fill="#111827" stroke="#020617" stroke-width="7" stroke-linejoin="round"/><polygon points="233.1,363.6 170.6,467.4 185.3,340.3 220.9,327.9" fill="#111827" stroke="#020617" stroke-width="7" stroke-linejoin="round"/><polygon points="163.7,315.9 46.1,345.1 146.4,265.6 180.4,282.0" fill="#111827" stroke="#020617" stroke-width="7" stroke-linejoin="round"/><polygon points="148.4,233.1 44.6,170.6 171.7,185.3 184.1,220.9" fill="#111827" stroke="#020617" stroke-width="7" stroke-linejoin="round"/><polygon points="196.1,163.7 166.9,46.1 246.4,146.4 230.0,180.4" fill="#111827" stroke="#020617" stroke-width="7" stroke-linejoin="round"/><polygon points="259.1,166.1 273.6,88.9 341.5,111.4 296.3,175.5" fill="#f97316" stroke="#020617" stroke-width="5" stroke-linejoin="round"/><polygon points="321.8,194.6 386.6,150.3 418.7,214.2 341.4,227.6" fill="#7c3aed" stroke="#020617" stroke-width="5" stroke-linejoin="round"/><polygon points="345.9,259.1 423.1,273.6 400.6,341.5 336.5,296.3" fill="#f97316" stroke="#020617" stroke-width="5" stroke-linejoin="round"/><polygon points="317.4,321.8 361.7,386.6 297.8,418.7 284.4,341.4" fill="#7c3aed" stroke="#020617" stroke-width="5" stroke-linejoin="round"/><polygon points="252.9,345.9 238.4,423.1 170.5,400.6 215.7,336.5" fill="#f97316" stroke="#020617" stroke-width="5" stroke-linejoin="round"/><polygon points="190.2,317.4 125.4,361.7 93.3,297.8 170.6,284.4" fill="#7c3aed" stroke="#020617" stroke-width="5" stroke-linejoin="round"/><polygon points="166.1,252.9 88.9,238.4 111.4,170.5 175.5,215.7" fill="#f97316" stroke="#020617" stroke-width="5" stroke-linejoin="round"/><polygon points="194.6,190.2 150.3,125.4 214.2,93.3 227.6,170.6" fill="#7c3aed" stroke="#020617" stroke-width="5" stroke-linejoin="round"/>
-        <path d="M256 58 C315 108 315 165 274 212 C332 175 381 138 416 80 C350 93 300 83 256 58Z" fill="#7c3aed" opacity="0.9" stroke="#020617" stroke-width="8" transform="rotate(0 256 256)"/><path d="M256 58 C315 108 315 165 274 212 C332 175 381 138 416 80 C350 93 300 83 256 58Z" fill="#7c3aed" opacity="0.9" stroke="#020617" stroke-width="8" transform="rotate(90 256 256)"/><path d="M256 58 C315 108 315 165 274 212 C332 175 381 138 416 80 C350 93 300 83 256 58Z" fill="#7c3aed" opacity="0.9" stroke="#020617" stroke-width="8" transform="rotate(180 256 256)"/><path d="M256 58 C315 108 315 165 274 212 C332 175 381 138 416 80 C350 93 300 83 256 58Z" fill="#7c3aed" opacity="0.9" stroke="#020617" stroke-width="8" transform="rotate(270 256 256)"/></g>
-  <circle cx="256" cy="256" r="118" fill="#e5e7eb" stroke="#020617" stroke-width="14"/>
-  <circle cx="256" cy="256" r="84" fill="url(#core)" stroke="#e9d5ff" stroke-width="8"/>
-  <circle cx="256" cy="256" r="46" fill="#020617" stroke="#f97316" stroke-width="9"/>
-  <circle cx="256" cy="256" r="22" fill="#e9d5ff" opacity="0.95"/>
-  <text x="256" y="264" text-anchor="middle" dominant-baseline="middle" font-family="Arial Black, Arial, sans-serif" font-size="28" fill="#020617">BB</text>
-  <text x="256" y="456" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#cbd5e1">CX-13</text>
+  <rect width="512" height="512" rx="44" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="216" fill="#020617" opacity="0.38" stroke="#a855f7" stroke-width="3"/>
+  <circle cx="256" cy="256" r="184" fill="none" stroke="#ef4444" stroke-width="7" stroke-dasharray="18 16" opacity="0.72"/>
+  <g filter="url(#glow)">
+      <path d="M 228.80650449500465 172.30702656602648 L 149.75334834055815 98.48286121454208 L 241.53214670388874 90.63168011677024 L 316.08894356810583 46.44495028544648 L 310.45870128316335 153.5780792283645 Z" fill="#581c87" stroke="#020617" stroke-width="7" stroke-linejoin="round"/>
+      <path d="M 261.8616270992097 144.15349210748775 L 314.71322893124 75.29926190392084" stroke="#ef4444" stroke-width="10" stroke-linecap="round"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#a855f7" opacity="0.72" transform="rotate(12 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#581c87" opacity="0.72" transform="rotate(72 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#a855f7" opacity="0.72" transform="rotate(132 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#581c87" opacity="0.72" transform="rotate(192 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#a855f7" opacity="0.72" transform="rotate(252 256 256)"/>
+      <rect x="250" y="72" width="12" height="42" rx="6" fill="#581c87" opacity="0.72" transform="rotate(312 256 256)"/>
+  </g>
+  <circle cx="256" cy="256" r="124" fill="#0f172a" stroke="#020617" stroke-width="14"/>
+  <circle cx="256" cy="256" r="104" fill="none" stroke="#f8fafc" stroke-width="12" opacity="0.8"/>
+  <circle cx="256" cy="256" r="82" fill="url(#core)" stroke="#f8fafc" stroke-width="8"/>
+  <circle cx="256" cy="256" r="46" fill="#020617" stroke="#ef4444" stroke-width="9"/>
+  <text x="256" y="265" text-anchor="middle" dominant-baseline="middle" font-family="Arial Black, Arial, sans-serif" font-size="28" fill="#f8fafc">BB</text>
+  <text x="256" y="456" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#cbd5e1">CX-13</text>
 </svg>
