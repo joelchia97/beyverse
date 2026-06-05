@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AdBanner } from "@/components/ads/ad-banner";
 import { BeybladeVisual } from "@/components/beyblade-visual";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { beyblades } from "@/lib/data";
-import { getBeybladeBySlug } from "@/lib/content";
+import { getBeybladeBySlug, getBeyblades } from "@/lib/content";
 import { siteConfig } from "@/lib/seo";
+import type { Beyblade } from "@/types/database";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -34,15 +36,28 @@ export default async function BeybladeDetailPage({ params }: Props) {
   const item = await getBeybladeBySlug(slug);
   if (!item) notFound();
   const guide = beybladeGuide(item);
+  const allBeyblades = await getBeyblades();
+  const relatedBeyblades = allBeyblades
+    .filter((candidate) => candidate.slug !== item.slug && (candidate.type === item.type || candidate.series === item.series))
+    .slice(0, 4);
 
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "Product",
+    name: item.name,
+    brand: { "@type": "Brand", name: "Beyblade X" },
+    category: item.type,
+    sku: item.product_code,
+    releaseDate: item.release_date,
     headline: item.name,
     identifier: item.product_code,
     description: item.description,
-    datePublished: item.release_date,
-    author: { "@type": "Organization", name: "BEYBUKU" }
+    url: `${siteConfig.url}/beyblades/${item.slug}`,
+    weight: {
+      "@type": "QuantitativeValue",
+      value: item.weight,
+      unitText: "g"
+    }
   };
 
   return (
@@ -58,12 +73,7 @@ export default async function BeybladeDetailPage({ params }: Props) {
           <p className="mt-4 text-lg leading-8 text-slate-300">{item.description}</p>
           <BeybladeVisual name={item.name} type={item.type} className="mt-6" />
           <AdBanner slot="beyblade-detail-page-ad" label="Beyblade detail page ad" />
-          <div className="mt-6 grid gap-4 md:grid-cols-4">
-            <Card><CardHeader><CardTitle>Product Code</CardTitle></CardHeader><CardContent>{item.product_code || "TBA"}</CardContent></Card>
-            <Card><CardHeader><CardTitle>Type</CardTitle></CardHeader><CardContent>{item.type}</CardContent></Card>
-            <Card><CardHeader><CardTitle>Weight</CardTitle></CardHeader><CardContent>{item.weight}g</CardContent></Card>
-            <Card><CardHeader><CardTitle>Release</CardTitle></CardHeader><CardContent>{item.release_date}</CardContent></Card>
-          </div>
+          <QuickFacts item={item} />
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             <InfoList title="Strengths" items={item.strengths} />
             <InfoList title="Weaknesses" items={item.weaknesses} />
@@ -78,7 +88,11 @@ export default async function BeybladeDetailPage({ params }: Props) {
           </Card>
           <div className="mt-4 grid gap-4 md:grid-cols-2">
             <InfoList title="Best Combo Ideas" items={guide.bestCombos} />
-            <InfoList title="Matchup Notes" items={guide.matchupNotes} />
+            <InfoList title="Testing Method" items={guide.testingMethod} />
+          </div>
+          <div className="mt-4 grid gap-4 md:grid-cols-2">
+            <InfoList title="Best Matchups" items={guide.bestMatchups} />
+            <InfoList title="Risk Matchups" items={guide.riskMatchups} />
           </div>
           <Card className="mt-4">
             <CardHeader><CardTitle>Beginner Advice</CardTitle></CardHeader>
@@ -86,6 +100,20 @@ export default async function BeybladeDetailPage({ params }: Props) {
           </Card>
           <InfoList title="Recommended Combos" items={item.recommended_combos} className="mt-4" />
           <Card className="mt-4"><CardHeader><CardTitle>Anime Info</CardTitle></CardHeader><CardContent><p className="leading-7 text-slate-300">{item.anime_info}</p></CardContent></Card>
+          <Card className="mt-4">
+            <CardHeader><CardTitle>Related Beyblades</CardTitle></CardHeader>
+            <CardContent className="grid gap-3 md:grid-cols-2">
+              {relatedBeyblades.map((related) => (
+                <Link key={related.slug} href={`/beyblades/${related.slug}`} className="rounded-md border bg-slate-950/45 p-3 transition hover:border-sky-400/60 hover:bg-slate-900">
+                  <div className="flex items-start justify-between gap-3">
+                    <p className="font-semibold text-white">{related.name}</p>
+                    <Badge>{related.product_code || related.type}</Badge>
+                  </div>
+                  <p className="mt-1 text-sm text-slate-400">{related.type} / {related.weight}g</p>
+                </Link>
+              ))}
+            </CardContent>
+          </Card>
         </article>
         <aside>
           <AdBanner slot="sidebar-ad" label="Sidebar ad" className="sticky top-24" />
@@ -97,6 +125,8 @@ export default async function BeybladeDetailPage({ params }: Props) {
 
 function beybladeGuide(item: {
   name: string;
+  product_code: string;
+  series: string;
   type: "Attack" | "Defense" | "Stamina" | "Balance";
   recommended_combos: string[];
 }) {
@@ -118,6 +148,9 @@ function beybladeGuide(item: {
         "Risky against defense builds that can absorb the first hit",
         "Needs careful launch control to avoid self-KO losses"
       ],
+      bestMatchups: ["Passive stamina setups", "Slow-start balance combos", "Opponents that launch too safely"],
+      riskMatchups: ["Heavy defense builds", "Low-recoil counter attackers", "Mirrors with cleaner launch control"],
+      testingMethod: ["Run ten battles against a stamina benchmark", "Record first-contact timing", "Separate clean knockouts from self-KO wins"],
       beginnerAdvice:
         "Do not judge an attack Beyblade after only a few battles. Attack results can swing heavily based on launch angle, contact timing, and stadium movement. Test at least ten rounds before deciding whether the combo is weak."
     },
@@ -136,6 +169,9 @@ function beybladeGuide(item: {
         "Can struggle against stamina builds if it has no late-game plan",
         "Works best when the launch avoids unnecessary wall contact"
       ],
+      bestMatchups: ["Overextended attack combos", "High-recoil smash attackers", "Opponents that spend stamina early"],
+      riskMatchups: ["Efficient stamina builds", "Balanced combos with late-game plans", "Attack builds with repeated clean contact"],
+      testingMethod: ["Test survival through the first ten seconds", "Track whether losses are spin finishes or knockouts", "Compare one Bit swap at a time"],
       beginnerAdvice:
         "Defense is not only about being heavy. A good defensive combo must avoid bad movement, reduce recoil, and still have a way to win after the opponent's attack fails."
     },
@@ -154,6 +190,9 @@ function beybladeGuide(item: {
         "Needs protection against heavy attack openings",
         "Can win long matches if it avoids early destabilization"
       ],
+      bestMatchups: ["Low-pressure balance builds", "Defense setups with weak late game", "Opponents that miss early attack contact"],
+      riskMatchups: ["Heavy attack openings", "Destabilizing balance combos", "Aggressive low-height builds"],
+      testingMethod: ["Record survival rate after ten seconds", "Track spin finish wins separately", "Compare stability before chasing maximum stamina"],
       beginnerAdvice:
         "When testing stamina, record how often the combo survives the first ten seconds. A combo with amazing spin time still needs enough stability to reach the late game."
     },
@@ -172,6 +211,9 @@ function beybladeGuide(item: {
         "May lose to extreme attack or extreme stamina if the setup is too neutral",
         "Best results come from tuning one clear primary plan"
       ],
+      bestMatchups: ["Mixed local metas", "Predictable single-plan builds", "Opponents weak to adjustment"],
+      riskMatchups: ["Extreme attack specialists", "Pure stamina benchmarks", "Builds that outclass its primary plan"],
+      testingMethod: ["Choose one main win condition before testing", "Compare one aggressive setup and one safe setup", "Record how the combo wins, not only whether it wins"],
       beginnerAdvice:
         "Balance combos are easy to overbuild. Choose one main way to win, then let the secondary traits support that plan instead of fighting against it."
     }
@@ -181,6 +223,33 @@ function beybladeGuide(item: {
     ...content,
     bestCombos: Array.from(new Set([...item.recommended_combos, ...content.bestCombos])).slice(0, 6)
   };
+}
+
+function QuickFacts({ item }: { item: Beyblade }) {
+  const facts = [
+    ["Product Code", item.product_code || "TBA"],
+    ["System / Line", item.series],
+    ["Type", item.type],
+    ["Weight", `${item.weight}g`],
+    ["Release", item.release_date],
+    ["Best Role", `${item.type} testing`]
+  ];
+
+  return (
+    <Card className="mt-6">
+      <CardHeader><CardTitle>Quick Facts</CardTitle></CardHeader>
+      <CardContent>
+        <dl className="grid gap-3 md:grid-cols-2">
+          {facts.map(([label, value]) => (
+            <div key={label} className="rounded-md border bg-slate-950/45 p-3">
+              <dt className="text-xs font-semibold uppercase text-slate-500">{label}</dt>
+              <dd className="mt-1 font-semibold text-slate-100">{value}</dd>
+            </div>
+          ))}
+        </dl>
+      </CardContent>
+    </Card>
+  );
 }
 
 function InfoList({ title, items, className }: { title: string; items: string[]; className?: string }) {
