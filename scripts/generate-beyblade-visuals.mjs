@@ -36,7 +36,7 @@ const profileMap = [
     label: "three blue sword wings and orange dragon accents"
   },
   {
-    match: /phoenix wing|soar phoenix/i,
+    match: /phoenix wing|phoenix rudder|rudder phoenix|phoenix flare|feather phoenix|soar phoenix/i,
     palette: ["#dc2626", "#fb923c", "#facc15", "#f8fafc"],
     bg: ["#180405", "#7f1d1d"],
     motif: "phoenixWing",
@@ -90,6 +90,38 @@ const profileMap = [
     motif: "bahamut",
     arms: 1,
     label: "purple dragon horns, one heavy break wing, lightning core"
+  },
+  {
+    match: /tyranno beat|roar tyranno/i,
+    palette: ["#b91c1c", "#f97316", "#facc15", "#f8fafc"],
+    bg: ["#020617", "#7f1d1d"],
+    motif: "tyranno",
+    arms: 3,
+    label: "red dinosaur jaw points and heavy attack bites"
+  },
+  {
+    match: /wyvern gale|wyvern hover/i,
+    palette: ["#14b8a6", "#67e8f9", "#a7f3d0", "#f8fafc"],
+    bg: ["#020617", "#134e4a"],
+    motif: "wyvern",
+    arms: 5,
+    label: "teal wyvern wings and curved wind blades"
+  },
+  {
+    match: /sphinx cowl/i,
+    palette: ["#ca8a04", "#facc15", "#38bdf8", "#fef3c7"],
+    bg: ["#020617", "#713f12"],
+    motif: "sphinx",
+    arms: 4,
+    label: "gold sphinx guard panels and ancient blue accents"
+  },
+  {
+    match: /black shell/i,
+    palette: ["#0f172a", "#475569", "#22d3ee", "#f8fafc"],
+    bg: ["#020617", "#1e293b"],
+    motif: "shell",
+    arms: 4,
+    label: "dark shell armor with compact defense plates"
   },
   {
     match: /knight shield|helm knight/i,
@@ -273,7 +305,7 @@ function bladeElements(profile) {
     } else if (["phoenixWing", "garuda"].includes(profile.motif)) {
       elements.push(`<path d="M ${polar(92, angle - 21).join(" ")} C ${polar(174, angle - 36).join(" ")} ${polar(220, angle - 15).join(" ")} ${polar(206, angle + 10).join(" ")} C ${polar(164, angle + 26).join(" ")} ${polar(126, angle + 24).join(" ")} ${polar(94, angle + 10).join(" ")} Z" fill="${primary}" stroke="#020617" stroke-width="7"/>`);
       elements.push(`<path d="M ${polar(120, angle - 8).join(" ")} Q ${polar(186, angle).join(" ")} ${polar(122, angle + 16).join(" ")}" fill="none" stroke="${secondary}" stroke-width="12" stroke-linecap="round"/>`);
-    } else if (["dragoon", "bahamut", "impactDrake"].includes(profile.motif)) {
+    } else if (["dragoon", "bahamut", "impactDrake", "tyranno", "wyvern"].includes(profile.motif)) {
       elements.push(`<path d="M ${polar(88, angle - 18).join(" ")} L ${polar(190, angle - 34).join(" ")} L ${polar(166, angle - 5).join(" ")} L ${polar(218, angle + 16).join(" ")} L ${polar(116, angle + 28).join(" ")} Z" fill="${primary}" stroke="#020617" stroke-width="7" stroke-linejoin="round"/>`);
       elements.push(`<path d="M ${polar(112, angle + 3).join(" ")} L ${polar(190, angle + 18).join(" ")}" stroke="${secondary}" stroke-width="10" stroke-linecap="round"/>`);
     } else if (["shark", "viper", "wave", "brachio"].includes(profile.motif)) {
@@ -282,7 +314,7 @@ function bladeElements(profile) {
     } else if (["wolf", "lion", "unicorn", "rhino"].includes(profile.motif)) {
       elements.push(`<polygon points="${bladePoint(angle, 104, 206, profile.motif === "unicorn" ? 7 : 16)}" fill="${primary}" stroke="#020617" stroke-width="7" stroke-linejoin="round"/>`);
       elements.push(`<circle cx="${polar(166, angle)[0].toFixed(1)}" cy="${polar(166, angle)[1].toFixed(1)}" r="18" fill="${secondary}" opacity="0.75" stroke="#020617" stroke-width="4"/>`);
-    } else if (["shield", "fortress", "rock", "hammer"].includes(profile.motif)) {
+    } else if (["shield", "fortress", "rock", "hammer", "sphinx", "shell"].includes(profile.motif)) {
       elements.push(`<polygon points="${polygon([polar(108, angle - 17), polar(178, angle - 22), polar(212, angle), polar(178, angle + 22), polar(108, angle + 17)])}" fill="${primary}" stroke="#020617" stroke-width="7" stroke-linejoin="round"/>`);
       elements.push(`<rect x="234" y="62" width="52" height="82" rx="10" fill="${secondary}" opacity="0.82" transform="rotate(${angle} 256 256)"/>`);
     } else if (profile.motif === "mummy") {

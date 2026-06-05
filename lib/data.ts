@@ -299,7 +299,7 @@ export const beyblades: Beyblade[] = beyRecords.map((record, index) => {
     strengths: profile?.strengths ?? strengthsFor(record.type),
     weaknesses: profile?.weaknesses ?? weaknessesFor(record.type),
     recommended_combos: profile?.combos ?? [record.name, `${parts.blade} 9-60 ${parts.bit}`, `${parts.blade} 5-70 ${parts.bit}`],
-    anime_info: `${record.name} belongs to the Beyblade X era. Add episode-specific lore and character usage notes as your content library grows. Catalog checked ${catalogUpdated}.`
+    anime_info: profile?.animeInfo ?? `${record.name} belongs to the Beyblade X era. Add episode-specific lore and character usage notes as your content library grows. Catalog checked ${catalogUpdated}.`
   };
 });
 
@@ -720,13 +720,14 @@ function seriesLabel(series: BeyRecord["series"] | PartRecord["system"]) {
 }
 
 function beyProfileFor(name: string) {
-  const profiles: Record<string, { description: string; strengths: string[]; weaknesses: string[]; combos: string[] }> = {
+  const profiles: Record<string, { description: string; strengths: string[]; weaknesses: string[]; combos: string[]; animeInfo?: string }> = {
     "Dran Sword 3-60F": {
       description:
-        "Dran Sword 3-60F is the cleanest entry point for learning Beyblade X attack. It teaches early contact, rail timing, and why a fast combo still needs control before it becomes reliable.",
-      strengths: ["Clear attack identity for beginners", "Good teaching tool for Xtreme line timing", "Simple stock combo that is easy to test"],
-      weaknesses: ["Can waste stamina if it circles without contact", "Self-KO risk rises with poor launch angle", "Needs repeated practice against defense"],
-      combos: ["Dran Sword 3-60F", "Dran Sword 5-60R", "Dran Sword 9-60P"]
+        "Dran Sword 3-60F is the original Beyblade X attack reference: a three-sided sword-style Blade on a low 3-60 Ratchet and Flat Bit. It is the cleanest entry point for learning rail timing, first contact, and how raw speed becomes reliable pressure only when the launch is controlled.",
+      strengths: ["Iconic three-blade attack shape", "Excellent teaching tool for Xtreme line timing", "Low stock setup creates direct early contact"],
+      weaknesses: ["Can waste stamina if it circles without contact", "Self-KO risk rises with poor launch angle", "Needs repeated practice against defense and counter-attack"],
+      combos: ["Dran Sword 3-60F", "Dran Sword 5-60R", "Dran Sword 9-60P"],
+      animeInfo: "Dran Sword is one of the signature early Beyblade X designs and is strongly associated with the attack-focused identity of the X era. Use this page for character, episode, and manga notes as BEYBUKU's lore database grows."
     },
     "Hells Scythe 4-60T": {
       description:
@@ -744,10 +745,11 @@ function beyProfileFor(name: string) {
     },
     "Knight Shield 3-80N": {
       description:
-        "Knight Shield 3-80N is a defense-oriented release built around survival and center control. It is most useful when players want to study how defensive Bits absorb pressure.",
-      strengths: ["Stable defensive learning tool", "Good against reckless attack launches", "Needle helps demonstrate center-hold behavior"],
-      weaknesses: ["Can be outspun by efficient stamina", "Tall height can become a target", "Limited pressure if the opponent avoids contact"],
-      combos: ["Knight Shield 3-80N", "Knight Shield 5-60N", "Knight Shield 9-70O"]
+        "Knight Shield 3-80N is a defense-oriented early BX release built around rounded armor, survival, and center control. It is useful for learning how tall Ratchets change exposure and how Needle-style Bits absorb pressure.",
+      strengths: ["Rounded shield identity supports defensive testing", "Good against reckless attack launches", "Needle helps demonstrate center-hold behavior"],
+      weaknesses: ["Can be outspun by efficient stamina", "Tall 3-80 height can become a target", "Limited pressure if the opponent avoids contact"],
+      combos: ["Knight Shield 3-80N", "Knight Shield 5-60N", "Knight Shield 9-70O"],
+      animeInfo: "Knight Shield represents the defensive knight motif in the early Beyblade X lineup. It is useful for lore pages that compare knight-themed releases such as Knight Lance, Knight Mail, and Knight Fortress."
     },
     "Shark Edge 3-60LF": {
       description:
@@ -758,17 +760,19 @@ function beyProfileFor(name: string) {
     },
     "Phoenix Wing 9-60GF": {
       description:
-        "Phoenix Wing 9-60GF is a heavy attack benchmark that can threaten quick knockouts while still demanding discipline. It is one of the most important BEYBUKU attack references.",
+        "Phoenix Wing 9-60GF is a heavy red-and-gold attack benchmark with strong smash pressure and dramatic rail movement. The stock 9-60GF setup can threaten quick knockouts, but it still demands discipline because Gear Flat can overspend stamina if the opening misses.",
       strengths: ["Heavy contact and strong knockout pressure", "Excellent attack testing benchmark", "Can disrupt stamina before it stabilizes"],
       weaknesses: ["Gear Flat can overspend stamina", "Needs clean contact windows", "Can lose reliability if launched too wildly"],
-      combos: ["Phoenix Wing 9-60GF", "Phoenix Wing 5-60R", "Phoenix Wing 9-60P"]
+      combos: ["Phoenix Wing 9-60GF", "Phoenix Wing 5-60R", "Phoenix Wing 9-60P"],
+      animeInfo: "Phoenix Wing is one of the most recognizable Beyblade X attack designs because of its phoenix color language and heavy contact identity. Keep matchup notes separate from character lore so competitive testing stays clear."
     },
     "Wizard Rod 5-70DB": {
       description:
-        "Wizard Rod 5-70DB is a major stamina benchmark for Beyblade X testing. Players use it to check whether attack and balance ideas can beat efficient late-game spin.",
-      strengths: ["Excellent stamina reference", "Strong late-game identity", "Useful for testing attack reliability"],
+        "Wizard Rod 5-70DB is a major stamina benchmark built around a wide circular Blade profile and efficient late-game spin. It is one of the most important BEYBUKU references because many attack and balance ideas should be tested by asking: can they reliably beat Wizard Rod?",
+      strengths: ["Excellent stamina reference", "Strong late-game identity", "Wide profile helps preserve stable spin"],
       weaknesses: ["Must survive heavy opening contact", "Can be targeted by destabilizing attack", "Needs careful launch consistency"],
-      combos: ["Wizard Rod 5-70DB", "Wizard Rod 9-60B", "Wizard Rod 9-80DB"]
+      combos: ["Wizard Rod 5-70DB", "Wizard Rod 9-60B", "Wizard Rod 9-80DB"],
+      animeInfo: "Wizard Rod is a key stamina reference for the Beyblade X era. BEYBUKU treats it as both a collector entry and a testing benchmark because it shapes how many modern combos are judged."
     },
     "Dran Buster 1-60A": {
       description:
@@ -779,10 +783,11 @@ function beyProfileFor(name: string) {
     },
     "Cobalt Dragoon 2-60C": {
       description:
-        "Cobalt Dragoon 2-60C is an attack release that rewards players who can manage movement and contact timing. It is valuable for studying left-spin style pressure and matchup disruption.",
+        "Cobalt Dragoon 2-60C is a blue dragon-themed attack release that rewards players who can manage movement, reverse-spin style pressure, and contact timing. It is valuable for studying matchup disruption rather than simple straight-line smash.",
       strengths: ["Dangerous disruption potential", "Good attack testing piece", "Rewards practiced launch angles"],
       weaknesses: ["Can be inconsistent without matchup knowledge", "Needs controlled movement to avoid wasted stamina", "May require several Bit tests"],
-      combos: ["Cobalt Dragoon 2-60C", "Cobalt Dragoon 9-60R", "Cobalt Dragoon 5-60P"]
+      combos: ["Cobalt Dragoon 2-60C", "Cobalt Dragoon 9-60R", "Cobalt Dragoon 5-60P"],
+      animeInfo: "Cobalt Dragoon carries the dragon motif into Beyblade X and is important for pages comparing Dragoon-style releases, reverse-spin pressure, and high-skill attack testing."
     },
     "Silver Wolf 3-80FB": {
       description:
@@ -811,6 +816,126 @@ function beyProfileFor(name: string) {
       strengths: ["Good defensive testing profile", "Useful into contact-heavy opponents", "Helps study tall combo behavior"],
       weaknesses: ["Tall height can become unstable", "May lose late against efficient stamina", "Needs matchup-specific tuning"],
       combos: ["Knight Mail 3-85BS", "Knight Mail 9-60HN", "Knight Mail 5-70N"]
+    },
+    "Phoenix Rudder 9-70G": {
+      description:
+        "Phoenix Rudder 9-70G shifts the phoenix theme into a calmer stamina-control direction. Compared with Phoenix Wing, the page should be read as a stability and glide study rather than a pure knockout reference.",
+      strengths: ["Good stamina-control identity", "Useful comparison point against Phoenix Wing", "Glide-style testing helps study late movement"],
+      weaknesses: ["Lower immediate knockout pressure", "Needs safe launch placement", "Can be punished before it settles"],
+      combos: ["Phoenix Rudder 9-70G", "Phoenix Rudder 9-60B", "Phoenix Rudder 5-70O"],
+      animeInfo: "Phoenix Rudder is useful for lore and collection notes because it shows how one motif can move from aggressive wing pressure into a more controlled stamina idea."
+    },
+    "Whale Wave 5-80E": {
+      description:
+        "Whale Wave 5-80E is a stamina release with a water-heavy identity and a wave-like play pattern. It is best tested around whether Elevate-style behavior can preserve spin while avoiding early knockout danger.",
+      strengths: ["Strong water-themed stamina identity", "Interesting late-game movement tests", "Good into slower matchups when it stabilizes"],
+      weaknesses: ["Can be exposed by direct attack", "Tall 5-80 height needs matchup testing", "Requires launch consistency to avoid wasted movement"],
+      combos: ["Whale Wave 5-80E", "Whale Wave 9-60B", "Whale Wave 5-70O"],
+      animeInfo: "Whale Wave is a strong candidate for future BEYBUKU theme pages about animal motifs, water-themed releases, and stamina designs that use movement differently from simple Ball setups."
+    },
+    "Crimson Garuda 4-70TP": {
+      description:
+        "Crimson Garuda 4-70TP is a balance release with a red bird motif and a flexible movement plan. Trans Point makes it useful for learning when a combo should pressure early and when it should settle into a safer late-game route.",
+      strengths: ["Flexible balance behavior", "Bird-wing motif gives it clear collection identity", "Trans Point supports pressure-to-stability testing"],
+      weaknesses: ["Can lose to specialists if the plan is unclear", "Needs careful launch strength", "May require part swaps for consistent matchups"],
+      combos: ["Crimson Garuda 4-70TP", "Crimson Garuda 9-60P", "Crimson Garuda 5-70O"],
+      animeInfo: "Crimson Garuda is useful for BEYBUKU collection notes because it has a clear mythical-bird identity while remaining a practical balance testing platform."
+    },
+    "Weiss Tiger 3-60U": {
+      description:
+        "Weiss Tiger 3-60U is a balance release with a white tiger motif and compact low-height tuning. Unite-style behavior gives it room to shift between movement and stability depending on launch style.",
+      strengths: ["Compact 3-60 setup", "Tiger motif is easy to distinguish visually", "Unite supports flexible balance testing"],
+      weaknesses: ["Can be outpowered by dedicated attack", "Needs a clear role in competitive testing", "May not outspin stronger stamina benchmarks"],
+      combos: ["Weiss Tiger 3-60U", "Weiss Tiger 9-60P", "Weiss Tiger 5-60R"],
+      animeInfo: "Weiss Tiger is a good entry for future character and motif comparison pages because its animal theme is distinct from dragon, phoenix, shark, and knight releases."
+    },
+    "Samurai Saber 2-70L": {
+      description:
+        "Samurai Saber 2-70L is an attack-leaning Unique Line release with a blade-and-samurai identity. It should be tested as a controlled strike platform, especially when comparing Level against more aggressive Flat-style Bits.",
+      strengths: ["Sharp samurai blade identity", "Good controlled attack experiments", "Level can create useful movement variety"],
+      weaknesses: ["May need a stronger attack Bit for knockout pressure", "Can lose efficiency if over-launched", "Requires comparison against Dran and Phoenix attack benchmarks"],
+      combos: ["Samurai Saber 2-70L", "Samurai Saber 9-60R", "Samurai Saber 5-60P"],
+      animeInfo: "Samurai Saber is important for BEYBUKU's theme coverage because it gives the X era a clear swordfighter identity separate from dragon-style attack releases."
+    },
+    "Ghost Circle 0-80GB": {
+      description:
+        "Ghost Circle 0-80GB is a stamina release built around a smooth circular ghost motif. It is best studied as a late-game spin and stability option, especially when comparing 0-series Ratchets and Gear Ball movement.",
+      strengths: ["Smooth circular stamina identity", "Good 0-series Ratchet comparison point", "Gear Ball can help controlled late movement"],
+      weaknesses: ["Needs protection from early knockouts", "Tall setup can be destabilized", "Low pressure into passive opponents"],
+      combos: ["Ghost Circle 0-80GB", "Ghost Circle 9-60B", "Ghost Circle 5-70O"],
+      animeInfo: "Ghost Circle is useful for lore indexing because its visual identity is very different from animal and weapon motifs. Future notes can track character ownership and episode appearances."
+    },
+    "Golem Rock 1-60UN": {
+      description:
+        "Golem Rock 1-60UN is a defense release with a stone-armor identity and compact 1-60 setup. It should be tested around impact absorption, wall survival, and whether Under Needle improves stability without giving up too much stamina.",
+      strengths: ["Heavy stone motif fits defense testing", "Compact low setup can reduce exposure", "Useful into aggressive local metas"],
+      weaknesses: ["Can still be outspun by efficient stamina", "Needs enough weight and control to justify the defense role", "May struggle if the opponent avoids contact"],
+      combos: ["Golem Rock 1-60UN", "Golem Rock 9-60HN", "Golem Rock 5-70N"],
+      animeInfo: "Golem Rock belongs in BEYBUKU's defensive motif coverage alongside Knight, Rhino, and Shell releases. It is a good page for explaining armor-style design language."
+    },
+    "Shark Scale 4-50UF": {
+      description:
+        "Shark Scale 4-50UF is a low-height attack release that continues the shark motif with sharper, lower-pressure tuning. Under Flat should be tested for how quickly it reaches contact and how often that speed becomes self-risk.",
+      strengths: ["Low 4-50 setup supports direct contact", "Sharp shark identity is visually clear", "High attack pressure when launched accurately"],
+      weaknesses: ["High self-KO risk", "Can burn stamina quickly", "Needs careful launch control into defense"],
+      combos: ["Shark Scale 4-50UF", "Shark Scale 3-60R", "Shark Scale 1-60F"],
+      animeInfo: "Shark Scale is useful for comparing shark-themed attack evolution from Shark Edge into later, sharper low-height options."
+    },
+    "Dran Strike 4-50FF": {
+      description:
+        "Dran Strike 4-50FF is a later Dran attack release with extremely aggressive low-height intent. Final Flat makes it a serious speed test, but the same speed must be controlled or it becomes a liability.",
+      strengths: ["Very aggressive Dran-family attack identity", "Low 4-50 setup creates direct contact chances", "Final Flat supports explosive rail pressure"],
+      weaknesses: ["Can overshoot and self-KO", "Needs precise launch angle", "May require safer Bits for consistency testing"],
+      combos: ["Dran Strike 4-50FF", "Dran Strike 3-60R", "Dran Strike 9-60P"],
+      animeInfo: "Dran Strike is important for tracking the Dran attack lineage after Dran Sword, Dran Dagger, Dran Buster, and Dran Brave."
+    },
+    "Bahamut Blitz BK1-50I": {
+      description:
+        "Bahamut Blitz BK1-50I is a Custom Line attack release with a dark dragon motif, very low 1-50 setup, and Ignition-style aggression. It should be treated as a high-pressure entry where matchup testing must separate real knockout power from unstable wins.",
+      strengths: ["Distinct dark dragon identity", "Low 1-50 setup supports dangerous contact", "Strong attack-pressure testing piece"],
+      weaknesses: ["Needs control to avoid self-risk", "Can be matchup-sensitive", "Ignition-style aggression may overspend stamina"],
+      combos: ["Bahamut Blitz BK1-50I", "Bahamut Blitz 1-60R", "Bahamut Blitz 9-60P"],
+      animeInfo: "Bahamut Blitz is a major BEYBUKU catalog page because of its Custom Line identity, dragon motif, and strong collector interest. Keep official appearance notes separate from competitive testing notes."
+    },
+    "Knight Fortress GV8-70UN": {
+      description:
+        "Knight Fortress GV8-70UN is a heavy Custom Line defense release that expands the knight theme into fortress-style armor. It should be tested for survival, burst resistance, and how its taller defensive setup handles modern attack pressure.",
+      strengths: ["Heavy fortress defense identity", "Strong knight-line comparison page", "Useful into hard-contact attack testing"],
+      weaknesses: ["Tall defensive setups can be destabilized", "May lose late if it cannot preserve spin", "Needs matchup-specific tuning"],
+      combos: ["Knight Fortress GV8-70UN", "Knight Fortress 9-60HN", "Knight Fortress 5-70N"],
+      animeInfo: "Knight Fortress belongs in the same lore and collection family as Knight Shield, Knight Lance, and Knight Mail, making it useful for theme evolution pages."
+    },
+    "Ragna Rage FE4-55Y": {
+      description:
+        "Ragna Rage FE4-55Y is a Custom Line stamina release with a low 4-55 setup and Yielding-style late-game plan. It should be tested against Wizard Rod and Ghost Circle to see whether its stamina route is safer, riskier, or matchup-specific.",
+      strengths: ["Clear stamina identity", "Low setup can help reduce exposure", "Good comparison against other late-game benchmarks"],
+      weaknesses: ["Can still be knocked out before stamina matters", "Needs calm launch control", "May require stronger defensive tuning into attack"],
+      combos: ["Ragna Rage FE4-55Y", "Ragna Rage 9-60B", "Ragna Rage 5-70DB"],
+      animeInfo: "Ragna Rage is a strong candidate for BEYBUKU's stamina lineage pages because it gives the Custom Line another late-game testing benchmark."
+    },
+    "Unicorn Delta PO3-60GU": {
+      description:
+        "Unicorn Delta PO3-60GU is a Custom Line balance release that extends the unicorn motif into modular tuning. Gear Unite supports mixed movement, making it a good page for explaining how balance builds should still choose one main plan.",
+      strengths: ["Flexible Custom Line balance identity", "Unicorn motif is easy to recognize", "Gear Unite supports mixed matchup testing"],
+      weaknesses: ["Can become unfocused if tuned too broadly", "May lose to dedicated attack or stamina specialists", "Needs careful part comparison"],
+      combos: ["Unicorn Delta PO3-60GU", "Unicorn Delta 9-60P", "Unicorn Delta 5-70O"],
+      animeInfo: "Unicorn Delta helps connect the earlier Unicorn Sting identity to the Custom Line era. It is useful for future collection notes on motif evolution and modular Blade systems."
+    },
+    "Tyranno Beat 3-60N": {
+      description:
+        "Tyranno Beat 3-60N is an attack-leaning dinosaur-themed release that should be tested for heavy contact and low-height pressure. The stock Needle Bit is unusual for pure attack, so it is worth comparing against Rush, Flat, and Point.",
+      strengths: ["Strong dinosaur attack identity", "Low 3-60 setup is easy to test", "Interesting stock contrast between attack Blade and defensive Bit"],
+      weaknesses: ["Needle can reduce attack pressure", "May require Bit swaps to unlock aggression", "Can be outspun if it fails to create meaningful contact"],
+      combos: ["Tyranno Beat 3-60N", "Tyranno Beat 3-60R", "Tyranno Beat 9-60P"],
+      animeInfo: "Tyranno Beat is a useful BEYBUKU entry for dinosaur motif coverage and for explaining why stock combos are not always the only way to judge a Blade."
+    },
+    "Brachio Whip OW5-70Nr": {
+      description:
+        "Brachio Whip OW5-70Nr is a stamina-oriented dinosaur release with a long sweeping motif and Narrow Bit testing angle. It should be compared with other stamina options to see whether its movement is safer or too passive.",
+      strengths: ["Distinct long-neck dinosaur identity", "Stamina-focused testing role", "Good future page for CX release tracking"],
+      weaknesses: ["Limited immediate pressure", "Needs protection from hard attack", "Narrow-style behavior requires careful testing"],
+      combos: ["Brachio Whip OW5-70Nr", "Brachio Whip 9-60B", "Brachio Whip 5-70DB"],
+      animeInfo: "Brachio Whip is useful for future BEYBUKU dinosaur-theme coverage alongside Tyranno Beat and other prehistoric-inspired releases."
     }
   };
 
