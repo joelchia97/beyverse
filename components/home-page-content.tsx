@@ -141,7 +141,7 @@ export async function HomePageContent({ copy }: { copy: HomeCopy }) {
         <h2 className="text-2xl font-black">{copy.latestBeyblades}</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           {beyblades.slice(0, 6).map((item) => (
-            <EntityCard key={item.id} href={`/beyblades/${item.slug}`} title={item.name} badge={item.type} meta={item.series} description={item.description} visualType={item.type} />
+            <EntityCard key={item.id} href={`/beyblades/${item.slug}`} title={item.name} badge={item.type} meta={item.series} description={item.description} visualType={item.type} imageUrl={item.image_url} />
           ))}
         </div>
       </section>
