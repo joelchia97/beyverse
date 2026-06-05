@@ -20,7 +20,10 @@ export function AdBanner({ slot, label, className, format = "auto" }: AdBannerPr
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const clientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
-  const adsEnabled = process.env.NEXT_PUBLIC_ENABLE_ADS === "true" && process.env.NODE_ENV === "production";
+  const slotId = adSlots[slot];
+  const hasRealClientId = Boolean(clientId && !clientId.includes("XXXXXXXXXXXXXXXX"));
+  const hasRealSlotId = Boolean(slotId && !slotId.includes("XXXXXXXXXXXXXXXX"));
+  const adsEnabled = process.env.NEXT_PUBLIC_ENABLE_ADS === "true" && process.env.NODE_ENV === "production" && hasRealClientId && hasRealSlotId;
 
   useEffect(() => {
     if (!ref.current) return;
@@ -32,7 +35,7 @@ export function AdBanner({ slot, label, className, format = "auto" }: AdBannerPr
   }, []);
 
   useEffect(() => {
-    if (!adsEnabled || !isVisible || !clientId) return;
+    if (!adsEnabled || !isVisible || !clientId || !slotId) return;
     try {
       window.adsbygoogle = window.adsbygoogle || [];
       window.adsbygoogle.push({});
@@ -50,12 +53,12 @@ export function AdBanner({ slot, label, className, format = "auto" }: AdBannerPr
       )}
       aria-label={label}
     >
-      {adsEnabled && isVisible && clientId ? (
+      {adsEnabled && isVisible && clientId && slotId ? (
         <ins
           className="adsbygoogle block w-full"
           style={{ display: "block" }}
           data-ad-client={clientId}
-          data-ad-slot={slot}
+          data-ad-slot={slotId}
           data-ad-format={format}
           data-full-width-responsive="true"
         />
@@ -65,3 +68,14 @@ export function AdBanner({ slot, label, className, format = "auto" }: AdBannerPr
     </div>
   );
 }
+
+const adSlots: Record<string, string | undefined> = {
+  "homepage-top": process.env.NEXT_PUBLIC_AD_SLOT_HOMEPAGE_TOP,
+  "homepage-middle": process.env.NEXT_PUBLIC_AD_SLOT_HOMEPAGE_MIDDLE,
+  "article-top-ad": process.env.NEXT_PUBLIC_AD_SLOT_ARTICLE_TOP,
+  "article-middle-ad": process.env.NEXT_PUBLIC_AD_SLOT_ARTICLE_MIDDLE,
+  "article-bottom-ad": process.env.NEXT_PUBLIC_AD_SLOT_ARTICLE_BOTTOM,
+  "sidebar-ad": process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR,
+  "beyblade-detail-page-ad": process.env.NEXT_PUBLIC_AD_SLOT_BEYBLADE_DETAIL,
+  "parts-detail-page-ad": process.env.NEXT_PUBLIC_AD_SLOT_PARTS_DETAIL
+};

@@ -68,18 +68,25 @@ Tables included:
 
 ## AdSense Setup
 
-1. Replace `ca-pub-XXXXXXXXXXXXXXXX` in `.env.local`, Vercel, and `public/ads.txt`.
-2. Keep `NEXT_PUBLIC_ENABLE_ADS=false` while applying for approval.
-3. After approval, set `NEXT_PUBLIC_ENABLE_ADS=true` in Vercel production environment variables.
-4. Replace demo ad slot names with real AdSense slot IDs:
-   - Homepage top banner
-   - Homepage middle banner
-   - Article top ad
-   - Article middle ad
-   - Article bottom ad
-   - Sidebar ad
-   - Beyblade detail page ad
-   - Parts detail page ad
+1. In Google AdSense, copy your publisher ID, for example `ca-pub-1234567890123456`.
+2. In Vercel environment variables, set `NEXT_PUBLIC_ADSENSE_CLIENT_ID` to that full `ca-pub-...` value.
+3. Update `public/ads.txt` with the matching `pub-...` value:
+
+```txt
+google.com, pub-1234567890123456, DIRECT, f08c47fec0942fa0
+```
+
+4. Keep `NEXT_PUBLIC_ENABLE_ADS=false` while applying for approval. The site will show clean reserved spaces and will not request broken ads.
+5. After AdSense approval, create ad units in AdSense and set the slot IDs in Vercel:
+   - `NEXT_PUBLIC_AD_SLOT_HOMEPAGE_TOP`
+   - `NEXT_PUBLIC_AD_SLOT_HOMEPAGE_MIDDLE`
+   - `NEXT_PUBLIC_AD_SLOT_ARTICLE_TOP`
+   - `NEXT_PUBLIC_AD_SLOT_ARTICLE_MIDDLE`
+   - `NEXT_PUBLIC_AD_SLOT_ARTICLE_BOTTOM`
+   - `NEXT_PUBLIC_AD_SLOT_SIDEBAR`
+   - `NEXT_PUBLIC_AD_SLOT_BEYBLADE_DETAIL`
+   - `NEXT_PUBLIC_AD_SLOT_PARTS_DETAIL`
+6. Set `NEXT_PUBLIC_ENABLE_ADS=true` only after the publisher ID and the needed slot IDs are real.
 
 The site intentionally uses restrained ad placement because AdSense approval depends on original content, clear navigation, and a good user experience.
 
