@@ -6,6 +6,7 @@ type BeyRecord = {
   series: "Basic Line" | "Unique Line" | "Custom Line" | "X-Over Project" | "Event Release";
   type: Beyblade["type"];
   release: string;
+  weight?: number;
 };
 
 type PartRecord = {
@@ -16,7 +17,7 @@ type PartRecord = {
   role: Beyblade["type"];
 };
 
-const catalogUpdated = "2026-05-27";
+const catalogUpdated = "2026-06-05";
 
 const beyRecords: BeyRecord[] = [
   { code: "BXG-01", name: "Dranzer Spiral 3-80T", series: "X-Over Project", type: "Balance", release: "2023-07-15" },
@@ -42,7 +43,9 @@ const beyRecords: BeyRecord[] = [
   { code: "BX-38", name: "Crimson Garuda 4-70TP", series: "Basic Line", type: "Balance", release: "2024-11-02" },
   { code: "BX-44", name: "Tricera Press M-85BS", series: "Basic Line", type: "Defense", release: "2025-06-28" },
   { code: "BX-45", name: "Samurai Calibur 6-70M", series: "Basic Line", type: "Attack", release: "2025-08-09" },
+  { code: "BX-49", name: "Dran Strike 4-50FF", series: "Basic Line", type: "Attack", release: "2026-05-16" },
   { code: "BX-00", name: "Samurai Steel 5-70GF", series: "Event Release", type: "Attack", release: "2025-06-15" },
+  { code: "BX-00", name: "Storm Spriggan 2-70M", series: "X-Over Project", type: "Balance", release: "2026-03-28", weight: 40.7 },
   { code: "UX-00", name: "Aero Pegasus 3-70A", series: "Unique Line", type: "Attack", release: "2024-07-30" },
   { code: "UX-00", name: "Wyvern Hover 2-80GN", series: "Unique Line", type: "Defense", release: "2025-10-24" },
   { code: "UX-01", name: "Dran Buster 1-60A", series: "Unique Line", type: "Attack", release: "2024-03-30" },
@@ -62,13 +65,19 @@ const beyRecords: BeyRecord[] = [
   { code: "UX-16", name: "Clock Mirage 9-65BS", series: "Unique Line", type: "Balance", release: "2025-10-11" },
   { code: "UX-17", name: "Meteor Dragoon 3-70J", series: "Unique Line", type: "Attack", release: "2025-12-27" },
   { code: "UX-18", name: "Mummy Curse 7-55W", series: "Unique Line", type: "Defense", release: "2025-12-27" },
+  { code: "UX-19", name: "Bullet Griffon H", series: "Unique Line", type: "Balance", release: "2026-04-25" },
   { code: "CX-01", name: "Dran Brave S6-60V", series: "Custom Line", type: "Attack", release: "2025-03-29" },
   { code: "CX-02", name: "Wizard Arc R4-55LO", series: "Custom Line", type: "Stamina", release: "2025-03-29" },
   { code: "CX-03", name: "Perseus Dark B6-80W", series: "Custom Line", type: "Balance", release: "2025-03-29" },
   { code: "CX-07", name: "Pegasus Blast ATr", series: "Custom Line", type: "Attack", release: "2025-07-19" },
   { code: "CX-08", name: "Cerberus Flame W5-80WB", series: "Custom Line", type: "Defense", release: "2025-07-19" },
   { code: "CX-09", name: "Sol Eclipse D5-70TK", series: "Custom Line", type: "Balance", release: "2025-09-27" },
-  { code: "CX-10", name: "Wolf Hunt F0-60DB", series: "Custom Line", type: "Stamina", release: "2025-11-01" }
+  { code: "CX-10", name: "Wolf Hunt F0-60DB", series: "Custom Line", type: "Stamina", release: "2025-11-01" },
+  { code: "CX-12", name: "Phoenix Flare Z9-80WW", series: "Custom Line", type: "Defense", release: "2026-01-24" },
+  { code: "CX-13", name: "Bahamut Blitz BK1-50I", series: "Custom Line", type: "Attack", release: "2026-03-28", weight: 48.1 },
+  { code: "CX-14", name: "Knight Fortress GV8-70UN", series: "Custom Line", type: "Defense", release: "2026-03-28", weight: 47.4 },
+  { code: "CX-15", name: "Ragna Rage FE4-55Y", series: "Custom Line", type: "Stamina", release: "2026-03-28", weight: 47.6 },
+  { code: "CX-18", name: "Brachio Whip OW5-70Nr", series: "Custom Line", type: "Stamina", release: "2026-06-13" }
 ];
 
 const partRecords: PartRecord[] = [
@@ -98,6 +107,8 @@ const partRecords: PartRecord[] = [
   { code: "BX-38", name: "Crimson Garuda", category: "Blade", system: "Basic Line", role: "Balance" },
   { code: "BX-44", name: "Tricera Press", category: "Blade", system: "Basic Line", role: "Defense" },
   { code: "BX-45", name: "Samurai Calibur", category: "Blade", system: "Basic Line", role: "Attack" },
+  { code: "BX-49", name: "Dran Strike", category: "Blade", system: "Basic Line", role: "Attack" },
+  { code: "BX-00", name: "Storm Spriggan", category: "Blade", system: "X-Over Project", role: "Balance" },
   { code: "UX-00", name: "Aero Pegasus", category: "Blade", system: "Unique Line", role: "Attack" },
   { code: "UX-00", name: "Wyvern Hover", category: "Blade", system: "Unique Line", role: "Defense" },
   { code: "UX-01", name: "Dran Buster", category: "Blade", system: "Unique Line", role: "Attack" },
@@ -117,6 +128,7 @@ const partRecords: PartRecord[] = [
   { code: "UX-16", name: "Clock Mirage", category: "Blade", system: "Unique Line", role: "Balance" },
   { code: "UX-17", name: "Meteor Dragoon", category: "Blade", system: "Unique Line", role: "Attack" },
   { code: "UX-18", name: "Mummy Curse", category: "Blade", system: "Unique Line", role: "Defense" },
+  { code: "UX-19", name: "Bullet Griffon", category: "Blade", system: "Unique Line", role: "Balance" },
   { code: "CX-01", name: "Dran Brave", category: "Blade", system: "Custom Line", role: "Attack" },
   { code: "CX-02", name: "Wizard Arc", category: "Blade", system: "Custom Line", role: "Stamina" },
   { code: "CX-03", name: "Perseus Dark", category: "Blade", system: "Custom Line", role: "Balance" },
@@ -124,10 +136,15 @@ const partRecords: PartRecord[] = [
   { code: "CX-08", name: "Cerberus Flame", category: "Blade", system: "Custom Line", role: "Defense" },
   { code: "CX-09", name: "Sol Eclipse", category: "Blade", system: "Custom Line", role: "Balance" },
   { code: "CX-10", name: "Wolf Hunt", category: "Blade", system: "Custom Line", role: "Stamina" },
+  { code: "CX-12", name: "Phoenix Flare", category: "Blade", system: "Custom Line", role: "Defense" },
+  { code: "CX-13", name: "Bahamut Blitz", category: "Blade", system: "Custom Line", role: "Attack" },
+  { code: "CX-14", name: "Knight Fortress", category: "Blade", system: "Custom Line", role: "Defense" },
+  { code: "CX-15", name: "Ragna Rage", category: "Blade", system: "Custom Line", role: "Stamina" },
+  { code: "CX-18", name: "Brachio Whip", category: "Blade", system: "Custom Line", role: "Stamina" },
   ...[
-    "0-60", "0-70", "0-80", "1-60", "1-70", "1-80", "2-60", "2-70", "2-80", "3-60", "3-70", "3-80", "3-85",
+    "0-60", "0-70", "0-80", "1-50", "1-60", "1-70", "1-80", "2-60", "2-70", "2-80", "3-60", "3-70", "3-80", "3-85",
     "4-50", "4-55", "4-60", "4-70", "4-80", "5-60", "5-70", "5-80", "6-60", "6-70", "6-80", "7-55", "7-60",
-    "9-60", "9-65", "9-70", "9-80", "M-85"
+    "8-70", "9-60", "9-65", "9-70", "9-80", "M-85"
   ].map((name): PartRecord => ({ code: "Catalog", name, category: "Ratchet", system: "Basic Line", role: ratchetRole(name) })),
   ...[
     ["F", "Flat", "Attack"], ["T", "Taper", "Balance"], ["B", "Ball", "Stamina"], ["N", "Needle", "Defense"],
@@ -140,7 +157,8 @@ const partRecords: PartRecord[] = [
     ["LR", "Low Rush", "Attack"], ["UN", "Under Needle", "Defense"], ["Z", "Zap", "Attack"], ["J", "Jolt", "Attack"],
     ["UF", "Under Flat", "Attack"], ["V", "Vortex", "Attack"], ["LO", "Low Orb", "Stamina"], ["W", "Wedge", "Balance"],
     ["K", "Kick", "Attack"], ["GR", "Gear Rush", "Attack"], ["Tr", "Turbo", "Attack"], ["WB", "Wall Ball", "Defense"],
-    ["TK", "Trans Kick", "Balance"], ["Op", "Operate", "Balance"]
+    ["TK", "Trans Kick", "Balance"], ["Op", "Operate", "Balance"], ["FF", "Final Flat", "Attack"], ["I", "Ignition", "Attack"],
+    ["WW", "Wave Wide", "Defense"], ["Y", "Yielding", "Stamina"], ["Nr", "Narrow", "Stamina"]
   ].map(([code, name, role]): PartRecord => ({ code, name, category: "Bit", system: "Basic Line", role: role as Beyblade["type"] }))
 ];
 
@@ -153,7 +171,7 @@ export const beyblades: Beyblade[] = beyRecords.map((record, index) => {
     product_code: record.code,
     series: `Beyblade X ${record.series}`,
     type: record.type,
-    weight: estimateBeyWeight(record.type, record.series),
+    weight: record.weight ?? estimateBeyWeight(record.type, record.series),
     release_date: record.release,
     image_url: "/placeholder-bey.svg",
     description: descriptionFor(record.name, record.type, record.series),
