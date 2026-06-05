@@ -5,7 +5,7 @@ import { AdBanner } from "@/components/ads/ad-banner";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { parts } from "@/lib/data";
-import { getPartBySlug, getParts } from "@/lib/content";
+import { getBeyblades, getGuides, getPartBySlug, getParts } from "@/lib/content";
 import { siteConfig } from "@/lib/seo";
 import type { Part } from "@/types/database";
 
@@ -21,11 +21,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!item) return {};
   return {
     title: item.name,
-    description: item.description,
+    description: `${item.name} ${item.category}: ${item.description}`,
+    alternates: {
+      canonical: `${siteConfig.url}/parts/${item.slug}`
+    },
     openGraph: {
       title: `${item.name} - BEYBUKU`,
       description: item.description,
-      url: `${siteConfig.url}/parts/${item.slug}`
+      url: `${siteConfig.url}/parts/${item.slug}`,
+      type: "article"
     }
   };
 }
@@ -34,29 +38,57 @@ export default async function PartDetailPage({ params }: Props) {
   const { slug } = await params;
   const item = await getPartBySlug(slug);
   if (!item) notFound();
-  const allParts = await getParts();
+  const [allParts, allBeyblades, allGuides] = await Promise.all([getParts(), getBeyblades(), getGuides()]);
   const guide = partGuide(item);
   const relatedParts = allParts.filter((candidate) => candidate.slug !== item.slug && candidate.category === item.category).slice(0, 4);
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: item.name,
-    category: `Beyblade X ${item.category}`,
-    description: item.description,
-    url: `${siteConfig.url}/parts/${item.slug}`,
-    brand: { "@type": "Brand", name: "Beyblade X" },
-    weight: {
-      "@type": "QuantitativeValue",
-      value: item.weight,
-      unitText: "g"
+  const relatedBeyblades = allBeyblades
+    .filter((beyblade) => beyblade.recommended_combos.some((combo) => combo.toLowerCase().includes(item.name.toLowerCase().split(" ")[0])))
+    .slice(0, 4);
+  const relatedGuides = allGuides.filter((candidate) => candidate.category.toLowerCase().includes("combo") || candidate.category.toLowerCase().includes("guide")).slice(0, 3);
+  const pageUrl = `${siteConfig.url}/parts/${item.slug}`;
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: item.name,
+      category: `Beyblade X ${item.category}`,
+      description: item.description,
+      url: pageUrl,
+      brand: { "@type": "Brand", name: "Beyblade X" },
+      weight: {
+        "@type": "QuantitativeValue",
+        value: item.weight,
+        unitText: "g"
+      },
+      additionalProperty: [
+        { "@type": "PropertyValue", name: "Attack", value: item.attack },
+        { "@type": "PropertyValue", name: "Defense", value: item.defense },
+        { "@type": "PropertyValue", name: "Stamina", value: item.stamina },
+        { "@type": "PropertyValue", name: "Balance", value: item.balance },
+        { "@type": "PropertyValue", name: "Recommended Uses", value: item.recommended_uses.join(", ") }
+      ]
     },
-    additionalProperty: [
-      { "@type": "PropertyValue", name: "Attack", value: item.attack },
-      { "@type": "PropertyValue", name: "Defense", value: item.defense },
-      { "@type": "PropertyValue", name: "Stamina", value: item.stamina },
-      { "@type": "PropertyValue", name: "Balance", value: item.balance }
-    ]
-  };
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+        { "@type": "ListItem", position: 2, name: "Parts Database", item: `${siteConfig.url}/parts` },
+        { "@type": "ListItem", position: 3, name: item.name, item: pageUrl }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: `Related Beyblade X parts for ${item.name}`,
+      itemListElement: relatedParts.map((related, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: `${siteConfig.url}/parts/${related.slug}`,
+        name: related.name
+      }))
+    }
+  ];
 
   return (
     <main className="container-page py-10">
@@ -85,6 +117,22 @@ export default async function PartDetailPage({ params }: Props) {
             <InfoList title="Works Well With" items={guide.worksWellWith} />
           </div>
           <InfoList title="Risk Notes" items={guide.riskNotes} className="mt-4" />
+          {relatedBeyblades.length > 0 ? (
+            <Card className="mt-4">
+              <CardHeader><CardTitle>Beyblades Using Similar Parts</CardTitle></CardHeader>
+              <CardContent className="grid gap-3 md:grid-cols-2">
+                {relatedBeyblades.map((beyblade) => (
+                  <Link key={beyblade.slug} href={`/beyblades/${beyblade.slug}`} className="rounded-md border bg-slate-950/45 p-3 transition hover:border-sky-400/60 hover:bg-slate-900">
+                    <div className="flex items-start justify-between gap-3">
+                      <p className="font-semibold text-white">{beyblade.name}</p>
+                      <Badge>{beyblade.product_code || beyblade.type}</Badge>
+                    </div>
+                    <p className="mt-1 text-sm text-slate-400">{beyblade.type} / {beyblade.weight}g</p>
+                  </Link>
+                ))}
+              </CardContent>
+            </Card>
+          ) : null}
           <Card className="mt-4">
             <CardHeader><CardTitle>Related Parts</CardTitle></CardHeader>
             <CardContent className="grid gap-3 md:grid-cols-2">
@@ -99,6 +147,7 @@ export default async function PartDetailPage({ params }: Props) {
               ))}
             </CardContent>
           </Card>
+          <RelatedGuides guides={relatedGuides} />
         </article>
         <aside>
           <AdBanner slot="sidebar-ad" label="Sidebar ad" className="sticky top-24" />
@@ -186,4 +235,25 @@ function partGuide(item: Part) {
     worksWellWith: [...categoryGuides.worksWellWith, ...item.recommended_uses].slice(0, 5),
     riskNotes: [...categoryGuides.riskNotes, ...item.disadvantages].slice(0, 5)
   };
+}
+
+function RelatedGuides({ guides }: { guides: { slug: string; title: string; excerpt: string; category: string }[] }) {
+  if (guides.length === 0) return null;
+
+  return (
+    <Card className="mt-4">
+      <CardHeader><CardTitle>Related Strategy Guides</CardTitle></CardHeader>
+      <CardContent className="grid gap-3">
+        {guides.map((guide) => (
+          <Link key={guide.slug} href={`/guides/${guide.slug}`} className="rounded-md border bg-slate-950/45 p-3 transition hover:border-sky-400/60 hover:bg-slate-900">
+            <div className="flex items-start justify-between gap-3">
+              <p className="font-semibold text-white">{guide.title}</p>
+              <Badge>{guide.category}</Badge>
+            </div>
+            <p className="mt-1 text-sm text-slate-400">{guide.excerpt}</p>
+          </Link>
+        ))}
+      </CardContent>
+    </Card>
+  );
 }

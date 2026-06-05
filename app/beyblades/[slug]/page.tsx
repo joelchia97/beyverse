@@ -6,7 +6,7 @@ import { BeybladeVisual } from "@/components/beyblade-visual";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { beyblades } from "@/lib/data";
-import { getBeybladeBySlug, getBeyblades } from "@/lib/content";
+import { getBeybladeBySlug, getBeyblades, getGuides, getParts } from "@/lib/content";
 import { siteConfig } from "@/lib/seo";
 import type { Beyblade } from "@/types/database";
 
@@ -22,11 +22,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!item) return {};
   return {
     title: item.name,
-    description: item.description,
+    description: `${item.name}${item.product_code ? ` (${item.product_code})` : ""}: ${item.description}`,
+    alternates: {
+      canonical: `${siteConfig.url}/beyblades/${item.slug}`
+    },
     openGraph: {
       title: `${item.name} - BEYBUKU`,
       description: item.description,
-      url: `${siteConfig.url}/beyblades/${item.slug}`
+      url: `${siteConfig.url}/beyblades/${item.slug}`,
+      type: "article"
     }
   };
 }
@@ -36,29 +40,61 @@ export default async function BeybladeDetailPage({ params }: Props) {
   const item = await getBeybladeBySlug(slug);
   if (!item) notFound();
   const guide = beybladeGuide(item);
-  const allBeyblades = await getBeyblades();
+  const [allBeyblades, allParts, allGuides] = await Promise.all([getBeyblades(), getParts(), getGuides()]);
   const relatedBeyblades = allBeyblades
     .filter((candidate) => candidate.slug !== item.slug && (candidate.type === item.type || candidate.series === item.series))
     .slice(0, 4);
+  const relatedParts = allParts
+    .filter((part) => item.recommended_combos.some((combo) => combo.toLowerCase().includes(part.name.toLowerCase().split(" ")[0])))
+    .slice(0, 4);
+  const relatedGuides = allGuides.filter((candidate) => candidate.category.toLowerCase().includes("combo") || candidate.category.toLowerCase().includes("strategy")).slice(0, 3);
 
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: item.name,
-    brand: { "@type": "Brand", name: "Beyblade X" },
-    category: item.type,
-    sku: item.product_code,
-    releaseDate: item.release_date,
-    headline: item.name,
-    identifier: item.product_code,
-    description: item.description,
-    url: `${siteConfig.url}/beyblades/${item.slug}`,
-    weight: {
-      "@type": "QuantitativeValue",
-      value: item.weight,
-      unitText: "g"
+  const pageUrl = `${siteConfig.url}/beyblades/${item.slug}`;
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: item.name,
+      brand: { "@type": "Brand", name: "Beyblade X" },
+      category: `Beyblade X ${item.type} Type`,
+      sku: item.product_code,
+      releaseDate: item.release_date,
+      headline: item.name,
+      identifier: item.product_code,
+      description: item.description,
+      url: pageUrl,
+      weight: {
+        "@type": "QuantitativeValue",
+        value: item.weight,
+        unitText: "g"
+      },
+      additionalProperty: [
+        { "@type": "PropertyValue", name: "Series", value: item.series },
+        { "@type": "PropertyValue", name: "Battle Type", value: item.type },
+        { "@type": "PropertyValue", name: "Recommended Combos", value: item.recommended_combos.join(", ") }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+        { "@type": "ListItem", position: 2, name: "Beyblade Database", item: `${siteConfig.url}/beyblades` },
+        { "@type": "ListItem", position: 3, name: item.name, item: pageUrl }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: `Related Beyblade X entries for ${item.name}`,
+      itemListElement: relatedBeyblades.map((related, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: `${siteConfig.url}/beyblades/${related.slug}`,
+        name: related.name
+      }))
     }
-  };
+  ];
 
   return (
     <main className="container-page py-10">
@@ -100,6 +136,22 @@ export default async function BeybladeDetailPage({ params }: Props) {
           </Card>
           <InfoList title="Recommended Combos" items={item.recommended_combos} className="mt-4" />
           <Card className="mt-4"><CardHeader><CardTitle>Anime Info</CardTitle></CardHeader><CardContent><p className="leading-7 text-slate-300">{item.anime_info}</p></CardContent></Card>
+          {relatedParts.length > 0 ? (
+            <Card className="mt-4">
+              <CardHeader><CardTitle>Parts to Compare</CardTitle></CardHeader>
+              <CardContent className="grid gap-3 md:grid-cols-2">
+                {relatedParts.map((part) => (
+                  <Link key={part.slug} href={`/parts/${part.slug}`} className="rounded-md border bg-slate-950/45 p-3 transition hover:border-sky-400/60 hover:bg-slate-900">
+                    <div className="flex items-start justify-between gap-3">
+                      <p className="font-semibold text-white">{part.name}</p>
+                      <Badge>{part.category}</Badge>
+                    </div>
+                    <p className="mt-1 text-sm text-slate-400">A{part.attack} / D{part.defense} / S{part.stamina} / B{part.balance}</p>
+                  </Link>
+                ))}
+              </CardContent>
+            </Card>
+          ) : null}
           <Card className="mt-4">
             <CardHeader><CardTitle>Related Beyblades</CardTitle></CardHeader>
             <CardContent className="grid gap-3 md:grid-cols-2">
@@ -114,6 +166,7 @@ export default async function BeybladeDetailPage({ params }: Props) {
               ))}
             </CardContent>
           </Card>
+          <RelatedGuides guides={relatedGuides} />
         </article>
         <aside>
           <AdBanner slot="sidebar-ad" label="Sidebar ad" className="sticky top-24" />
@@ -260,6 +313,27 @@ function InfoList({ title, items, className }: { title: string; items: string[];
         <ul className="grid gap-2 text-sm text-slate-300">
           {items.map((item) => <li key={item}>- {item}</li>)}
         </ul>
+      </CardContent>
+    </Card>
+  );
+}
+
+function RelatedGuides({ guides }: { guides: { slug: string; title: string; excerpt: string; category: string }[] }) {
+  if (guides.length === 0) return null;
+
+  return (
+    <Card className="mt-4">
+      <CardHeader><CardTitle>Related Strategy Guides</CardTitle></CardHeader>
+      <CardContent className="grid gap-3">
+        {guides.map((guide) => (
+          <Link key={guide.slug} href={`/guides/${guide.slug}`} className="rounded-md border bg-slate-950/45 p-3 transition hover:border-sky-400/60 hover:bg-slate-900">
+            <div className="flex items-start justify-between gap-3">
+              <p className="font-semibold text-white">{guide.title}</p>
+              <Badge>{guide.category}</Badge>
+            </div>
+            <p className="mt-1 text-sm text-slate-400">{guide.excerpt}</p>
+          </Link>
+        ))}
       </CardContent>
     </Card>
   );

@@ -22,6 +22,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: guide.title,
     description: guide.excerpt,
+    alternates: {
+      canonical: `${siteConfig.url}/guides/${guide.slug}`
+    },
     openGraph: {
       title: `${guide.title} - BEYBUKU`,
       description: guide.excerpt,
@@ -36,20 +39,55 @@ export default async function GuidePage({ params }: Props) {
   const guide = await getGuideBySlug(slug);
   if (!guide) notFound();
   const allGuides = await getGuides();
-  const relatedGuides = allGuides.filter((item) => item.slug !== guide.slug).slice(0, 3);
+  const relatedGuides = allGuides
+    .filter((item) => item.slug !== guide.slug)
+    .sort((a, b) => Number(b.category === guide.category) - Number(a.category === guide.category))
+    .slice(0, 3);
   const paragraphs = guide.content.split("\n\n").filter(Boolean);
   const keyTakeaways = buildKeyTakeaways(guide, paragraphs);
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: guide.title,
-    description: guide.excerpt,
-    datePublished: guide.published_at,
-    dateModified: guide.published_at,
-    author: { "@type": "Organization", name: "BEYBUKU" },
-    publisher: { "@type": "Organization", name: "BEYBUKU" },
-    mainEntityOfPage: `${siteConfig.url}/guides/${guide.slug}`
-  };
+  const pageUrl = `${siteConfig.url}/guides/${guide.slug}`;
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: guide.title,
+      description: guide.excerpt,
+      articleSection: guide.category,
+      datePublished: guide.published_at,
+      dateModified: guide.published_at,
+      wordCount: guide.content.split(/\s+/).filter(Boolean).length,
+      author: { "@type": "Organization", name: "BEYBUKU", url: siteConfig.url },
+      publisher: {
+        "@type": "Organization",
+        name: "BEYBUKU",
+        logo: {
+          "@type": "ImageObject",
+          url: `${siteConfig.url}/logo.png`
+        }
+      },
+      mainEntityOfPage: pageUrl
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+        { "@type": "ListItem", position: 2, name: "Strategy Guides", item: `${siteConfig.url}/guides` },
+        { "@type": "ListItem", position: 3, name: guide.title, item: pageUrl }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: `Related BEYBUKU guides for ${guide.title}`,
+      itemListElement: relatedGuides.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: `${siteConfig.url}/guides/${item.slug}`,
+        name: item.title
+      }))
+    }
+  ];
 
   return (
     <main className="container-page grid gap-8 py-10 lg:grid-cols-[1fr_300px]">
