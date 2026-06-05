@@ -108,7 +108,7 @@ export default async function BeybladeDetailPage({ params }: Props) {
           </div>
           <h1 className="mt-4 text-4xl font-black text-white md:text-6xl">{item.name}</h1>
           <p className="mt-4 text-lg leading-8 text-slate-300">{item.description}</p>
-          <BeybladeVisual name={item.name} type={item.type} className="mt-6" />
+          <BeybladeVisual name={item.name} type={item.type} imageUrl={item.image_url} className="mt-6" />
           <AdBanner slot="beyblade-detail-page-ad" label="Beyblade detail page ad" />
           <QuickFacts item={item} />
           <Card className="mt-6">

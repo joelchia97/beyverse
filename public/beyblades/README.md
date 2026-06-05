@@ -1,13 +1,17 @@
-# Beyblade Images
+# BEYBUKU Beyblade Images
 
-Place your own Beyblade photos in this folder.
+This folder stores BEYBUKU's Beyblade image assets.
+
+Current assets are original, fan-safe 2D SVG visuals generated for encyclopedia use. They are not official product photos and are not intended to copy Takara Tomy, Hasbro, or licensed collaboration artwork exactly.
+
+Later, you can replace individual SVG files with your own photos or hand-made artwork if you own the rights.
 
 Recommended naming:
 
 ```text
-dran-sword-3-60f.webp
-phoenix-wing-9-60gf.webp
-wizard-rod-5-70db.webp
+dran-sword-3-60f.svg
+phoenix-wing-9-60gf.svg
+wizard-rod-5-70db.svg
 ```
 
 Use the same slug as the Beyblade page URL.
@@ -21,12 +25,12 @@ Example:
 Image path:
 
 ```text
-/beyblades/dran-sword-3-60f.webp
+/beyblades/dran-sword-3-60f.svg
 ```
 
 Photo tips:
 
-- Use your own photos when possible.
+- Use your own photos when possible if replacing these generated assets.
 - Shoot on a clean background.
 - Use landscape or square crop.
 - Export as `.webp` for faster loading.

@@ -64,6 +64,7 @@ export default async function BeybladeDatabasePage() {
                     meta={`${cleanSeries(item.series)} / ${item.type} / ${item.weight}g`}
                     description={item.description}
                     visualType={item.type}
+                    imageUrl={item.image_url}
                     details={[
                       `Parts combo: ${item.name}`,
                       `Best use: ${bestUseCase(item.type)}`,

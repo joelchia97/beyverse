@@ -11,13 +11,14 @@ type EntityCardProps = {
   meta?: string;
   details?: string[];
   visualType?: "Attack" | "Defense" | "Stamina" | "Balance";
+  imageUrl?: string;
 };
 
-export function EntityCard({ href, title, badge, description, meta, details, visualType }: EntityCardProps) {
+export function EntityCard({ href, title, badge, description, meta, details, visualType, imageUrl }: EntityCardProps) {
   return (
     <Link href={href}>
       <Card className="h-full transition hover:border-sky-400/60 hover:bg-slate-900">
-        {visualType ? <BeybladeVisual name={title} type={visualType} className="m-4 mb-0" /> : null}
+        {visualType ? <BeybladeVisual name={title} type={visualType} imageUrl={imageUrl} className="m-4 mb-0" /> : null}
         <CardHeader>
           <div className="flex items-start justify-between gap-3">
             <CardTitle>{title}</CardTitle>

@@ -294,7 +294,7 @@ export const beyblades: Beyblade[] = beyRecords.map((record, index) => {
     type: record.type,
     weight: record.weight ?? estimateBeyWeight(record.type, record.series),
     release_date: record.release,
-    image_url: "/placeholder-bey.svg",
+    image_url: `/beyblades/${slugify(record.name)}.svg`,
     description: profile?.description ?? descriptionFor(record.name, record.type, record.series),
     strengths: profile?.strengths ?? strengthsFor(record.type),
     weaknesses: profile?.weaknesses ?? weaknessesFor(record.type),
