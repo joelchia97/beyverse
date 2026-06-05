@@ -20,7 +20,20 @@ export default async function BeybladeDatabasePage() {
         <div className="space-y-10">
           <div className="grid gap-4 md:grid-cols-2">
             {beyblades.map((item) => (
-              <EntityCard key={item.id} href={`/beyblades/${item.slug}`} title={item.name} badge={item.product_code || item.type} meta={`${item.series} / ${item.type} / ${item.weight}g`} description={item.description} visualType={item.type} />
+              <EntityCard
+                key={item.id}
+                href={`/beyblades/${item.slug}`}
+                title={item.name}
+                badge={item.product_code || item.type}
+                meta={`${item.series} / ${item.type} / ${item.weight}g`}
+                description={item.description}
+                visualType={item.type}
+                details={[
+                  `Parts combo: ${item.name}`,
+                  `Best use: ${bestUseCase(item.type)}`,
+                  `Beginner ${beginnerRating(item.type)}/5 / Competitive ${competitiveRating(item)}/5`
+                ]}
+              />
             ))}
           </div>
           <section aria-labelledby="catalog-table-title" className="space-y-4">
@@ -66,4 +79,25 @@ export default async function BeybladeDatabasePage() {
       </section>
     </main>
   );
+}
+
+function bestUseCase(type: string) {
+  return {
+    Attack: "early knockout pressure",
+    Defense: "survive contact and counter overextension",
+    Stamina: "spin-finish testing and late-game control",
+    Balance: "mixed matchup tuning"
+  }[type] ?? "general testing";
+}
+
+function beginnerRating(type: string) {
+  return { Attack: 3, Defense: 4, Stamina: 5, Balance: 4 }[type] ?? 3;
+}
+
+function competitiveRating(item: { name: string; type: string; series: string }) {
+  const name = item.name.toLowerCase();
+  if (["phoenix wing", "wizard rod", "impact drake", "silver wolf", "dran buster", "cobalt dragoon"].some((key) => name.includes(key))) return 5;
+  if (["shark edge", "unicorn sting", "knight mail", "bahamut blitz", "dran strike"].some((key) => name.includes(key))) return 4;
+  if (item.series.includes("Event Release")) return 2;
+  return item.type === "Balance" ? 3 : 4;
 }

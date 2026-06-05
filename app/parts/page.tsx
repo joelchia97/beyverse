@@ -20,7 +20,19 @@ export default async function PartsDatabasePage() {
         <div className="space-y-10">
           <div className="grid gap-4 md:grid-cols-2">
             {parts.map((item) => (
-              <EntityCard key={item.id} href={`/parts/${item.slug}`} title={item.name} badge={item.category} meta={`${item.weight}g`} description={item.description} />
+              <EntityCard
+                key={item.id}
+                href={`/parts/${item.slug}`}
+                title={item.name}
+                badge={item.category}
+                meta={`${item.weight}g / A${item.attack} D${item.defense} S${item.stamina} C${item.balance}`}
+                description={item.description}
+                details={[
+                  `Function: ${partFunction(item.category)}`,
+                  `Best use: ${item.recommended_uses[0]}`,
+                  `Beginner ${beginnerValue(item.category)}/5 / Competitive ${competitiveValue(item)}/5`
+                ]}
+              />
             ))}
           </div>
           <section aria-labelledby="parts-table-title" className="space-y-4">
@@ -70,4 +82,23 @@ export default async function PartsDatabasePage() {
       </section>
     </main>
   );
+}
+
+function partFunction(category: string) {
+  return {
+    Blade: "main contact shape and battle identity",
+    Ratchet: "height, exposure, and burst-risk tuning",
+    Bit: "movement, stamina behavior, and launch feel"
+  }[category] ?? "combo tuning";
+}
+
+function beginnerValue(category: string) {
+  return { Blade: 4, Ratchet: 3, Bit: 5 }[category] ?? 3;
+}
+
+function competitiveValue(item: { category: string; attack: number; defense: number; stamina: number; balance: number }) {
+  const highest = Math.max(item.attack, item.defense, item.stamina, item.balance);
+  if (highest >= 9) return 5;
+  if (highest >= 7) return 4;
+  return item.category === "Ratchet" ? 3 : 2;
 }

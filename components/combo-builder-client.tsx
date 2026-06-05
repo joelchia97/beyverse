@@ -28,6 +28,8 @@ export function ComboBuilderClient({ parts }: { parts: Part[] }) {
         defense: 0,
         stamina: 0,
         balance: 0,
+        control: 0,
+        burstResistance: 0,
         overall: 0,
         style: "Select parts",
         playStyle: "Choose a Blade, Ratchet, and Bit to start the analysis.",
@@ -36,6 +38,8 @@ export function ComboBuilderClient({ parts }: { parts: Part[] }) {
         strengths: ["Add three parts to generate matchup notes."],
         risks: ["Scores are unavailable until the combo is complete."],
         testingNotes: ["Start with one Blade, one Ratchet, and one Bit."],
+        launchStyle: "Select all three parts first.",
+        similarCombos: ["Phoenix Wing 9-60GF", "Wizard Rod 5-70DB", "Unicorn Sting 5-60GP"],
       };
     }
 
@@ -44,6 +48,8 @@ export function ComboBuilderClient({ parts }: { parts: Part[] }) {
     const defense = average("defense");
     const stamina = average("stamina");
     const balance = average("balance");
+    const control = Math.round((defense + stamina + balance) / 3);
+    const burstResistance = Math.max(1, Math.min(10, Math.round((defense * 0.55 + balance * 0.3 + stamina * 0.15) - ratchetRisk(ratchet?.name ?? ""))));
     const overall = Math.round(((attack * 1.1 + defense + stamina + balance) / 4.1) * 10);
     const rankedScores = Object.entries({ Attack: attack, Defense: defense, Stamina: stamina, Balance: balance }).sort((a, b) => b[1] - a[1]);
     const top = rankedScores[0][0];
@@ -54,6 +60,8 @@ export function ComboBuilderClient({ parts }: { parts: Part[] }) {
       defense,
       stamina,
       balance,
+      control,
+      burstResistance,
       overall,
       style: `${top} focused`,
       playStyle: getPlayStyle(top),
@@ -62,6 +70,8 @@ export function ComboBuilderClient({ parts }: { parts: Part[] }) {
       strengths: getStrengths(top, attack, defense, stamina, balance),
       risks: getRisks(lowest),
       testingNotes: getTestingNotes(top, lowest),
+      launchStyle: getLaunchStyle(top),
+      similarCombos: getSimilarCombos(top, blade?.name ?? ""),
     };
   }, [bladeId, bitId, parts, ratchetId]);
 
@@ -102,6 +112,8 @@ export function ComboBuilderClient({ parts }: { parts: Part[] }) {
           <Score label="Attack Score" value={result.attack} />
           <Score label="Defense Score" value={result.defense} />
           <Score label="Stamina Score" value={result.stamina} />
+          <Score label="Control Score" value={result.control} />
+          <Score label="Burst Resistance" value={result.burstResistance} />
           <Score label="Balance Score" value={result.balance} />
           <div className="rounded-md border border-sky-500/20 bg-slate-950/60 p-5 md:col-span-2">
             <div className="flex flex-wrap items-end justify-between gap-4">
@@ -117,7 +129,9 @@ export function ComboBuilderClient({ parts }: { parts: Part[] }) {
           </div>
 
           <AnalysisList title="Main Strengths" items={result.strengths} />
-          <AnalysisList title="Possible Risks" items={result.risks} />
+          <AnalysisList title="Weakness Warnings" items={result.risks} />
+          <AnalysisList title="Recommended Launch Style" items={[result.launchStyle]} />
+          <AnalysisList title="Similar Recommended Combos" items={result.similarCombos} />
           <div className="rounded-md border bg-slate-950/60 p-5 md:col-span-2">
             <p className="text-sm font-bold text-slate-200">Testing Notes</p>
             <ul className="mt-3 grid gap-2 text-sm leading-6 text-slate-400 md:grid-cols-3">
@@ -220,4 +234,34 @@ function getTestingNotes(top: string, lowest: string) {
     `Track losses caused by ${lowest.toLowerCase()} weakness.`,
     "Adjust launch angle before changing parts.",
   ];
+}
+
+function ratchetRisk(name: string) {
+  if (name.includes("-50") || name.includes("-55")) return 0.2;
+  if (name.includes("-60")) return 0.4;
+  if (name.includes("-80") || name.includes("-85")) return 1.2;
+  return 0.7;
+}
+
+function getLaunchStyle(top: string) {
+  const styles: Record<string, string> = {
+    Attack: "Use a controlled angled launch. Aim for early rail contact without throwing the combo straight into a self-KO path.",
+    Defense: "Use a calmer center-leaning launch. Let the opponent spend energy first, then win through survival and control.",
+    Stamina: "Use a smooth, level launch with minimal tilt. Your goal is to settle safely and protect spin into the late game.",
+    Balance: "Start with medium power and adjust angle by matchup. Keep enough movement to pressure without losing the backup plan.",
+  };
+
+  return styles[top] ?? "Use medium power first, then adjust angle after several test rounds.";
+}
+
+function getSimilarCombos(top: string, bladeName: string) {
+  const blade = bladeName || "Selected Blade";
+  const combos: Record<string, string[]> = {
+    Attack: [`${blade} 9-60R`, "Phoenix Wing 9-60GF", "Dran Buster 1-60LF"],
+    Defense: [`${blade} 5-70HN`, "Knight Mail 3-85BS", "Knight Shield 9-70N"],
+    Stamina: [`${blade} 9-60B`, "Wizard Rod 5-70DB", "Silver Wolf 3-80FB"],
+    Balance: [`${blade} 5-60P`, "Unicorn Sting 5-60GP", "Hells Scythe 4-60T"],
+  };
+
+  return combos[top] ?? ["Phoenix Wing 9-60GF", "Wizard Rod 5-70DB", "Unicorn Sting 5-60GP"];
 }

@@ -204,6 +204,7 @@ const partRecords: PartRecord[] = [
 
 export const beyblades: Beyblade[] = beyRecords.map((record, index) => {
   const parts = splitCombo(record.name);
+  const profile = beyProfileFor(record.name);
   return {
     id: `${record.code.toLowerCase()}-${index}`,
     slug: slugify(record.name),
@@ -214,10 +215,10 @@ export const beyblades: Beyblade[] = beyRecords.map((record, index) => {
     weight: record.weight ?? estimateBeyWeight(record.type, record.series),
     release_date: record.release,
     image_url: "/placeholder-bey.svg",
-    description: descriptionFor(record.name, record.type, record.series),
-    strengths: strengthsFor(record.type),
-    weaknesses: weaknessesFor(record.type),
-    recommended_combos: [record.name, `${parts.blade} 9-60 ${parts.bit}`, `${parts.blade} 5-70 ${parts.bit}`],
+    description: profile?.description ?? descriptionFor(record.name, record.type, record.series),
+    strengths: profile?.strengths ?? strengthsFor(record.type),
+    weaknesses: profile?.weaknesses ?? weaknessesFor(record.type),
+    recommended_combos: profile?.combos ?? [record.name, `${parts.blade} 9-60 ${parts.bit}`, `${parts.blade} 5-70 ${parts.bit}`],
     anime_info: `${record.name} belongs to the Beyblade X era. Add episode-specific lore and character usage notes as your content library grows. Catalog checked ${catalogUpdated}.`
   };
 });
@@ -228,10 +229,10 @@ export const parts: Part[] = dedupeParts(partRecords).map((record, index) => ({
   name: record.name,
   category: record.category,
   weight: estimatePartWeight(record),
-  description: `${record.name} is a Beyblade X ${record.category.toLowerCase()} from the ${record.system}. It is listed for combo building, search, and encyclopedia coverage.`,
-  advantages: strengthsFor(record.role),
-  disadvantages: weaknessesFor(record.role),
-  recommended_uses: [record.role, `${record.role} testing`, "Tournament notebook"],
+  description: partDescriptionFor(record),
+  advantages: partAdvantagesFor(record),
+  disadvantages: partDisadvantagesFor(record),
+  recommended_uses: partUsesFor(record),
   ...scoresFor(record.role, record.category)
 }));
 
@@ -384,6 +385,46 @@ export const guides: Guide[] = [
     excerpt: "A BEYBUKU watchlist for 2026 Beyblade X releases, random boosters, and parts worth tracking.",
     content:
       "The 2026 Beyblade X release cycle is moving quickly, so BEYBUKU tracks new releases as a living catalog instead of treating the database as finished. The biggest recent updates are the Expand Blade era, new CX random boosters, and limited or event versions that can be easy to miss.\n\nFor Basic Line coverage, BX-48 Random Booster Vol. 9 is important because it brings several usable stock combinations back into circulation, including Cobalt Dragoon 9-80F, Shark Edge 4-70E, Mammoth Tusk 7-60S, Hells Scythe 3-85GB, and Dran Buster 2-80Q. These are not all brand-new blades, but they matter for collectors and testing because they introduce different Ratchet and Bit pairings.\n\nBX-49 Dran Strike 4-50FF is one of the most important new attack-focused entries to track. Its low Ratchet and fast Bit profile make it useful for players who want repeated pressure, but it still needs launch testing to separate real knockout reliability from raw speed.\n\nFor Unique Line coverage, UX-19 Bullet Griffon H adds a newer balance-style direction, while the Samurai Saber 5-60K Samurai Blue version is notable as a themed event release. Event releases should be marked clearly because they may be harder to find and may not represent the same buying priority as standard boosters or starters.\n\nFor Custom Line coverage, CX-17 Random Booster Vol. 10 is especially important because Unicorn Delta PO3-60GU is a prize Beyblade with a mode-oriented balance identity. CX-18 Brachio Whip OW5-70Nr is also worth watching because it adds another stamina-focused Custom Line entry after the early 2026 CX wave of Bahamut Blitz, Knight Fortress, and Ragna Rage.\n\nThe best way to use this watchlist is to treat it as a research queue. Add the product to the database first, then improve each page with original testing notes, launch behavior, matchup observations, and real images when available. That approach keeps BEYBUKU useful for readers while staying safer for SEO and AdSense than copying descriptions from another wiki.",
+    published_at: "2026-06-05"
+  },
+  {
+    id: "guide-best-beginner-combos",
+    slug: "best-beyblade-x-combos-for-beginners",
+    title: "Best Beyblade X Combos for Beginners",
+    category: "Beginner Strategy",
+    excerpt: "Simple Beyblade X combo ideas that teach attack, defense, stamina, and balance without overwhelming new players.",
+    content:
+      "The best beginner combo is not always the strongest combo on a tier list. A beginner combo should teach one clear idea: attack pressure, defense survival, stamina control, or balance tuning.\n\nFor attack, start with Dran Sword 3-60F, Phoenix Wing 9-60GF, or Dran Buster 1-60A. These combos make it easy to see whether your launch creates early contact. If the Beyblade circles without touching the opponent, adjust angle before changing parts.\n\nFor stamina, Wizard Rod 5-70DB, Wizard Arrow 4-80B, and Silver Wolf 3-80FB are useful learning points. They teach smooth launches, safe positioning, and the importance of surviving the first attack.\n\nFor defense, Knight Shield 3-80N and Knight Mail 3-85BS help players learn why survival is only half the plan. A defensive combo still needs enough stability or stamina to win after it absorbs contact.\n\nFor balance, Unicorn Sting 5-60GP and Hells Scythe 4-60T are good starting points. They are useful because new players can feel how one part change shifts movement, safety, and pressure. Test one change at a time and write down how each combo wins.",
+    published_at: "2026-06-05"
+  },
+  {
+    id: "guide-best-defense-combos",
+    slug: "best-beyblade-x-defense-combos",
+    title: "Best Beyblade X Defense Combos",
+    category: "Combo Guide",
+    excerpt: "Build defense combos around survival, low recoil, and enough late-game value to finish battles.",
+    content:
+      "Defense combos are built to survive pressure, but survival alone is not enough. A good Beyblade X defense combo must absorb attack, avoid unstable movement, and still have a way to win by spin, counter contact, or opponent stamina loss.\n\nKnight Shield 5-60N is a simple teaching setup for center control. It helps players understand why calmer movement can punish attack combos that overcommit. Knight Mail 3-85BS is more experimental because the tall setup can create defensive presence, but it also needs testing for destabilization risk.\n\nDefense players should test against real attack benchmarks such as Phoenix Wing, Shark Edge, Dran Buster, and Impact Drake. Do not only count wins. Record how often the defense combo survives the first ten seconds, how often it gets knocked out, and whether it loses by spin finish afterward.\n\nUseful defense tuning usually starts with the Ratchet. Lower Ratchets can reduce exposure, while taller Ratchets may help specific contact plans but increase tilt risk. Bits such as Needle, High Needle, Hexa, Orb, and Bound Spike should be compared one at a time.\n\nThe best defense combo for your local meta is the one that survives common attack patterns without becoming helpless in the late game.",
+    published_at: "2026-06-05"
+  },
+  {
+    id: "guide-build-strong-combo",
+    slug: "how-to-build-a-strong-beyblade-x-combo",
+    title: "How to Build a Strong Beyblade X Combo",
+    category: "Combo Theory",
+    excerpt: "A practical step-by-step framework for choosing Blade, Ratchet, Bit, and launch plan.",
+    content:
+      "A strong Beyblade X combo starts with a win condition, not with random strong parts. Before choosing pieces, decide how the combo should win: knockout, spin finish, defense survival, or flexible balance pressure.\n\nChoose the Blade first because it creates the main contact identity. Attack Blades need ways to reach the opponent early. Stamina Blades need stability and low wasted movement. Defense Blades need to survive contact. Balance Blades need one primary plan plus a useful backup.\n\nChoose the Ratchet second. Low Ratchets often reduce exposure and support compact setups. Mid Ratchets can add clearance. Tall Ratchets can support experiments but should be tested carefully because they may increase destabilization risk.\n\nChoose the Bit last because it decides movement. Flat-style Bits create pressure but burn stamina. Ball-style Bits preserve spin but may lack threat. Point, Taper, Orb, Needle, and Gear-style Bits can shift the combo between safety and movement.\n\nAfter building, test one matchup at a time. Run repeated rounds, record win type, and change only one part between tests. That is how a random build becomes a real combo.",
+    published_at: "2026-06-05"
+  },
+  {
+    id: "guide-best-tier-list-2026",
+    slug: "best-beyblade-x-tier-list-2026",
+    title: "Best Beyblade X Tier List 2026",
+    category: "Meta Guide",
+    excerpt: "How to use the 2026 Beyblade X tier list as a testing map instead of a fixed rulebook.",
+    content:
+      "A Beyblade X tier list is most useful when it explains what to test next. S-tier entries are not unbeatable; they are strong references that other combos should be tested against.\n\nFor 2026 testing, Phoenix Wing 9-60GF, Wizard Rod 5-70DB, and Impact Drake 9-60LR are important benchmarks because they represent powerful attack, stamina, and pressure plans. Silver Wolf 3-80FB, Unicorn Sting 5-60GP, and Shark Edge 3-60LF are strong follow-up references for stamina control, balance flexibility, and risky attack.\n\nUse the tier list together with matchup notes. If a combo loses to Phoenix Wing but beats Wizard Rod, that tells you something different than a combo that beats attack but loses every stamina mirror. The win condition matters more than the letter grade alone.\n\nLocal rules, stadium condition, launch style, and part wear can change results. Treat BEYBUKU rankings as fan-made testing references, then confirm them with your own repeated sets.",
     published_at: "2026-06-05"
   },
   {
@@ -574,4 +615,132 @@ function descriptionFor(name: string, type: Beyblade["type"], series: BeyRecord[
       "It gives players a flexible platform for tuning. The strongest setups usually choose one primary plan, then use secondary traits to cover bad matchups."
   }[type];
   return `${intro} ${detail}`;
+}
+
+function beyProfileFor(name: string) {
+  const profiles: Record<string, { description: string; strengths: string[]; weaknesses: string[]; combos: string[] }> = {
+    "Dran Sword 3-60F": {
+      description:
+        "Dran Sword 3-60F is the cleanest entry point for learning Beyblade X attack. It teaches early contact, rail timing, and why a fast combo still needs control before it becomes reliable.",
+      strengths: ["Clear attack identity for beginners", "Good teaching tool for Xtreme line timing", "Simple stock combo that is easy to test"],
+      weaknesses: ["Can waste stamina if it circles without contact", "Self-KO risk rises with poor launch angle", "Needs repeated practice against defense"],
+      combos: ["Dran Sword 3-60F", "Dran Sword 5-60R", "Dran Sword 9-60P"]
+    },
+    "Hells Scythe 4-60T": {
+      description:
+        "Hells Scythe 4-60T is a balanced early BX release that helps players understand controlled movement. It is not only about raw power; its value is in learning stable attack-balance patterns.",
+      strengths: ["Flexible movement with Taper", "Useful for learning balance tuning", "Can pressure without becoming too wild"],
+      weaknesses: ["May lack finishing power into heavy stamina", "Can feel average if the combo plan is unclear", "Needs part swaps to stay relevant"],
+      combos: ["Hells Scythe 4-60T", "Hells Scythe 5-60P", "Hells Scythe 9-60O"]
+    },
+    "Wizard Arrow 4-80B": {
+      description:
+        "Wizard Arrow 4-80B is a stamina-focused starter that shows how calm movement and spin preservation work. It is useful for new players who want a safe benchmark before testing stronger releases.",
+      strengths: ["Easy stamina behavior to understand", "Good beginner benchmark", "Works well for quiet launch practice"],
+      weaknesses: ["Tall 4-80 setup can expose it to destabilization", "Low knockout pressure", "Can struggle into modern heavy attack"],
+      combos: ["Wizard Arrow 4-80B", "Wizard Arrow 9-60B", "Wizard Arrow 5-70O"]
+    },
+    "Knight Shield 3-80N": {
+      description:
+        "Knight Shield 3-80N is a defense-oriented release built around survival and center control. It is most useful when players want to study how defensive Bits absorb pressure.",
+      strengths: ["Stable defensive learning tool", "Good against reckless attack launches", "Needle helps demonstrate center-hold behavior"],
+      weaknesses: ["Can be outspun by efficient stamina", "Tall height can become a target", "Limited pressure if the opponent avoids contact"],
+      combos: ["Knight Shield 3-80N", "Knight Shield 5-60N", "Knight Shield 9-70O"]
+    },
+    "Shark Edge 3-60LF": {
+      description:
+        "Shark Edge 3-60LF is a high-risk attack release with dangerous smash potential. It rewards sharp launch control and punishes players who confuse speed with accuracy.",
+      strengths: ["High burst of early pressure", "Strong knockout threat when contact is clean", "Useful for learning risk management"],
+      weaknesses: ["Recoil and self-KO risk are real", "Missed attacks lose stamina quickly", "Can be inconsistent for new players"],
+      combos: ["Shark Edge 3-60LF", "Shark Edge 5-60R", "Shark Edge 1-60F"]
+    },
+    "Phoenix Wing 9-60GF": {
+      description:
+        "Phoenix Wing 9-60GF is a heavy attack benchmark that can threaten quick knockouts while still demanding discipline. It is one of the most important BEYBUKU attack references.",
+      strengths: ["Heavy contact and strong knockout pressure", "Excellent attack testing benchmark", "Can disrupt stamina before it stabilizes"],
+      weaknesses: ["Gear Flat can overspend stamina", "Needs clean contact windows", "Can lose reliability if launched too wildly"],
+      combos: ["Phoenix Wing 9-60GF", "Phoenix Wing 5-60R", "Phoenix Wing 9-60P"]
+    },
+    "Wizard Rod 5-70DB": {
+      description:
+        "Wizard Rod 5-70DB is a major stamina benchmark for Beyblade X testing. Players use it to check whether attack and balance ideas can beat efficient late-game spin.",
+      strengths: ["Excellent stamina reference", "Strong late-game identity", "Useful for testing attack reliability"],
+      weaknesses: ["Must survive heavy opening contact", "Can be targeted by destabilizing attack", "Needs careful launch consistency"],
+      combos: ["Wizard Rod 5-70DB", "Wizard Rod 9-60B", "Wizard Rod 9-80DB"]
+    },
+    "Dran Buster 1-60A": {
+      description:
+        "Dran Buster 1-60A is a compact Unique Line attack release built for fast finishes. It is best studied through first-contact timing and self-KO tracking.",
+      strengths: ["Direct attack identity", "Low setup supports early contact", "Good for aggressive testing"],
+      weaknesses: ["Can feel unforgiving", "Needs launch control more than raw power", "May need safer Bits for consistency"],
+      combos: ["Dran Buster 1-60A", "Dran Buster 1-60LF", "Dran Buster 5-60P"]
+    },
+    "Cobalt Dragoon 2-60C": {
+      description:
+        "Cobalt Dragoon 2-60C is an attack release that rewards players who can manage movement and contact timing. It is valuable for studying left-spin style pressure and matchup disruption.",
+      strengths: ["Dangerous disruption potential", "Good attack testing piece", "Rewards practiced launch angles"],
+      weaknesses: ["Can be inconsistent without matchup knowledge", "Needs controlled movement to avoid wasted stamina", "May require several Bit tests"],
+      combos: ["Cobalt Dragoon 2-60C", "Cobalt Dragoon 9-60R", "Cobalt Dragoon 5-60P"]
+    },
+    "Silver Wolf 3-80FB": {
+      description:
+        "Silver Wolf 3-80FB is a stamina and control reference with strong late-game potential. It is useful when comparing calm Bits and taller setup behavior.",
+      strengths: ["Strong spin-preservation identity", "Good control profile", "Useful stamina benchmark"],
+      weaknesses: ["Needs protection from early attack", "Tall setup can be destabilized", "May lose if it cannot settle cleanly"],
+      combos: ["Silver Wolf 3-80FB", "Silver Wolf 9-60FB", "Silver Wolf 5-70O"]
+    },
+    "Impact Drake 9-60LR": {
+      description:
+        "Impact Drake 9-60LR is an aggressive Unique Line attack release with serious pressure potential. It should be tested by separating clean knockouts from unstable wins.",
+      strengths: ["Powerful attack pressure", "Strong benchmark for aggressive combos", "Can punish slow-start stamina"],
+      weaknesses: ["Control matters heavily", "Can overshoot if launched poorly", "Needs repeated testing into defense"],
+      combos: ["Impact Drake 9-60LR", "Impact Drake 5-60R", "Impact Drake 3-60P"]
+    },
+    "Unicorn Sting 5-60GP": {
+      description:
+        "Unicorn Sting 5-60GP is a flexible balance release that works well for players learning how movement changes between pressure and stability.",
+      strengths: ["Adaptable balance role", "Good for mixed local metas", "Point-style behavior supports flexible testing"],
+      weaknesses: ["Can be outclassed by specialists", "Needs a clear primary plan", "May feel average if tuned too safely"],
+      combos: ["Unicorn Sting 5-60GP", "Unicorn Sting 9-60P", "Unicorn Sting 5-70O"]
+    },
+    "Knight Mail 3-85BS": {
+      description:
+        "Knight Mail 3-85BS is a defense-leaning Unique Line release for players who want to test survival, impact control, and high setup risk.",
+      strengths: ["Good defensive testing profile", "Useful into contact-heavy opponents", "Helps study tall combo behavior"],
+      weaknesses: ["Tall height can become unstable", "May lose late against efficient stamina", "Needs matchup-specific tuning"],
+      combos: ["Knight Mail 3-85BS", "Knight Mail 9-60HN", "Knight Mail 5-70N"]
+    }
+  };
+
+  return profiles[name];
+}
+
+function partDescriptionFor(record: PartRecord) {
+  if (record.category === "Blade") {
+    return `${record.name} is a ${record.role.toLowerCase()}-leaning Beyblade X Blade from the ${record.system}. Use it as the main identity of a combo: the Blade decides contact shape, recoil behavior, and the primary matchup plan.`;
+  }
+
+  if (record.category === "Ratchet") {
+    return `${record.name} is a Beyblade X Ratchet used to tune height, exposure, and contact angle. Test it by changing only the Ratchet so you can see whether the setup becomes safer, faster, or easier to destabilize.`;
+  }
+
+  return `${record.name} is a Beyblade X Bit that controls movement, stamina behavior, and Xtreme line timing. The Bit often changes a combo more visibly than any other part, so test launch style together with the part choice.`;
+}
+
+function partAdvantagesFor(record: PartRecord) {
+  if (record.category === "Ratchet") return ["Tunes combo height", "Changes contact angle", "Useful for one-change testing"];
+  if (record.category === "Bit") return ["Defines movement pattern", "Changes launch feel", "Can shift the whole play style"];
+  return strengthsFor(record.role);
+}
+
+function partDisadvantagesFor(record: PartRecord) {
+  if (record.category === "Ratchet") return ["Wrong height can expose the combo", "May increase scrape or tilt risk", "Needs matchup testing"];
+  if (record.category === "Bit") return ["Can waste stamina if mismatched", "Requires launch practice", "May change results by stadium condition"];
+  return weaknessesFor(record.role);
+}
+
+function partUsesFor(record: PartRecord) {
+  if (record.category === "Blade") return [`${record.role} combo core`, "Matchup testing", "Best paired with a matching Ratchet and Bit plan"];
+  if (record.category === "Ratchet") return ["Height tuning", "Burst-risk comparison", "Testing one setup change at a time"];
+  return ["Movement tuning", "Launch style practice", `${record.role} play style experiments`];
 }

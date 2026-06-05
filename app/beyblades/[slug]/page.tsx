@@ -40,6 +40,7 @@ export default async function BeybladeDetailPage({ params }: Props) {
   const item = await getBeybladeBySlug(slug);
   if (!item) notFound();
   const guide = beybladeGuide(item);
+  const partsBreakdown = splitStockCombo(item.name);
   const [allBeyblades, allParts, allGuides] = await Promise.all([getBeyblades(), getParts(), getGuides()]);
   const relatedBeyblades = allBeyblades
     .filter((candidate) => candidate.slug !== item.slug && (candidate.type === item.type || candidate.series === item.series))
@@ -110,6 +111,14 @@ export default async function BeybladeDetailPage({ params }: Props) {
           <BeybladeVisual name={item.name} type={item.type} className="mt-6" />
           <AdBanner slot="beyblade-detail-page-ad" label="Beyblade detail page ad" />
           <QuickFacts item={item} />
+          <Card className="mt-6">
+            <CardHeader><CardTitle>Parts Breakdown</CardTitle></CardHeader>
+            <CardContent className="grid gap-3 md:grid-cols-3">
+              <PartBreakdown label="Blade" value={partsBreakdown.blade} text={partBreakdownText("Blade", item.type)} />
+              <PartBreakdown label="Ratchet" value={partsBreakdown.ratchet} text={partBreakdownText("Ratchet", item.type)} />
+              <PartBreakdown label="Bit" value={partsBreakdown.bit} text={partBreakdownText("Bit", item.type)} />
+            </CardContent>
+          </Card>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             <InfoList title="Strengths" items={item.strengths} />
             <InfoList title="Weaknesses" items={item.weaknesses} />
@@ -133,6 +142,12 @@ export default async function BeybladeDetailPage({ params }: Props) {
           <Card className="mt-4">
             <CardHeader><CardTitle>Beginner Advice</CardTitle></CardHeader>
             <CardContent><p className="leading-7 text-slate-300">{guide.beginnerAdvice}</p></CardContent>
+          </Card>
+          <Card className="mt-4">
+            <CardHeader><CardTitle>Competitive Notes</CardTitle></CardHeader>
+            <CardContent>
+              <p className="leading-7 text-slate-300">{guide.competitiveNotes}</p>
+            </CardContent>
           </Card>
           <InfoList title="Recommended Combos" items={item.recommended_combos} className="mt-4" />
           <Card className="mt-4"><CardHeader><CardTitle>Anime Info</CardTitle></CardHeader><CardContent><p className="leading-7 text-slate-300">{item.anime_info}</p></CardContent></Card>
@@ -205,7 +220,9 @@ function beybladeGuide(item: {
       riskMatchups: ["Heavy defense builds", "Low-recoil counter attackers", "Mirrors with cleaner launch control"],
       testingMethod: ["Run ten battles against a stamina benchmark", "Record first-contact timing", "Separate clean knockouts from self-KO wins"],
       beginnerAdvice:
-        "Do not judge an attack Beyblade after only a few battles. Attack results can swing heavily based on launch angle, contact timing, and stadium movement. Test at least ten rounds before deciding whether the combo is weak."
+        "Do not judge an attack Beyblade after only a few battles. Attack results can swing heavily based on launch angle, contact timing, and stadium movement. Test at least ten rounds before deciding whether the combo is weak.",
+      competitiveNotes:
+        "For competitive testing, separate true knockout pressure from lucky stadium exits. A strong attack entry should create repeatable first contact, not only occasional dramatic wins."
     },
     Defense: {
       howToUse: [
@@ -226,7 +243,9 @@ function beybladeGuide(item: {
       riskMatchups: ["Efficient stamina builds", "Balanced combos with late-game plans", "Attack builds with repeated clean contact"],
       testingMethod: ["Test survival through the first ten seconds", "Track whether losses are spin finishes or knockouts", "Compare one Bit swap at a time"],
       beginnerAdvice:
-        "Defense is not only about being heavy. A good defensive combo must avoid bad movement, reduce recoil, and still have a way to win after the opponent's attack fails."
+        "Defense is not only about being heavy. A good defensive combo must avoid bad movement, reduce recoil, and still have a way to win after the opponent's attack fails.",
+      competitiveNotes:
+        "In serious testing, defense entries need proof against both heavy attack and efficient stamina. Surviving the opening is useful only if the combo still has a path to win."
     },
     Stamina: {
       howToUse: [
@@ -247,7 +266,9 @@ function beybladeGuide(item: {
       riskMatchups: ["Heavy attack openings", "Destabilizing balance combos", "Aggressive low-height builds"],
       testingMethod: ["Record survival rate after ten seconds", "Track spin finish wins separately", "Compare stability before chasing maximum stamina"],
       beginnerAdvice:
-        "When testing stamina, record how often the combo survives the first ten seconds. A combo with amazing spin time still needs enough stability to reach the late game."
+        "When testing stamina, record how often the combo survives the first ten seconds. A combo with amazing spin time still needs enough stability to reach the late game.",
+      competitiveNotes:
+        "For competitive notes, track whether losses come from knockout, destabilization, or late spin finish. Each loss type points to a different part change."
     },
     Balance: {
       howToUse: [
@@ -268,7 +289,9 @@ function beybladeGuide(item: {
       riskMatchups: ["Extreme attack specialists", "Pure stamina benchmarks", "Builds that outclass its primary plan"],
       testingMethod: ["Choose one main win condition before testing", "Compare one aggressive setup and one safe setup", "Record how the combo wins, not only whether it wins"],
       beginnerAdvice:
-        "Balance combos are easy to overbuild. Choose one main way to win, then let the secondary traits support that plan instead of fighting against it."
+        "Balance combos are easy to overbuild. Choose one main way to win, then let the secondary traits support that plan instead of fighting against it.",
+      competitiveNotes:
+        "Balance entries should be tested against specialist attack and specialist stamina. If the combo cannot explain its main win condition, it will often feel average in real sets."
     }
   }[item.type];
 
@@ -276,6 +299,34 @@ function beybladeGuide(item: {
     ...content,
     bestCombos: Array.from(new Set([...item.recommended_combos, ...content.bestCombos])).slice(0, 6)
   };
+}
+
+function splitStockCombo(name: string) {
+  const tokens = name.split(" ");
+  const combo = tokens.at(-1) ?? "";
+  const match = combo.match(/^([A-Za-z0-9]+(?:-[A-Za-z0-9]+)?)([A-Za-z]+)$/);
+
+  return {
+    blade: tokens.slice(0, -1).join(" "),
+    ratchet: match?.[1] ?? "Stock Ratchet",
+    bit: match?.[2] ?? combo
+  };
+}
+
+function partBreakdownText(label: "Blade" | "Ratchet" | "Bit", type: Beyblade["type"]) {
+  if (label === "Blade") return `The Blade carries the ${type.toLowerCase()} identity and decides how the combo makes contact.`;
+  if (label === "Ratchet") return "The Ratchet tunes height, exposure, and how easily the combo gets destabilized.";
+  return "The Bit decides movement, stamina behavior, launch feel, and Xtreme line timing.";
+}
+
+function PartBreakdown({ label, value, text }: { label: string; value: string; text: string }) {
+  return (
+    <div className="rounded-md border bg-slate-950/45 p-4">
+      <p className="text-xs font-semibold uppercase text-slate-500">{label}</p>
+      <p className="mt-2 text-lg font-black text-white">{value}</p>
+      <p className="mt-2 text-sm leading-6 text-slate-400">{text}</p>
+    </div>
+  );
 }
 
 function QuickFacts({ item }: { item: Beyblade }) {

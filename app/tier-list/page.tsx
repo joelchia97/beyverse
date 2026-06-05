@@ -7,8 +7,8 @@ import { getTierList } from "@/lib/content";
 import { siteConfig } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Meta Tier List",
-  description: "Current BEYBUKU demo meta tier list for Beyblade X combos and testing priorities."
+  title: "Best Beyblade X Tier List 2026",
+  description: "Fan-made BEYBUKU Beyblade X tier list for 2026 combo testing, matchup planning, and competitive preparation."
 };
 
 export default async function TierListPage() {
@@ -33,8 +33,13 @@ export default async function TierListPage() {
   return (
     <main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-      <PageHeading title="Meta Tier List" description="A fan-made Beyblade X testing reference for combo strength, matchup planning, and tournament prep." />
+      <PageHeading title="Best Beyblade X Tier List 2026" description="A fan-made Beyblade X testing reference for combo strength, matchup planning, and tournament prep." />
       <section className="container-page grid gap-6">
+        <Card className="border-amber-400/30 bg-amber-400/10">
+          <CardContent className="pt-6 text-sm leading-7 text-amber-100">
+            Tier rankings are fan-made testing references and may change depending on local rules, stadium conditions, launch style, part condition, and future releases.
+          </CardContent>
+        </Card>
         <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
           <Card>
             <CardHeader><CardTitle>How to Read This Tier List</CardTitle></CardHeader>
