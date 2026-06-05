@@ -87,7 +87,20 @@ const beyRecords: BeyRecord[] = [
   { code: "CX-17", name: "Unicorn Delta PO1-80GR", series: "Custom Line", type: "Balance", release: "2026-04-25" },
   { code: "CX-17", name: "Tyranno Beat 3-60N", series: "Custom Line", type: "Attack", release: "2026-04-25" },
   { code: "CX-17", name: "Crimson Garuda 7-80GU", series: "Custom Line", type: "Balance", release: "2026-04-25" },
-  { code: "CX-18", name: "Brachio Whip OW5-70Nr", series: "Custom Line", type: "Stamina", release: "2026-06-13" }
+  { code: "CX-18", name: "Brachio Whip OW5-70Nr", series: "Custom Line", type: "Stamina", release: "2026-06-13" },
+  { code: "BX-00", name: "Iron Man 4-80B", series: "Event Release", type: "Stamina", release: "2025-04-26", weight: 41.1 },
+  { code: "BX-00", name: "Thanos 4-60P", series: "Event Release", type: "Balance", release: "2025-04-26" },
+  { code: "BX-00", name: "Spider-Man 3-60F", series: "Event Release", type: "Stamina", release: "2025-04-26", weight: 33.2 },
+  { code: "BX-00", name: "Venom 3-80N", series: "Event Release", type: "Defense", release: "2025-04-26" },
+  { code: "BX-00", name: "Luke Skywalker 4-80B", series: "Event Release", type: "Stamina", release: "2025-04-26" },
+  { code: "BX-00", name: "Darth Vader 4-60P", series: "Event Release", type: "Balance", release: "2025-04-26" },
+  { code: "BX-00", name: "The Mandalorian 3-60F", series: "Event Release", type: "Attack", release: "2025-04-26", weight: 38.9 },
+  { code: "BX-00", name: "Moff Gideon 3-80N", series: "Event Release", type: "Defense", release: "2025-04-26" },
+  { code: "BX-00", name: "Optimus Prime 4-60P", series: "Event Release", type: "Balance", release: "2025-05-17" },
+  { code: "BX-00", name: "Megatron 4-80B", series: "Event Release", type: "Stamina", release: "2025-05-17" },
+  { code: "CX-00", name: "Eva Arc B0-70E", series: "Event Release", type: "Defense", release: "2026-08-29" },
+  { code: "CX-00", name: "Eva Brave A1-70V", series: "Event Release", type: "Attack", release: "2026-08-29" },
+  { code: "CX-00", name: "Eva Brush T2-70A", series: "Event Release", type: "Balance", release: "2026-08-29" }
 ];
 
 const partRecords: PartRecord[] = [
@@ -154,10 +167,23 @@ const partRecords: PartRecord[] = [
   { code: "CX-17", name: "Unicorn Delta", category: "Blade", system: "Custom Line", role: "Balance" },
   { code: "CX-17", name: "Tyranno Beat", category: "Blade", system: "Custom Line", role: "Attack" },
   { code: "CX-18", name: "Brachio Whip", category: "Blade", system: "Custom Line", role: "Stamina" },
+  { code: "BX-00", name: "Iron Man", category: "Blade", system: "Basic Line", role: "Stamina" },
+  { code: "BX-00", name: "Thanos", category: "Blade", system: "Basic Line", role: "Balance" },
+  { code: "BX-00", name: "Spider-Man", category: "Blade", system: "Basic Line", role: "Stamina" },
+  { code: "BX-00", name: "Venom", category: "Blade", system: "Basic Line", role: "Defense" },
+  { code: "BX-00", name: "Luke Skywalker", category: "Blade", system: "Basic Line", role: "Stamina" },
+  { code: "BX-00", name: "Darth Vader", category: "Blade", system: "Basic Line", role: "Balance" },
+  { code: "BX-00", name: "The Mandalorian", category: "Blade", system: "Basic Line", role: "Attack" },
+  { code: "BX-00", name: "Moff Gideon", category: "Blade", system: "Basic Line", role: "Defense" },
+  { code: "BX-00", name: "Optimus Prime", category: "Blade", system: "Basic Line", role: "Balance" },
+  { code: "BX-00", name: "Megatron", category: "Blade", system: "Basic Line", role: "Stamina" },
+  { code: "CX-00", name: "Eva Arc", category: "Blade", system: "Custom Line", role: "Defense" },
+  { code: "CX-00", name: "Eva Brave", category: "Blade", system: "Custom Line", role: "Attack" },
+  { code: "CX-00", name: "Eva Brush", category: "Blade", system: "Custom Line", role: "Balance" },
   ...[
     "0-60", "0-70", "0-80", "1-50", "1-60", "1-70", "1-80", "2-60", "2-70", "2-80", "3-60", "3-70", "3-80", "3-85",
     "4-50", "4-55", "4-60", "4-70", "4-80", "5-60", "5-70", "5-80", "6-60", "6-70", "6-80", "7-55", "7-60",
-    "8-70", "9-60", "9-65", "9-70", "9-80", "M-85"
+    "8-70", "9-60", "9-65", "9-70", "9-80", "B0-70", "A1-70", "T2-70", "M-85"
   ].map((name): PartRecord => ({ code: "Catalog", name, category: "Ratchet", system: "Basic Line", role: ratchetRole(name) })),
   ...[
     ["F", "Flat", "Attack"], ["T", "Taper", "Balance"], ["B", "Ball", "Stamina"], ["N", "Needle", "Defense"],
@@ -358,6 +384,16 @@ export const guides: Guide[] = [
     excerpt: "A BEYBUKU watchlist for 2026 Beyblade X releases, random boosters, and parts worth tracking.",
     content:
       "The 2026 Beyblade X release cycle is moving quickly, so BEYBUKU tracks new releases as a living catalog instead of treating the database as finished. The biggest recent updates are the Expand Blade era, new CX random boosters, and limited or event versions that can be easy to miss.\n\nFor Basic Line coverage, BX-48 Random Booster Vol. 9 is important because it brings several usable stock combinations back into circulation, including Cobalt Dragoon 9-80F, Shark Edge 4-70E, Mammoth Tusk 7-60S, Hells Scythe 3-85GB, and Dran Buster 2-80Q. These are not all brand-new blades, but they matter for collectors and testing because they introduce different Ratchet and Bit pairings.\n\nBX-49 Dran Strike 4-50FF is one of the most important new attack-focused entries to track. Its low Ratchet and fast Bit profile make it useful for players who want repeated pressure, but it still needs launch testing to separate real knockout reliability from raw speed.\n\nFor Unique Line coverage, UX-19 Bullet Griffon H adds a newer balance-style direction, while the Samurai Saber 5-60K Samurai Blue version is notable as a themed event release. Event releases should be marked clearly because they may be harder to find and may not represent the same buying priority as standard boosters or starters.\n\nFor Custom Line coverage, CX-17 Random Booster Vol. 10 is especially important because Unicorn Delta PO3-60GU is a prize Beyblade with a mode-oriented balance identity. CX-18 Brachio Whip OW5-70Nr is also worth watching because it adds another stamina-focused Custom Line entry after the early 2026 CX wave of Bahamut Blitz, Knight Fortress, and Ragna Rage.\n\nThe best way to use this watchlist is to treat it as a research queue. Add the product to the database first, then improve each page with original testing notes, launch behavior, matchup observations, and real images when available. That approach keeps BEYBUKU useful for readers while staying safer for SEO and AdSense than copying descriptions from another wiki.",
+    published_at: "2026-06-05"
+  },
+  {
+    id: "guide-collaboration-releases",
+    slug: "beyblade-x-collaboration-releases-guide",
+    title: "Beyblade X Collaboration Releases Guide",
+    category: "Release Watch",
+    excerpt: "Track Beyblade X collaboration releases from Marvel, Star Wars, Transformers, Evangelion, and other licensed collections.",
+    content:
+      "Collaboration releases are special Beyblade X products based on licensed characters, franchises, or event themes. They are important for collectors because they can disappear faster than normal boosters, but players should still judge them by the actual Blade, Ratchet, and Bit combination.\n\nThe Marvel collaboration includes Iron Man 4-80B, Thanos 4-60P, Spider-Man 3-60F, and Venom 3-80N. These releases are best treated as collector-friendly event entries first, then tested like any other stock combo after you confirm the parts and condition.\n\nThe Star Wars collaboration includes Luke Skywalker 4-80B, Darth Vader 4-60P, The Mandalorian 3-60F, and Moff Gideon 3-80N. For BEYBUKU, these pages are useful because many fans search by character name instead of part name, so each collaboration entry needs clean names, codes, and simple role labels.\n\nThe Transformers collaboration includes Optimus Prime 4-60P and Megatron 4-80B. These are useful to separate from regular competitive releases because a collector may care about character theme, packaging, and availability more than tournament priority.\n\nThe Evangelion collaboration is an upcoming CX event set with Eva Arc B0-70E, Eva Brave A1-70V, and Eva Brush T2-70A. Because these are Custom Line style entries, BEYBUKU marks their parts separately so future updates can add more detailed testing notes once the set is available.\n\nThe safest way to cover collaboration Beyblades is to avoid copying promotional text and instead build original notes: release date, stock combo, likely play role, collector status, and whether the parts are new, recolored, or borrowed from another release. That keeps the page useful for readers and healthier for long-term search quality.",
     published_at: "2026-06-05"
   },
   {
