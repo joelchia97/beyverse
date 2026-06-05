@@ -82,7 +82,7 @@ function normalizeBeyblades(items: Beyblade[]) {
     product_code: item.product_code || extractProductCode(item.series),
     series: cleanSeries(item.series),
     weight: Number(item.weight || 0),
-    image_url: item.image_url || "/placeholder-bey.svg",
+    image_url: resolveBeybladeImage(item),
     strengths: item.strengths || [],
     weaknesses: item.weaknesses || [],
     recommended_combos: item.recommended_combos || [],
@@ -99,10 +99,24 @@ function mergeBeyblades(fallback: Beyblade[], remote: Beyblade[]) {
       ...base,
       ...item,
       product_code: item.product_code || base?.product_code || "",
-      series: cleanSeries(item.series || base?.series || "")
+      series: cleanSeries(item.series || base?.series || ""),
+      image_url: resolveMergedBeybladeImage(item, base)
     });
   });
   return Array.from(map.values());
+}
+
+function resolveBeybladeImage(item: Pick<Beyblade, "slug" | "image_url">) {
+  if (!item.image_url || item.image_url.includes("placeholder")) return `/beyblades/${item.slug}.svg`;
+  return item.image_url;
+}
+
+function resolveMergedBeybladeImage(item: Beyblade, base?: Beyblade) {
+  if (!item.image_url || item.image_url.includes("placeholder")) {
+    return base?.image_url && !base.image_url.includes("placeholder") ? base.image_url : `/beyblades/${item.slug}.svg`;
+  }
+
+  return item.image_url;
 }
 
 function extractProductCode(series: string) {
