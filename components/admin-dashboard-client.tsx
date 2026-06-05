@@ -110,6 +110,7 @@ function Manager({ resource, rows, onRowsChange }: { resource: Resource; rows: A
   const router = useRouter();
   const fields = fieldGroups[resource];
   const emptyDraft = useMemo(() => Object.fromEntries(fields.map((field) => [field.name, ""])), [fields]);
+  const quality = useMemo(() => getQualitySummary(resource, rows), [resource, rows]);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [draft, setDraft] = useState<AdminRecord>(emptyDraft);
   const [adminKey, setAdminKey] = useState(() => (typeof window === "undefined" ? "" : sessionStorage.getItem("beybuku_admin_key") ?? ""));
@@ -233,30 +234,174 @@ function Manager({ resource, rows, onRowsChange }: { resource: Resource; rows: A
           <CardTitle>Existing {resourceLabels[resource]}</CardTitle>
         </CardHeader>
         <CardContent className="grid gap-3">
+          <QualitySummary summary={quality} />
           {rows.map((row) => (
+            <RecordCard key={row.id} resource={resource} row={row} isSaving={isSaving} onEdit={edit} onDelete={remove} />
+          ))}
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+function QualitySummary({ summary }: { summary: QualitySummaryResult }) {
+  return (
+    <div className="grid gap-3 rounded-md border border-sky-500/20 bg-slate-950/70 p-4 md:grid-cols-[180px_1fr]">
+      <div>
+        <p className="text-sm text-slate-400">Content Quality</p>
+        <p className="mt-2 text-4xl font-black text-sky-200">{summary.score}%</p>
+        <p className="mt-1 text-xs uppercase tracking-[0.18em] text-slate-500">{summary.readyCount} ready / {summary.total} total</p>
+      </div>
+      <div className="grid gap-2">
+        <p className="font-bold text-white">{summary.issueCount === 0 ? "This section looks ready." : `${summary.issueCount} content gaps found.`}</p>
+        <ul className="grid gap-1 text-sm leading-6 text-slate-400 md:grid-cols-2">
+          {summary.topIssues.map((issue) => (
+            <li key={issue}>{issue}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+function RecordCard({
+  resource,
+  row,
+  isSaving,
+  onEdit,
+  onDelete
+}: {
+  resource: Resource;
+  row: AdminRecord;
+  isSaving: boolean;
+  onEdit: (row: AdminRecord) => void;
+  onDelete: (row: AdminRecord) => void;
+}) {
+  const issues = getQualityIssues(resource, row);
+
+  return (
             <div key={row.id} className="grid gap-3 rounded-md border bg-slate-950/55 p-4">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
                   <p className="font-bold text-white">{row.title || row.name}</p>
                   <p className="mt-1 text-sm text-slate-400">{summaryForResource(resource, row)}</p>
                 </div>
-                <Badge>{resourceLabels[resource]}</Badge>
+                <div className="flex flex-wrap gap-2">
+                  <Badge>{resourceLabels[resource]}</Badge>
+                  <Badge>{issues.length === 0 ? "Ready" : "Needs Work"}</Badge>
+                </div>
               </div>
               <p className="line-clamp-2 text-sm leading-6 text-slate-400">{row.description || row.excerpt || row.notes || row.content}</p>
+              {issues.length > 0 ? (
+                <div className="rounded-md border border-amber-500/20 bg-amber-500/10 p-3">
+                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-amber-200">Improve before publishing</p>
+                  <ul className="mt-2 grid gap-1 text-sm leading-6 text-amber-50/80 md:grid-cols-2">
+                    {issues.map((issue) => (
+                      <li key={issue}>{issue}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
               <div className="flex gap-2">
-                <Button size="sm" variant="outline" onClick={() => edit(row)}>
+                <Button size="sm" variant="outline" onClick={() => onEdit(row)}>
                   Edit
                 </Button>
-                <Button size="sm" variant="secondary" disabled={isSaving} onClick={() => remove(row)}>
+                <Button size="sm" variant="secondary" disabled={isSaving} onClick={() => onDelete(row)}>
                   Delete
                 </Button>
               </div>
             </div>
-          ))}
-        </CardContent>
-      </Card>
-    </div>
   );
+}
+
+type QualitySummaryResult = {
+  total: number;
+  readyCount: number;
+  issueCount: number;
+  score: number;
+  topIssues: string[];
+};
+
+function getQualitySummary(resource: Resource, rows: AdminRecord[]): QualitySummaryResult {
+  const rowIssues = rows.map((row) => getQualityIssues(resource, row));
+  const issueCount = rowIssues.reduce((sum, issues) => sum + issues.length, 0);
+  const readyCount = rowIssues.filter((issues) => issues.length === 0).length;
+  const possibleIssues = rows.length * requiredChecksCount(resource);
+  const score = possibleIssues === 0 ? 100 : Math.max(0, Math.round(((possibleIssues - issueCount) / possibleIssues) * 100));
+  const topIssues = Array.from(new Set(rowIssues.flat())).slice(0, 6);
+
+  return {
+    total: rows.length,
+    readyCount,
+    issueCount,
+    score,
+    topIssues: topIssues.length ? topIssues : ["No major content gaps found."]
+  };
+}
+
+function getQualityIssues(resource: Resource, row: AdminRecord) {
+  if (resource === "beyblades") {
+    return [
+      !row.product_code ? "Add model number." : "",
+      !hasLength(row.description, 120) ? "Expand description to at least 120 characters." : "",
+      !hasList(row.strengths, 2) ? "Add at least 2 strengths." : "",
+      !hasList(row.weaknesses, 2) ? "Add at least 2 weaknesses." : "",
+      !row.image_url || row.image_url.includes("placeholder") ? "Add a real image URL." : "",
+      !hasLength(row.anime_info, 60) ? "Add anime or lore info." : ""
+    ].filter(Boolean);
+  }
+
+  if (resource === "parts") {
+    return [
+      !row.category ? "Choose part category." : "",
+      !hasLength(row.description, 90) ? "Expand description to at least 90 characters." : "",
+      !hasList(row.advantages, 2) ? "Add at least 2 advantages." : "",
+      !hasList(row.disadvantages, 1) ? "Add at least 1 disadvantage." : "",
+      !hasList(row.recommended_uses, 1) ? "Add recommended uses." : "",
+      !hasScores(row) ? "Check all battle scores." : ""
+    ].filter(Boolean);
+  }
+
+  if (resource === "guides") {
+    return [
+      !row.category ? "Add guide category." : "",
+      !hasLength(row.excerpt, 80) ? "Expand excerpt to at least 80 characters." : "",
+      !hasLength(row.content, 600) ? "Write at least 600 characters of original guide content." : "",
+      !row.published_at ? "Add published date." : ""
+    ].filter(Boolean);
+  }
+
+  return [
+    !row.tier ? "Choose tier." : "",
+    !row.format ? "Add format." : "",
+    !hasLength(row.notes, 80) ? "Expand tier notes to at least 80 characters." : ""
+  ].filter(Boolean);
+}
+
+function requiredChecksCount(resource: Resource) {
+  const checks: Record<Resource, number> = {
+    beyblades: 6,
+    parts: 6,
+    guides: 4,
+    tier_lists: 3
+  };
+
+  return checks[resource];
+}
+
+function hasLength(value: string, min: number) {
+  return value.trim().length >= min;
+}
+
+function hasList(value: string, min: number) {
+  return value.split(/\n|,/).map((item) => item.trim()).filter(Boolean).length >= min;
+}
+
+function hasScores(row: AdminRecord) {
+  return ["attack", "defense", "stamina", "balance"].every((key) => {
+    const value = Number(row[key]);
+    return Number.isFinite(value) && value >= 1 && value <= 10;
+  });
 }
 
 function Field({
