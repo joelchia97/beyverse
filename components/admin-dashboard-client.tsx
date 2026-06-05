@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,6 +11,7 @@ import type { Beyblade, Guide, Part, TierListItem } from "@/types/database";
 
 type Resource = "beyblades" | "parts" | "guides" | "tier_lists";
 type AdminRecord = Record<string, string>;
+type AdminField = { name: string; label: string; type?: "textarea" | "date" | "number"; options?: string[] };
 
 const resourceLabels: Record<Resource, string> = {
   beyblades: "Beyblades",
@@ -18,12 +20,12 @@ const resourceLabels: Record<Resource, string> = {
   tier_lists: "Tier List"
 };
 
-const fieldGroups: Record<Resource, { name: string; label: string; type?: "textarea" | "date" | "number" }[]> = {
+const fieldGroups: Record<Resource, AdminField[]> = {
   beyblades: [
     { name: "name", label: "Name" },
     { name: "product_code", label: "Model Number" },
     { name: "series", label: "Series" },
-    { name: "type", label: "Type" },
+    { name: "type", label: "Type", options: ["Attack", "Defense", "Stamina", "Balance"] },
     { name: "weight", label: "Weight", type: "number" },
     { name: "release_date", label: "Release Date", type: "date" },
     { name: "image_url", label: "Image URL" },
@@ -35,7 +37,7 @@ const fieldGroups: Record<Resource, { name: string; label: string; type?: "texta
   ],
   parts: [
     { name: "name", label: "Name" },
-    { name: "category", label: "Category" },
+    { name: "category", label: "Category", options: ["Blade", "Ratchet", "Bit"] },
     { name: "weight", label: "Weight", type: "number" },
     { name: "description", label: "Description", type: "textarea" },
     { name: "advantages", label: "Advantages", type: "textarea" },
@@ -55,7 +57,7 @@ const fieldGroups: Record<Resource, { name: string; label: string; type?: "texta
   ],
   tier_lists: [
     { name: "name", label: "Name" },
-    { name: "tier", label: "Tier" },
+    { name: "tier", label: "Tier", options: ["S", "A", "B", "C"] },
     { name: "format", label: "Format" },
     { name: "notes", label: "Notes", type: "textarea" }
   ]
@@ -105,6 +107,7 @@ export function AdminDashboardClient({
 }
 
 function Manager({ resource, rows, onRowsChange }: { resource: Resource; rows: AdminRecord[]; onRowsChange: (rows: AdminRecord[]) => void }) {
+  const router = useRouter();
   const fields = fieldGroups[resource];
   const emptyDraft = useMemo(() => Object.fromEntries(fields.map((field) => [field.name, ""])), [fields]);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -152,9 +155,14 @@ function Manager({ resource, rows, onRowsChange }: { resource: Resource; rows: A
     onRowsChange(editingId ? rows.map((row) => (row.id === editingId ? saved : row)) : [saved, ...rows]);
     setMessage("Saved to Supabase.");
     clear();
+    router.refresh();
   }
 
   async function remove(row: AdminRecord) {
+    const label = row.title || row.name || "this item";
+    const confirmed = window.confirm(`Delete "${label}" from BEYBUKU? This cannot be undone.`);
+    if (!confirmed) return;
+
     setIsSaving(true);
     setMessage("");
     sessionStorage.setItem("beybuku_admin_key", adminKey);
@@ -174,6 +182,7 @@ function Manager({ resource, rows, onRowsChange }: { resource: Resource; rows: A
 
     onRowsChange(rows.filter((item) => item.id !== row.id));
     setMessage("Deleted from Supabase.");
+    router.refresh();
   }
 
   return (
@@ -197,6 +206,12 @@ function Manager({ resource, rows, onRowsChange }: { resource: Resource; rows: A
             {fields.map((field) => (
               <Field key={field.name} field={field} value={draft[field.name] ?? ""} onChange={(value) => updateDraft(field.name, value)} />
             ))}
+            {resource === "beyblades" && draft.image_url ? (
+              <div className="overflow-hidden rounded-md border border-sky-500/20 bg-slate-950/70 p-3">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">Image Preview</p>
+                <img src={draft.image_url} alt={draft.name || "Beyblade preview"} className="max-h-52 w-full rounded object-contain" />
+              </div>
+            ) : null}
             <div className="flex flex-wrap gap-2">
               <Button type="submit" disabled={isSaving}>
                 {isSaving ? "Saving..." : editingId ? "Update" : "Save"}
@@ -249,14 +264,27 @@ function Field({
   value,
   onChange
 }: {
-  field: { name: string; label: string; type?: "textarea" | "date" | "number" };
+  field: AdminField;
   value: string;
   onChange: (value: string) => void;
 }) {
   return (
     <label className="grid gap-2 text-sm font-semibold text-slate-200">
       {field.label}
-      {field.type === "textarea" ? (
+      {field.options ? (
+        <select
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
+          className="h-10 w-full rounded-md border bg-slate-950/60 px-3 text-sm outline-none transition focus:ring-2 focus:ring-ring"
+        >
+          <option value="">Choose {field.label}</option>
+          {field.options.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      ) : field.type === "textarea" ? (
         <Textarea value={value} onChange={(event) => onChange(event.target.value)} />
       ) : (
         <Input value={value} onChange={(event) => onChange(event.target.value)} type={field.type ?? "text"} />
