@@ -43,6 +43,11 @@ const beyRecords: BeyRecord[] = [
   { code: "BX-38", name: "Crimson Garuda 4-70TP", series: "Basic Line", type: "Balance", release: "2024-11-02" },
   { code: "BX-44", name: "Tricera Press M-85BS", series: "Basic Line", type: "Defense", release: "2025-06-28" },
   { code: "BX-45", name: "Samurai Calibur 6-70M", series: "Basic Line", type: "Attack", release: "2025-08-09" },
+  { code: "BX-48", name: "Cobalt Dragoon 9-80F", series: "Basic Line", type: "Attack", release: "2026-02-14" },
+  { code: "BX-48", name: "Shark Edge 4-70E", series: "Basic Line", type: "Attack", release: "2026-02-14" },
+  { code: "BX-48", name: "Mammoth Tusk 7-60S", series: "Basic Line", type: "Defense", release: "2026-02-14" },
+  { code: "BX-48", name: "Hells Scythe 3-85GB", series: "Basic Line", type: "Balance", release: "2026-02-14" },
+  { code: "BX-48", name: "Dran Buster 2-80Q", series: "Basic Line", type: "Attack", release: "2026-02-14" },
   { code: "BX-49", name: "Dran Strike 4-50FF", series: "Basic Line", type: "Attack", release: "2026-05-16" },
   { code: "BX-00", name: "Samurai Steel 5-70GF", series: "Event Release", type: "Attack", release: "2025-06-15" },
   { code: "BX-00", name: "Storm Spriggan 2-70M", series: "X-Over Project", type: "Balance", release: "2026-03-28", weight: 40.7 },
@@ -66,6 +71,7 @@ const beyRecords: BeyRecord[] = [
   { code: "UX-17", name: "Meteor Dragoon 3-70J", series: "Unique Line", type: "Attack", release: "2025-12-27" },
   { code: "UX-18", name: "Mummy Curse 7-55W", series: "Unique Line", type: "Defense", release: "2025-12-27" },
   { code: "UX-19", name: "Bullet Griffon H", series: "Unique Line", type: "Balance", release: "2026-04-25" },
+  { code: "UX-00", name: "Samurai Saber 5-60K", series: "Event Release", type: "Balance", release: "2026-06-13" },
   { code: "CX-01", name: "Dran Brave S6-60V", series: "Custom Line", type: "Attack", release: "2025-03-29" },
   { code: "CX-02", name: "Wizard Arc R4-55LO", series: "Custom Line", type: "Stamina", release: "2025-03-29" },
   { code: "CX-03", name: "Perseus Dark B6-80W", series: "Custom Line", type: "Balance", release: "2025-03-29" },
@@ -77,6 +83,10 @@ const beyRecords: BeyRecord[] = [
   { code: "CX-13", name: "Bahamut Blitz BK1-50I", series: "Custom Line", type: "Attack", release: "2026-03-28", weight: 48.1 },
   { code: "CX-14", name: "Knight Fortress GV8-70UN", series: "Custom Line", type: "Defense", release: "2026-03-28", weight: 47.4 },
   { code: "CX-15", name: "Ragna Rage FE4-55Y", series: "Custom Line", type: "Stamina", release: "2026-03-28", weight: 47.6 },
+  { code: "CX-17", name: "Unicorn Delta PO3-60GU", series: "Custom Line", type: "Balance", release: "2026-04-25", weight: 46.3 },
+  { code: "CX-17", name: "Unicorn Delta PO1-80GR", series: "Custom Line", type: "Balance", release: "2026-04-25" },
+  { code: "CX-17", name: "Tyranno Beat 3-60N", series: "Custom Line", type: "Attack", release: "2026-04-25" },
+  { code: "CX-17", name: "Crimson Garuda 7-80GU", series: "Custom Line", type: "Balance", release: "2026-04-25" },
   { code: "CX-18", name: "Brachio Whip OW5-70Nr", series: "Custom Line", type: "Stamina", release: "2026-06-13" }
 ];
 
@@ -107,6 +117,7 @@ const partRecords: PartRecord[] = [
   { code: "BX-38", name: "Crimson Garuda", category: "Blade", system: "Basic Line", role: "Balance" },
   { code: "BX-44", name: "Tricera Press", category: "Blade", system: "Basic Line", role: "Defense" },
   { code: "BX-45", name: "Samurai Calibur", category: "Blade", system: "Basic Line", role: "Attack" },
+  { code: "BX-48", name: "Mammoth Tusk", category: "Blade", system: "Basic Line", role: "Defense" },
   { code: "BX-49", name: "Dran Strike", category: "Blade", system: "Basic Line", role: "Attack" },
   { code: "BX-00", name: "Storm Spriggan", category: "Blade", system: "X-Over Project", role: "Balance" },
   { code: "UX-00", name: "Aero Pegasus", category: "Blade", system: "Unique Line", role: "Attack" },
@@ -140,6 +151,8 @@ const partRecords: PartRecord[] = [
   { code: "CX-13", name: "Bahamut Blitz", category: "Blade", system: "Custom Line", role: "Attack" },
   { code: "CX-14", name: "Knight Fortress", category: "Blade", system: "Custom Line", role: "Defense" },
   { code: "CX-15", name: "Ragna Rage", category: "Blade", system: "Custom Line", role: "Stamina" },
+  { code: "CX-17", name: "Unicorn Delta", category: "Blade", system: "Custom Line", role: "Balance" },
+  { code: "CX-17", name: "Tyranno Beat", category: "Blade", system: "Custom Line", role: "Attack" },
   { code: "CX-18", name: "Brachio Whip", category: "Blade", system: "Custom Line", role: "Stamina" },
   ...[
     "0-60", "0-70", "0-80", "1-50", "1-60", "1-70", "1-80", "2-60", "2-70", "2-80", "3-60", "3-70", "3-80", "3-85",
@@ -158,7 +171,8 @@ const partRecords: PartRecord[] = [
     ["UF", "Under Flat", "Attack"], ["V", "Vortex", "Attack"], ["LO", "Low Orb", "Stamina"], ["W", "Wedge", "Balance"],
     ["K", "Kick", "Attack"], ["GR", "Gear Rush", "Attack"], ["Tr", "Turbo", "Attack"], ["WB", "Wall Ball", "Defense"],
     ["TK", "Trans Kick", "Balance"], ["Op", "Operate", "Balance"], ["FF", "Final Flat", "Attack"], ["I", "Ignition", "Attack"],
-    ["WW", "Wave Wide", "Defense"], ["Y", "Yielding", "Stamina"], ["Nr", "Narrow", "Stamina"]
+    ["WW", "Wave Wide", "Defense"], ["Y", "Yielding", "Stamina"], ["Nr", "Narrow", "Stamina"], ["GU", "Gear Unite", "Balance"],
+    ["Q", "Quake", "Attack"]
   ].map(([code, name, role]): PartRecord => ({ code, name, category: "Bit", system: "Basic Line", role: role as Beyblade["type"] }))
 ];
 
@@ -335,6 +349,16 @@ export const guides: Guide[] = [
     content:
       "A good beginner collection should cover roles, not just favorite designs. Before buying many releases, try to own at least one attack option, one stamina option, one defense or balance option, and a few useful Ratchets and Bits.\n\nAttack releases teach movement and knockout timing. Stamina releases teach spin preservation and safe launches. Defense releases teach survival and impact control. Balance releases teach tuning and adaptation. Having all four roles makes practice more useful.\n\nAvoid buying only based on tier lists. A strong competitive part may not help if you do not understand how to launch or tune it. It is often better to buy a small set of useful parts and test them deeply than to buy many releases and never learn their behavior.\n\nFor a first upgrade path, focus on variety: a low Ratchet, a stable Ratchet, an attack Bit, a stamina Bit, and a balance Bit. That gives you enough pieces to learn why combos behave differently.\n\nThe best purchase is the one that helps you play more, test more, and understand your own style. BEYBUKU can guide choices, but your local battles should shape the final decision.",
     published_at: "2026-06-11"
+  },
+  {
+    id: "guide-2026-release-watch",
+    slug: "beyblade-x-2026-release-watch",
+    title: "Beyblade X 2026 Release Watch",
+    category: "Release Watch",
+    excerpt: "A BEYBUKU watchlist for 2026 Beyblade X releases, random boosters, and parts worth tracking.",
+    content:
+      "The 2026 Beyblade X release cycle is moving quickly, so BEYBUKU tracks new releases as a living catalog instead of treating the database as finished. The biggest recent updates are the Expand Blade era, new CX random boosters, and limited or event versions that can be easy to miss.\n\nFor Basic Line coverage, BX-48 Random Booster Vol. 9 is important because it brings several usable stock combinations back into circulation, including Cobalt Dragoon 9-80F, Shark Edge 4-70E, Mammoth Tusk 7-60S, Hells Scythe 3-85GB, and Dran Buster 2-80Q. These are not all brand-new blades, but they matter for collectors and testing because they introduce different Ratchet and Bit pairings.\n\nBX-49 Dran Strike 4-50FF is one of the most important new attack-focused entries to track. Its low Ratchet and fast Bit profile make it useful for players who want repeated pressure, but it still needs launch testing to separate real knockout reliability from raw speed.\n\nFor Unique Line coverage, UX-19 Bullet Griffon H adds a newer balance-style direction, while the Samurai Saber 5-60K Samurai Blue version is notable as a themed event release. Event releases should be marked clearly because they may be harder to find and may not represent the same buying priority as standard boosters or starters.\n\nFor Custom Line coverage, CX-17 Random Booster Vol. 10 is especially important because Unicorn Delta PO3-60GU is a prize Beyblade with a mode-oriented balance identity. CX-18 Brachio Whip OW5-70Nr is also worth watching because it adds another stamina-focused Custom Line entry after the early 2026 CX wave of Bahamut Blitz, Knight Fortress, and Ragna Rage.\n\nThe best way to use this watchlist is to treat it as a research queue. Add the product to the database first, then improve each page with original testing notes, launch behavior, matchup observations, and real images when available. That approach keeps BEYBUKU useful for readers while staying safer for SEO and AdSense than copying descriptions from another wiki.",
+    published_at: "2026-06-05"
   },
   {
     id: "guide-dran-sword",
