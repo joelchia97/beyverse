@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const metadata: Metadata = { title: "Contact", description: "Contact BEYBUKU for corrections, guide ideas, and database suggestions." };
 
-const contactEmail = "joelchia97@gmail.com";
+const contactEmail = "majorjdebeat@gmail.com";
 const correctionMail = `mailto:${contactEmail}?subject=${encodeURIComponent("BEYBUKU Correction Request")}&body=${encodeURIComponent(
   "Page URL:\n\nBeyblade / part / guide name:\n\nWhat should be corrected:\n\nSource or notes:\n"
 )}`;
