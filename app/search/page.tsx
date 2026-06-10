@@ -58,6 +58,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
                   meta={`${item.series} / ${item.type} / ${item.weight}g / ${item.release_date}`}
                   description={item.description}
                   visualType={item.type}
+                  imageUrl={item.image_url}
                 />
               ))}
             </SearchSection>

@@ -7,7 +7,7 @@ export function SiteFooter() {
     <footer className="mt-16 border-t bg-slate-950/80">
       <div className="container-page grid gap-8 py-10 md:grid-cols-3">
         <div>
-          <Image src="/logo.png" alt="BEYBUKU" width={220} height={110} className="h-14 w-auto object-contain" />
+          <Image src="/logo.png" alt="BEYBUKU" width={220} height={110} sizes="220px" className="h-14 w-auto object-contain" />
           <p className="mt-2 text-sm text-slate-400">The Ultimate Beyblade X Encyclopedia.</p>
         </div>
         <div className="grid gap-2 text-sm text-slate-300">

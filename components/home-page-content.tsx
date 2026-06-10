@@ -15,6 +15,10 @@ type HomeCopy = (typeof homeTranslations)[keyof typeof homeTranslations];
 
 export async function HomePageContent({ copy }: { copy: HomeCopy }) {
   const [beyblades, combos, guides, tierList] = await Promise.all([getBeyblades(), getCombos(), getGuides(), getTierList()]);
+  const latestBeyblades = [...beyblades]
+    .filter((item) => !Number.isNaN(Date.parse(item.release_date)))
+    .sort((a, b) => b.release_date.localeCompare(a.release_date))
+    .slice(0, 6);
   const displayedGuides =
     copy.lang === "zh"
       ? localizedGuides.zh.map((guide) => ({ ...guide, href: `/zh/guides/${guide.slug}` }))
@@ -53,7 +57,15 @@ export async function HomePageContent({ copy }: { copy: HomeCopy }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }} />
       <section className="container-page grid min-h-[calc(100vh-64px)] items-center gap-10 py-12 md:grid-cols-[1.15fr_0.85fr]">
         <div>
-          <Image src="/logo.png" alt="BEYBUKU" width={620} height={310} priority className="mb-5 h-auto w-full max-w-xl object-contain" />
+          <Image
+            src="/logo.png"
+            alt="BEYBUKU"
+            width={620}
+            height={310}
+            priority
+            sizes="(max-width: 768px) calc(100vw - 32px), 620px"
+            className="mb-5 h-auto w-full max-w-xl object-contain"
+          />
           <Badge>{copy.badge}</Badge>
           <h1 className="mt-5 text-5xl font-black leading-tight text-white md:text-7xl">{copy.title}</h1>
           <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">{copy.description}</p>
@@ -140,7 +152,7 @@ export async function HomePageContent({ copy }: { copy: HomeCopy }) {
       <section className="container-page py-8">
         <h2 className="text-2xl font-black">{copy.latestBeyblades}</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
-          {beyblades.slice(0, 6).map((item) => (
+          {latestBeyblades.map((item) => (
             <EntityCard key={item.id} href={`/beyblades/${item.slug}`} title={item.name} badge={item.type} meta={item.series} description={item.description} visualType={item.type} imageUrl={item.image_url} />
           ))}
         </div>

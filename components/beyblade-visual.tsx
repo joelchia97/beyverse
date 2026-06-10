@@ -44,7 +44,15 @@ export function BeybladeVisual({ name, type, imageUrl, className }: BeybladeVisu
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(56,189,248,0.2),transparent_34%),linear-gradient(135deg,rgba(15,23,42,0.6),rgba(2,6,23,0.98))]" />
       <div className="relative flex aspect-[4/3] items-center justify-center p-5">
         {imageUrl ? (
-          <img src={imageUrl} alt={`${name} original 2D fan-safe visual`} className="h-full max-h-60 w-full object-contain drop-shadow-[0_0_24px_rgba(56,189,248,0.25)]" loading="lazy" />
+          <img
+            src={imageUrl}
+            alt={`${name} original 2D fan-safe visual`}
+            width={640}
+            height={480}
+            loading="lazy"
+            decoding="async"
+            className="h-full max-h-60 w-full object-contain drop-shadow-[0_0_24px_rgba(56,189,248,0.25)]"
+          />
         ) : (
           <div className="relative flex h-36 w-36 items-center justify-center rounded-full border border-sky-200/40 bg-slate-900 shadow-glow md:h-44 md:w-44">
             <div className={cn("absolute inset-3 rounded-full bg-gradient-to-br opacity-90", style.ring)} />
