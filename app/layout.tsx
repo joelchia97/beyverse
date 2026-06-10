@@ -15,9 +15,16 @@ export const metadata: Metadata = {
   openGraph: {
     title: siteConfig.title,
     description: siteConfig.description,
-    url: siteConfig.url,
     siteName: siteConfig.name,
-    type: "website"
+    type: "website",
+    images: [
+      {
+        url: "/logo.png",
+        width: 1774,
+        height: 887,
+        alt: "BEYBUKU - The Ultimate Beyblade X Encyclopedia"
+      }
+    ]
   },
   icons: {
     icon: "/icon.svg",
@@ -27,19 +34,12 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: siteConfig.title,
-    description: siteConfig.description
+    description: siteConfig.description,
+    images: ["/logo.png"]
   },
   robots: {
     index: true,
     follow: true
-  },
-  alternates: {
-    canonical: siteConfig.url,
-    languages: {
-      en: siteConfig.url,
-      zh: `${siteConfig.url}/zh`,
-      ms: `${siteConfig.url}/ms`
-    }
   }
 };
 

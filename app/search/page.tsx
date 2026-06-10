@@ -11,7 +11,11 @@ import type { Beyblade, Combo, Guide, Part } from "@/types/database";
 
 export const metadata: Metadata = {
   title: "Search",
-  description: "Search the BEYBUKU encyclopedia across Beyblades, parts, and strategy guides."
+  description: "Search the BEYBUKU encyclopedia across Beyblades, parts, and strategy guides.",
+  robots: {
+    index: false,
+    follow: true
+  }
 };
 
 export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {

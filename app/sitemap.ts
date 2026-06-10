@@ -5,6 +5,7 @@ import { siteConfig } from "@/lib/seo";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [beyblades, parts, guides] = await Promise.all([getBeyblades(), getParts(), getGuides()]);
+  const contentUpdatedAt = new Date("2026-06-11");
   const staticRoutes = [
     "",
     "/zh",
@@ -24,16 +25,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/combo-builder",
     "/tier-list",
     "/anime-lore",
-    "/search",
     "/about",
     "/contact",
     "/privacy",
     "/terms"
   ];
   return [
-    ...staticRoutes.map((route) => ({ url: `${siteConfig.url}${route}`, lastModified: new Date() })),
+    ...staticRoutes.map((route) => ({ url: `${siteConfig.url}${route}`, lastModified: contentUpdatedAt })),
     ...beyblades.map((item) => ({ url: `${siteConfig.url}/beyblades/${item.slug}`, lastModified: new Date(item.release_date) })),
-    ...parts.map((item) => ({ url: `${siteConfig.url}/parts/${item.slug}`, lastModified: new Date() })),
+    ...parts.map((item) => ({ url: `${siteConfig.url}/parts/${item.slug}`, lastModified: contentUpdatedAt })),
     ...guides.map((item) => ({ url: `${siteConfig.url}/guides/${item.slug}`, lastModified: new Date(item.published_at) })),
     ...localizedGuides.zh.map((guide) => ({
       url: `${siteConfig.url}/zh/guides/${guide.slug}`,
