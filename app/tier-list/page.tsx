@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { TierListClient } from "@/components/tier-list-client";
 import { PageHeading } from "@/components/page-heading";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getTierList } from "@/lib/content";
+import { getBeyblades, getTierList } from "@/lib/content";
 import { siteConfig } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -12,9 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default async function TierListPage() {
-  const tierList = await getTierList();
-  const tiers = ["S", "A", "B", "C"] as const;
-  const updatedAt = "2026-06-05";
+  const [tierList, beyblades] = await Promise.all([getTierList(), getBeyblades()]);
+  const updatedAt = "2026-06-11";
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -60,45 +59,7 @@ export default async function TierListPage() {
             </CardContent>
           </Card>
         </div>
-        <div className="grid gap-4 md:grid-cols-4">
-          {tiers.map((tier) => (
-            <Card key={`definition-${tier}`}>
-              <CardHeader><CardTitle>Tier {tier}</CardTitle></CardHeader>
-              <CardContent><p className="text-sm leading-6 text-slate-300">{tierDescriptions[tier]}</p></CardContent>
-            </Card>
-          ))}
-        </div>
-        {tiers.map((tier) => (
-          <Card key={tier}>
-            <CardHeader>
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <CardTitle>Tier {tier}</CardTitle>
-                <Badge>{tierList.filter((item) => item.tier === tier).length} combos</Badge>
-              </div>
-            </CardHeader>
-            <CardContent className="grid gap-3">
-              {tierList.filter((item) => item.tier === tier).map((item) => (
-                <div key={item.id} className="rounded-md border bg-slate-950/55 p-4">
-                  <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
-                    <div>
-                      <p className="font-bold text-white">{item.name}</p>
-                      <p className="mt-1 text-sm text-slate-400">{item.notes}</p>
-                    </div>
-                    <Badge>{item.format}</Badge>
-                  </div>
-                  <div className="mt-4 grid gap-3 text-sm leading-6 text-slate-300 md:grid-cols-3">
-                    <p><span className="font-semibold text-sky-200">Why here:</span> {tierReason(tier)}</p>
-                    <p><span className="font-semibold text-sky-200">Best test:</span> {testPlanFor(item.name)}</p>
-                    <p><span className="font-semibold text-sky-200">Watch for:</span> {riskFor(tier)}</p>
-                  </div>
-                </div>
-              ))}
-              {tierList.filter((item) => item.tier === tier).length === 0 ? (
-                <p className="rounded-md border border-dashed border-slate-700 p-4 text-sm text-slate-500">No current entries. This tier is reserved for future testing notes.</p>
-              ) : null}
-            </CardContent>
-          </Card>
-        ))}
+        <TierListClient tierList={tierList} beyblades={beyblades} />
         <Card>
           <CardHeader><CardTitle>Related Reading</CardTitle></CardHeader>
           <CardContent className="grid gap-3 md:grid-cols-3">
@@ -110,43 +71,6 @@ export default async function TierListPage() {
       </section>
     </main>
   );
-}
-
-const tierDescriptions = {
-  S: "Top testing priorities. These combos have strong win conditions and should be included when benchmarking new ideas.",
-  A: "Strong and practical. These combos can perform well, but usually need cleaner tuning or matchup awareness.",
-  B: "Useful but more matchup dependent. These are good references for specific roles or local testing.",
-  C: "Experimental or limited. These entries need more testing before becoming reliable recommendations."
-};
-
-function tierReason(tier: "S" | "A" | "B" | "C") {
-  return {
-    S: "Clear win condition with high pressure or strong consistency.",
-    A: "Reliable enough to test seriously, but not always universal.",
-    B: "Can work, but matchup and launch quality matter heavily.",
-    C: "Needs more proof before it becomes a stable recommendation."
-  }[tier];
-}
-
-function riskFor(tier: "S" | "A" | "B" | "C") {
-  return {
-    S: "Overconfidence into counter-matchups.",
-    A: "Losing value if tuned too generally.",
-    B: "Poor results outside its preferred matchup.",
-    C: "Inconsistent performance across repeated sets."
-  }[tier];
-}
-
-function testPlanFor(name: string) {
-  if (name.toLowerCase().includes("rod") || name.toLowerCase().includes("wolf") || name.toLowerCase().includes("arrow")) {
-    return "Run stamina benchmark sets against heavy attack.";
-  }
-
-  if (name.toLowerCase().includes("phoenix") || name.toLowerCase().includes("shark") || name.toLowerCase().includes("drake")) {
-    return "Track clean knockouts versus self-KO risk.";
-  }
-
-  return "Run mixed matchup sets and record win condition.";
 }
 
 function GuideLink({ href, title }: { href: string; title: string }) {
