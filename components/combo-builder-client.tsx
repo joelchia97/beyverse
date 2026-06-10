@@ -1,12 +1,26 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { Check, Clipboard, RotateCcw, Save, Trash2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Part } from "@/types/database";
 
 const scoreKeys = ["attack", "defense", "stamina", "balance"] as const;
 type ScoreKey = (typeof scoreKeys)[number];
+type SavedCombo = {
+  id: string;
+  bladeId: string;
+  ratchetId: string;
+  bitId: string;
+  name: string;
+  overall: number;
+  style: string;
+  savedAt: string;
+};
+
+const storageKey = "beybuku-saved-combos";
 
 export function ComboBuilderClient({ parts }: { parts: Part[] }) {
   const blades = parts.filter((part) => part.category === "Blade");
@@ -15,6 +29,19 @@ export function ComboBuilderClient({ parts }: { parts: Part[] }) {
   const [bladeId, setBladeId] = useState(blades[0]?.id ?? "");
   const [ratchetId, setRatchetId] = useState(ratchets[0]?.id ?? "");
   const [bitId, setBitId] = useState(bits[0]?.id ?? "");
+  const [savedCombos, setSavedCombos] = useState<SavedCombo[]>([]);
+  const [actionMessage, setActionMessage] = useState("");
+
+  useEffect(() => {
+    try {
+      const stored = window.localStorage.getItem(storageKey);
+      if (!stored) return;
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed)) setSavedCombos(parsed.slice(0, 12));
+    } catch {
+      window.localStorage.removeItem(storageKey);
+    }
+  }, []);
 
   const result = useMemo(() => {
     const blade = parts.find((part) => part.id === bladeId);
@@ -75,6 +102,59 @@ export function ComboBuilderClient({ parts }: { parts: Part[] }) {
     };
   }, [bladeId, bitId, parts, ratchetId]);
 
+  function persistSavedCombos(next: SavedCombo[]) {
+    setSavedCombos(next);
+    window.localStorage.setItem(storageKey, JSON.stringify(next));
+  }
+
+  function saveCombo() {
+    if (!bladeId || !ratchetId || !bitId) return;
+    const id = `${bladeId}:${ratchetId}:${bitId}`;
+    const saved: SavedCombo = {
+      id,
+      bladeId,
+      ratchetId,
+      bitId,
+      name: result.comboName,
+      overall: result.overall,
+      style: result.style,
+      savedAt: new Date().toISOString()
+    };
+    persistSavedCombos([saved, ...savedCombos.filter((combo) => combo.id !== id)].slice(0, 12));
+    showMessage("Combo saved on this device.");
+  }
+
+  function loadCombo(combo: SavedCombo) {
+    if (!parts.some((part) => part.id === combo.bladeId) || !parts.some((part) => part.id === combo.ratchetId) || !parts.some((part) => part.id === combo.bitId)) {
+      showMessage("One or more saved parts are no longer available.");
+      return;
+    }
+    setBladeId(combo.bladeId);
+    setRatchetId(combo.ratchetId);
+    setBitId(combo.bitId);
+    showMessage("Saved combo loaded.");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  async function copyCombo(comboName: string) {
+    try {
+      await navigator.clipboard.writeText(`${comboName} - built with BEYBUKU`);
+      showMessage("Combo copied.");
+    } catch {
+      showMessage("Copy was unavailable on this browser.");
+    }
+  }
+
+  function removeCombo(id: string) {
+    persistSavedCombos(savedCombos.filter((combo) => combo.id !== id));
+    showMessage("Saved combo removed.");
+  }
+
+  function showMessage(message: string) {
+    setActionMessage(message);
+    window.setTimeout(() => setActionMessage(""), 2400);
+  }
+
   return (
     <section className="container-page grid gap-8 lg:grid-cols-[420px_1fr]">
       <Card className="h-fit">
@@ -94,10 +174,17 @@ export function ComboBuilderClient({ parts }: { parts: Part[] }) {
           </div>
           <button
             type="button"
+            onClick={saveCombo}
             className="h-11 rounded-md border border-sky-400/40 bg-sky-400/10 px-4 text-sm font-bold text-sky-100 transition hover:bg-sky-400/20"
           >
-            Save this combo idea
+            <span className="inline-flex items-center gap-2">
+              <Save className="h-4 w-4" />
+              Save this combo idea
+            </span>
           </button>
+          <p className="min-h-5 text-center text-xs text-slate-400" aria-live="polite">
+            {actionMessage || "Saved combos stay in this browser and are not uploaded."}
+          </p>
         </CardContent>
       </Card>
 
@@ -150,6 +237,53 @@ export function ComboBuilderClient({ parts }: { parts: Part[] }) {
               </div>
             ))}
           </div>
+        </CardContent>
+      </Card>
+
+      <Card className="lg:col-span-2">
+        <CardHeader>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <CardTitle>Saved Combo Ideas</CardTitle>
+              <p className="mt-2 text-sm text-slate-400">Keep up to 12 builds on this device for later testing.</p>
+            </div>
+            <Badge>{savedCombos.length} saved</Badge>
+          </div>
+        </CardHeader>
+        <CardContent>
+          {savedCombos.length ? (
+            <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+              {savedCombos.map((combo) => (
+                <div key={combo.id} className="rounded-md border bg-slate-950/55 p-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="font-black text-white">{combo.name}</p>
+                      <p className="mt-1 text-xs text-slate-400">{combo.style} / Rating {combo.overall}</p>
+                    </div>
+                    {combo.id === `${bladeId}:${ratchetId}:${bitId}` ? <Check className="h-4 w-4 shrink-0 text-emerald-300" aria-label="Currently selected" /> : null}
+                  </div>
+                  <div className="mt-4 flex gap-2">
+                    <Button type="button" size="sm" variant="outline" onClick={() => loadCombo(combo)} title="Load saved combo">
+                      <RotateCcw className="h-4 w-4" />
+                      Load
+                    </Button>
+                    <Button type="button" size="icon" variant="ghost" onClick={() => copyCombo(combo.name)} title="Copy combo name" aria-label={`Copy ${combo.name}`}>
+                      <Clipboard className="h-4 w-4" />
+                    </Button>
+                    <Button type="button" size="icon" variant="ghost" onClick={() => removeCombo(combo.id)} title="Delete saved combo" aria-label={`Delete ${combo.name}`}>
+                      <Trash2 className="h-4 w-4 text-rose-300" />
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-md border border-dashed p-8 text-center">
+              <Save className="mx-auto h-6 w-6 text-sky-300" />
+              <p className="mt-3 font-black text-white">No saved combos yet</p>
+              <p className="mt-2 text-sm text-slate-400">Choose a Blade, Ratchet, and Bit, then save the build for later testing.</p>
+            </div>
+          )}
         </CardContent>
       </Card>
     </section>
