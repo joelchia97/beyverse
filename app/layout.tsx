@@ -46,6 +46,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="dark">
+      <head>
+        <meta name="google-adsense-account" content={siteConfig.publisherId} />
+      </head>
       <body>
         <AdsenseScript />
         <SiteHeader />
