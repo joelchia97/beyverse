@@ -2,7 +2,7 @@
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { LockKeyhole, LogIn, LogOut, ShieldCheck } from "lucide-react";
+import { Database, LockKeyhole, LogIn, LogOut, ShieldCheck } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -91,6 +91,8 @@ export function AdminDashboardClient({
   const [accessToken, setAccessToken] = useState("");
   const [adminEmail, setAdminEmail] = useState("");
   const [isCheckingSession, setIsCheckingSession] = useState(true);
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [syncMessage, setSyncMessage] = useState("");
 
   useEffect(() => {
     if (!supabase) {
@@ -125,6 +127,26 @@ export function AdminDashboardClient({
     return <AdminLogin supabase={supabase} />;
   }
 
+  async function syncCatalog() {
+    if (!window.confirm("Sync all current BEYBUKU catalog data to Supabase? Existing combos, characters, and tier-list rows will be replaced.")) return;
+
+    setIsSyncing(true);
+    setSyncMessage("");
+    const response = await fetch("/api/admin/sync", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    const result = await response.json();
+    setIsSyncing(false);
+
+    if (!response.ok) {
+      setSyncMessage(result.error ?? "Catalog sync failed.");
+      return;
+    }
+
+    setSyncMessage(`Synced ${result.total} records to Supabase.`);
+  }
+
   return (
     <section className="container-page grid gap-6">
       <Card>
@@ -139,6 +161,22 @@ export function AdminDashboardClient({
           <Button type="button" variant="outline" size="sm" onClick={() => supabase.auth.signOut()}>
             <LogOut className="h-4 w-4" />
             Sign out
+          </Button>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardContent className="flex flex-wrap items-center justify-between gap-4 p-4">
+          <div>
+            <p className="flex items-center gap-2 text-sm font-black text-white">
+              <Database className="h-4 w-4 text-sky-300" />
+              Supabase catalog sync
+            </p>
+            <p className="mt-1 text-xs leading-5 text-slate-400">Copy the complete website catalog into the live database in one secured operation.</p>
+            {syncMessage ? <p className="mt-2 text-sm font-semibold text-sky-200">{syncMessage}</p> : null}
+          </div>
+          <Button type="button" onClick={syncCatalog} disabled={isSyncing}>
+            <Database className="h-4 w-4" />
+            {isSyncing ? "Syncing..." : "Sync full catalog"}
           </Button>
         </CardContent>
       </Card>

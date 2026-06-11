@@ -1,5 +1,5 @@
-import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
+import { authorizeAdmin, createAdminClient } from "@/lib/admin-server";
 
 type Resource = "beyblades" | "parts" | "guides" | "tier_lists";
 
@@ -11,13 +11,13 @@ const resourceConfig: Record<Resource, { table: Resource; slugField?: "slug"; ti
 };
 
 export async function POST(request: NextRequest, { params }: { params: Promise<{ resource: string }> }) {
-  const auth = await authorize(request);
+  const auth = await authorizeAdmin(request);
   if (auth) return auth;
 
   const resource = getResource((await params).resource);
   if (!resource) return NextResponse.json({ error: "Unknown admin resource." }, { status: 404 });
 
-  const client = adminClient();
+  const client = createAdminClient();
   if (!client) return NextResponse.json({ error: "Supabase admin environment variables are missing." }, { status: 503 });
 
   const body = await request.json();
@@ -32,13 +32,13 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
 }
 
 export async function DELETE(request: NextRequest, { params }: { params: Promise<{ resource: string }> }) {
-  const auth = await authorize(request);
+  const auth = await authorizeAdmin(request);
   if (auth) return auth;
 
   const resource = getResource((await params).resource);
   if (!resource) return NextResponse.json({ error: "Unknown admin resource." }, { status: 404 });
 
-  const client = adminClient();
+  const client = createAdminClient();
   if (!client) return NextResponse.json({ error: "Supabase admin environment variables are missing." }, { status: 503 });
 
   const body = await request.json();
@@ -49,43 +49,6 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
 
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
   return NextResponse.json({ ok: true });
-}
-
-async function authorize(request: NextRequest) {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  const allowedEmails = (process.env.ADMIN_EMAILS || "")
-    .split(",")
-    .map((email) => email.trim().toLowerCase())
-    .filter(Boolean);
-  const authorization = request.headers.get("authorization");
-  const token = authorization?.startsWith("Bearer ") ? authorization.slice(7) : "";
-
-  if (!url || !anonKey || allowedEmails.length === 0) {
-    return NextResponse.json({ error: "Supabase Auth or ADMIN_EMAILS is not configured." }, { status: 503 });
-  }
-
-  if (!token) {
-    return NextResponse.json({ error: "Please sign in to continue." }, { status: 401 });
-  }
-
-  const authClient = createClient(url, anonKey, { auth: { persistSession: false } });
-  const { data, error } = await authClient.auth.getUser(token);
-  const email = data.user?.email?.toLowerCase();
-
-  if (error || !email || !allowedEmails.includes(email)) {
-    return NextResponse.json({ error: "This account is not authorized for BEYBUKU admin access." }, { status: 403 });
-  }
-
-  return null;
-}
-
-function adminClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-  if (!url || !key) return null;
-  return createClient(url, key, { auth: { persistSession: false } });
 }
 
 function getResource(resource: string): Resource | null {
