@@ -14,7 +14,7 @@ BEYBUKU is a Next.js 15, TypeScript, TailwindCSS, Shadcn-style UI, Supabase, Ver
 - Meta Tier List
 - Anime Lore
 - Search page
-- Admin Dashboard with private-key protected Supabase add, edit, and delete workflows
+- Admin Dashboard with Supabase email login and server-side administrator allowlist
 - Privacy Policy, Terms, Contact, and About pages
 - Dynamic metadata, Open Graph tags, sitemap, robots.txt, and structured data
 - Google AdSense script placeholder, reusable lazy `AdBanner`, and `public/ads.txt`
@@ -38,14 +38,14 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
-ADMIN_API_KEY=choose-a-private-admin-password
+ADMIN_EMAILS=your-admin-email@example.com
 
 NEXT_PUBLIC_ADSENSE_CLIENT_ID=ca-pub-XXXXXXXXXXXXXXXX
 NEXT_PUBLIC_ENABLE_ADS=false
 ```
 
 Keep `NEXT_PUBLIC_ENABLE_ADS=false` until AdSense approval. The site reserves clean ad spaces without rendering broken ads.
-Keep `ADMIN_API_KEY` private. You will type this same value in `/admin` before saving or deleting database content.
+`ADMIN_EMAILS` is a comma-separated server-side allowlist. Only authenticated Supabase users whose email is listed can publish changes.
 
 ## Supabase Setup
 
@@ -54,8 +54,10 @@ Keep `ADMIN_API_KEY` private. You will type this same value in `/admin` before s
 3. Run `supabase/schema.sql`.
 4. Run `supabase/seed.sql`.
 5. Copy the project URL, anon key, and service role key into `.env.local`.
-6. Add a private `ADMIN_API_KEY` value locally and in Vercel.
-7. Use `/admin` to add, edit, or delete Beyblades, Parts, Guides, and Tier List records.
+6. In Supabase Authentication, create the administrator email/password user and disable public sign-ups.
+7. Add that email to `ADMIN_EMAILS` locally and in Vercel.
+8. Run `supabase/admin-auth.sql` once to remove direct authenticated write policies.
+9. Use `/admin` to sign in and manage Beyblades, Parts, Guides, and Tier List records.
 
 Tables included:
 
@@ -112,10 +114,9 @@ GitHub Actions will run typecheck and build on pushes and pull requests to `main
 5. Add environment variables from `.env.example`.
 6. Set `NEXT_PUBLIC_SITE_URL` to your production domain.
 7. Deploy.
-8. After deployment, update your Supabase Auth settings and allowed URLs to include the Vercel domain if you add full login later.
+8. In Supabase Auth URL Configuration, add your production domain as the Site URL and redirect URL.
 
 ## Recommended Production Next Steps
 
-- Replace the simple `ADMIN_API_KEY` gate with Supabase Auth and role checks when you are ready for multiple editors.
 - Replace placeholder policy text with legally reviewed Privacy and Terms pages.
 - Add original long-form guide content before submitting to Google AdSense.

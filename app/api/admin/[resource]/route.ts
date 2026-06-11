@@ -11,7 +11,7 @@ const resourceConfig: Record<Resource, { table: Resource; slugField?: "slug"; ti
 };
 
 export async function POST(request: NextRequest, { params }: { params: Promise<{ resource: string }> }) {
-  const auth = authorize(request);
+  const auth = await authorize(request);
   if (auth) return auth;
 
   const resource = getResource((await params).resource);
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
 }
 
 export async function DELETE(request: NextRequest, { params }: { params: Promise<{ resource: string }> }) {
-  const auth = authorize(request);
+  const auth = await authorize(request);
   if (auth) return auth;
 
   const resource = getResource((await params).resource);
@@ -51,16 +51,30 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
   return NextResponse.json({ ok: true });
 }
 
-function authorize(request: NextRequest) {
-  const expected = process.env.ADMIN_API_KEY;
-  const received = request.headers.get("x-admin-key");
+async function authorize(request: NextRequest) {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const allowedEmails = (process.env.ADMIN_EMAILS || "")
+    .split(",")
+    .map((email) => email.trim().toLowerCase())
+    .filter(Boolean);
+  const authorization = request.headers.get("authorization");
+  const token = authorization?.startsWith("Bearer ") ? authorization.slice(7) : "";
 
-  if (!expected) {
-    return NextResponse.json({ error: "ADMIN_API_KEY is not configured." }, { status: 503 });
+  if (!url || !anonKey || allowedEmails.length === 0) {
+    return NextResponse.json({ error: "Supabase Auth or ADMIN_EMAILS is not configured." }, { status: 503 });
   }
 
-  if (!received || received !== expected) {
-    return NextResponse.json({ error: "Invalid admin key." }, { status: 401 });
+  if (!token) {
+    return NextResponse.json({ error: "Please sign in to continue." }, { status: 401 });
+  }
+
+  const authClient = createClient(url, anonKey, { auth: { persistSession: false } });
+  const { data, error } = await authClient.auth.getUser(token);
+  const email = data.user?.email?.toLowerCase();
+
+  if (error || !email || !allowedEmails.includes(email)) {
+    return NextResponse.json({ error: "This account is not authorized for BEYBUKU admin access." }, { status: 403 });
   }
 
   return null;

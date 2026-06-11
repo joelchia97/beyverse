@@ -1,12 +1,14 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { LockKeyhole, LogIn, LogOut, ShieldCheck } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { createSupabaseBrowserClient } from "@/lib/supabase";
 import type { Beyblade, Guide, Part, TierListItem } from "@/types/database";
 
 type Resource = "beyblades" | "parts" | "guides" | "tier_lists";
@@ -74,6 +76,7 @@ export function AdminDashboardClient({
   guides: Guide[];
   tierList: TierListItem[];
 }) {
+  const supabase = useMemo(() => createSupabaseBrowserClient(), []);
   const initialRows = useMemo(
     () => ({
       beyblades: beyblades.map(beybladeToRecord),
@@ -85,9 +88,60 @@ export function AdminDashboardClient({
   );
   const [resource, setResource] = useState<Resource>("beyblades");
   const [rowsByResource, setRowsByResource] = useState(initialRows);
+  const [accessToken, setAccessToken] = useState("");
+  const [adminEmail, setAdminEmail] = useState("");
+  const [isCheckingSession, setIsCheckingSession] = useState(true);
+
+  useEffect(() => {
+    if (!supabase) {
+      setIsCheckingSession(false);
+      return;
+    }
+
+    supabase.auth.getSession().then(({ data }) => {
+      setAccessToken(data.session?.access_token ?? "");
+      setAdminEmail(data.session?.user.email ?? "");
+      setIsCheckingSession(false);
+    });
+
+    const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+      setAccessToken(session?.access_token ?? "");
+      setAdminEmail(session?.user.email ?? "");
+      setIsCheckingSession(false);
+    });
+
+    return () => data.subscription.unsubscribe();
+  }, [supabase]);
+
+  if (isCheckingSession) {
+    return <AdminStatusCard title="Checking admin session..." text="Confirming your secure Supabase login." />;
+  }
+
+  if (!supabase) {
+    return <AdminStatusCard title="Supabase Auth is not configured" text="Add the Supabase URL and anon key in Vercel before using the admin dashboard." />;
+  }
+
+  if (!accessToken) {
+    return <AdminLogin supabase={supabase} />;
+  }
 
   return (
     <section className="container-page grid gap-6">
+      <Card>
+        <CardContent className="flex flex-wrap items-center justify-between gap-3 p-4">
+          <div className="flex items-center gap-3">
+            <ShieldCheck className="h-5 w-5 text-emerald-300" />
+            <div>
+              <p className="text-sm font-black text-white">Authenticated administrator</p>
+              <p className="text-xs text-slate-400">{adminEmail}</p>
+            </div>
+          </div>
+          <Button type="button" variant="outline" size="sm" onClick={() => supabase.auth.signOut()}>
+            <LogOut className="h-4 w-4" />
+            Sign out
+          </Button>
+        </CardContent>
+      </Card>
       <Card>
         <CardContent className="flex flex-wrap gap-2 p-4">
           {(Object.keys(resourceLabels) as Resource[]).map((item) => (
@@ -100,20 +154,81 @@ export function AdminDashboardClient({
       <Manager
         resource={resource}
         rows={rowsByResource[resource]}
+        accessToken={accessToken}
         onRowsChange={(rows) => setRowsByResource((current) => ({ ...current, [resource]: rows }))}
       />
     </section>
   );
 }
 
-function Manager({ resource, rows, onRowsChange }: { resource: Resource; rows: AdminRecord[]; onRowsChange: (rows: AdminRecord[]) => void }) {
+function AdminLogin({ supabase }: { supabase: NonNullable<ReturnType<typeof createSupabaseBrowserClient>> }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [isSigningIn, setIsSigningIn] = useState(false);
+
+  async function signIn(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setIsSigningIn(true);
+    setMessage("");
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    setIsSigningIn(false);
+    if (error) setMessage(error.message);
+  }
+
+  return (
+    <section className="container-page max-w-lg">
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <LockKeyhole className="h-5 w-5 text-sky-300" />
+            Admin Sign In
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={signIn} className="grid gap-4">
+            <label className="grid gap-2 text-sm font-semibold text-slate-200">
+              Admin email
+              <Input type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} required />
+            </label>
+            <label className="grid gap-2 text-sm font-semibold text-slate-200">
+              Password
+              <Input type="password" autoComplete="current-password" value={password} onChange={(event) => setPassword(event.target.value)} required />
+            </label>
+            <Button type="submit" disabled={isSigningIn}>
+              <LogIn className="h-4 w-4" />
+              {isSigningIn ? "Signing in..." : "Sign in"}
+            </Button>
+            {message ? <p className="rounded-md border border-rose-400/30 bg-rose-400/10 p-3 text-sm text-rose-100">{message}</p> : null}
+            <p className="text-sm leading-6 text-slate-400">Only accounts listed in the server-side ADMIN_EMAILS setting can publish changes.</p>
+          </form>
+        </CardContent>
+      </Card>
+    </section>
+  );
+}
+
+function AdminStatusCard({ title, text }: { title: string; text: string }) {
+  return (
+    <section className="container-page max-w-lg">
+      <Card>
+        <CardContent className="p-6 text-center">
+          <LockKeyhole className="mx-auto h-6 w-6 text-sky-300" />
+          <p className="mt-3 font-black text-white">{title}</p>
+          <p className="mt-2 text-sm leading-6 text-slate-400">{text}</p>
+        </CardContent>
+      </Card>
+    </section>
+  );
+}
+
+function Manager({ resource, rows, accessToken, onRowsChange }: { resource: Resource; rows: AdminRecord[]; accessToken: string; onRowsChange: (rows: AdminRecord[]) => void }) {
   const router = useRouter();
   const fields = fieldGroups[resource];
   const emptyDraft = useMemo(() => Object.fromEntries(fields.map((field) => [field.name, ""])), [fields]);
   const quality = useMemo(() => getQualitySummary(resource, rows), [resource, rows]);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [draft, setDraft] = useState<AdminRecord>(emptyDraft);
-  const [adminKey, setAdminKey] = useState(() => (typeof window === "undefined" ? "" : sessionStorage.getItem("beybuku_admin_key") ?? ""));
   const [message, setMessage] = useState("");
   const [isSaving, setIsSaving] = useState(false);
 
@@ -136,12 +251,11 @@ function Manager({ resource, rows, onRowsChange }: { resource: Resource; rows: A
     event.preventDefault();
     setIsSaving(true);
     setMessage("");
-    sessionStorage.setItem("beybuku_admin_key", adminKey);
 
     const payload = { ...draft, id: editingId ?? draft.id };
     const response = await fetch(`/api/admin/${resource}`, {
       method: "POST",
-      headers: { "Content-Type": "application/json", "x-admin-key": adminKey },
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${accessToken}` },
       body: JSON.stringify(payload)
     });
     const result = await response.json();
@@ -166,11 +280,10 @@ function Manager({ resource, rows, onRowsChange }: { resource: Resource; rows: A
 
     setIsSaving(true);
     setMessage("");
-    sessionStorage.setItem("beybuku_admin_key", adminKey);
 
     const response = await fetch(`/api/admin/${resource}`, {
       method: "DELETE",
-      headers: { "Content-Type": "application/json", "x-admin-key": adminKey },
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${accessToken}` },
       body: JSON.stringify(row)
     });
     const result = await response.json();
@@ -194,16 +307,6 @@ function Manager({ resource, rows, onRowsChange }: { resource: Resource; rows: A
         </CardHeader>
         <CardContent>
           <form onSubmit={submit} className="grid gap-3">
-            <label className="grid gap-2 text-sm font-semibold text-slate-200">
-              Admin Key
-              <Input
-                value={adminKey}
-                onChange={(event) => setAdminKey(event.target.value)}
-                placeholder="Enter your private admin key"
-                type="password"
-                required
-              />
-            </label>
             {fields.map((field) => (
               <Field key={field.name} field={field} value={draft[field.name] ?? ""} onChange={(value) => updateDraft(field.name, value)} />
             ))}
