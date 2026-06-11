@@ -2,10 +2,11 @@ import Script from "next/script";
 
 export function AdsenseScript() {
   const clientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
-  const adsEnabled = process.env.NEXT_PUBLIC_ENABLE_ADS === "true";
   const hasRealClientId = Boolean(clientId && !clientId.includes("XXXXXXXXXXXXXXXX"));
 
-  if (!adsEnabled || !clientId || !hasRealClientId || process.env.NODE_ENV !== "production") {
+  // Load the account script for site verification while ad units remain
+  // independently disabled until AdSense approval.
+  if (!clientId || !hasRealClientId || process.env.NODE_ENV !== "production") {
     return null;
   }
 
