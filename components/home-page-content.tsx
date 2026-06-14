@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Gauge, Search, Sparkles, Trophy } from "lucide-react";
+import { ArrowRight, BookOpen, Gauge, Layers3, Search, Sparkles, Swords, Trophy } from "lucide-react";
 import { AdBanner } from "@/components/ads/ad-banner";
 import { EntityCard } from "@/components/entity-card";
 import { Badge } from "@/components/ui/badge";
@@ -10,6 +10,7 @@ import { getBeyblades, getCombos, getGuides, getTierList } from "@/lib/content";
 import type { homeTranslations } from "@/lib/home-translations";
 import { localizedGuides } from "@/lib/localized-guides";
 import { siteConfig } from "@/lib/seo";
+import { TiltSurface } from "@/components/motion/tilt-surface";
 
 type HomeCopy = (typeof homeTranslations)[keyof typeof homeTranslations];
 
@@ -55,8 +56,12 @@ export async function HomePageContent({ copy }: { copy: HomeCopy }) {
     <main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }} />
-      <section className="container-page grid min-h-[calc(100vh-64px)] items-center gap-10 py-12 md:grid-cols-[1.15fr_0.85fr]">
-        <div>
+      <section className="home-hero relative overflow-hidden border-b">
+        <div className="home-grid absolute inset-0" aria-hidden="true" />
+        <div className="hero-orbit hero-orbit-one" aria-hidden="true" />
+        <div className="hero-orbit hero-orbit-two" aria-hidden="true" />
+        <div className="container-page relative grid min-h-[calc(100svh-64px)] items-center gap-12 py-16 md:grid-cols-[1.08fr_0.92fr]">
+        <div className="relative z-10">
           <Image
             src="/logo.png"
             alt="BEYBUKU"
@@ -64,50 +69,60 @@ export async function HomePageContent({ copy }: { copy: HomeCopy }) {
             height={310}
             priority
             sizes="(max-width: 768px) calc(100vw - 32px), 620px"
-            className="mb-5 h-auto w-full max-w-xl object-contain"
+            className="hero-logo mb-6 h-auto w-full max-w-[420px] object-contain"
           />
-          <Badge>{copy.badge}</Badge>
-          <h1 className="mt-5 text-5xl font-black leading-tight text-white md:text-7xl">{copy.title}</h1>
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">{copy.description}</p>
+          <Badge className="border-orange-300/30 bg-orange-400/10 text-orange-100">{copy.badge}</Badge>
+          <h1 className="hero-title mt-5 text-5xl font-black leading-[0.92] md:text-7xl lg:text-8xl">{copy.title}</h1>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">{copy.description}</p>
           <form action="/search" className="mt-8 flex max-w-2xl gap-3">
-            <Input name="q" placeholder={copy.searchPlaceholder} className="h-12" />
-            <button className="inline-flex h-12 items-center gap-2 rounded-md bg-sky-400 px-5 font-bold text-slate-950 hover:bg-sky-300">
+            <Input name="q" placeholder={copy.searchPlaceholder} className="h-12 border-white/15 bg-black/45 backdrop-blur" />
+            <button className="hero-action inline-flex h-12 items-center gap-2 rounded-md px-5 font-bold text-white">
               <Search className="h-4 w-4" />
               {copy.searchButton}
             </button>
           </form>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link className="inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-semibold text-slate-100 hover:bg-slate-800" href="/beyblades">
+            <Link className="inline-flex items-center gap-2 rounded-md border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-slate-100 hover:bg-white/10" href="/beyblades">
               {copy.browseDatabase} <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link className="inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-semibold text-slate-100 hover:bg-slate-800" href="/combo-builder">
+            <Link className="inline-flex items-center gap-2 rounded-md border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-slate-100 hover:bg-white/10" href="/combo-builder">
               {copy.buildCombo} <Gauge className="h-4 w-4" />
             </Link>
           </div>
         </div>
-        <div className="grid gap-4">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2"><Sparkles className="h-5 w-5 text-sky-300" /> {copy.metaSnapshot}</CardTitle>
-            </CardHeader>
-            <CardContent className="grid gap-3">
-              {tierList.slice(0, 3).map((item) => (
-                <div key={item.id} className="flex items-center justify-between rounded-md bg-slate-950/55 p-3">
-                  <span className="font-semibold">{item.name}</span>
-                  <Badge>{item.tier}</Badge>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
+        <div className="relative grid gap-4">
+          <div className="hero-stage">
+            <div className="hero-disc" aria-hidden="true">
+              <div className="hero-disc-core">
+                <Image src="/logo.png" alt="" width={500} height={250} className="h-auto w-[72%] object-contain" />
+              </div>
+            </div>
+            <TiltSurface className="hero-meta-card relative z-10">
+              <Card className="interactive-card border-white/10 bg-black/55 backdrop-blur-xl">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2"><Sparkles className="motion-icon h-5 w-5 text-orange-300" /> {copy.metaSnapshot}</CardTitle>
+                </CardHeader>
+                <CardContent className="grid gap-3">
+                  {tierList.slice(0, 3).map((item) => (
+                    <div key={item.id} className="flex items-center justify-between rounded-md bg-slate-950/55 p-3">
+                      <span className="font-semibold">{item.name}</span>
+                      <Badge className="border-violet-300/30 bg-violet-400/10 text-violet-100">{item.tier}</Badge>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            </TiltSurface>
+          </div>
           <AdBanner slot="homepage-top" label="Homepage top banner" />
+        </div>
         </div>
       </section>
 
-      <section className="border-y bg-slate-950/35 py-10">
+      <section className="border-y bg-black/35 py-12">
         <div className="container-page grid gap-6 md:grid-cols-3">
-          <InfoCard title={copy.researchTitle} text={copy.researchText} />
-          <InfoCard title={copy.compareTitle} text={copy.compareText} />
-          <InfoCard title={copy.buildTitle} text={copy.buildText} />
+          <InfoCard icon={<BookOpen />} title={copy.researchTitle} text={copy.researchText} />
+          <InfoCard icon={<Layers3 />} title={copy.compareTitle} text={copy.compareText} />
+          <InfoCard icon={<Swords />} title={copy.buildTitle} text={copy.buildText} />
         </div>
         <div className="container-page mt-6">
           <Link href={copy.guidesPath} className="block rounded-lg border bg-card p-5 transition hover:border-sky-400/60 hover:bg-slate-900">
@@ -208,11 +223,16 @@ export async function HomePageContent({ copy }: { copy: HomeCopy }) {
   );
 }
 
-function InfoCard({ title, text }: { title: string; text: string }) {
+function InfoCard({ title, text, icon }: { title: string; text: string; icon?: React.ReactNode }) {
   return (
-    <Card>
-      <CardHeader><CardTitle>{title}</CardTitle></CardHeader>
-      <CardContent><p className="text-sm leading-6 text-slate-300">{text}</p></CardContent>
-    </Card>
+    <TiltSurface className="h-full">
+      <Card className="interactive-card h-full">
+        <CardHeader>
+          {icon ? <div className="motion-icon mb-2 flex h-10 w-10 items-center justify-center rounded-md border border-orange-300/25 bg-orange-400/10 text-orange-200 [&>svg]:h-5 [&>svg]:w-5">{icon}</div> : null}
+          <CardTitle>{title}</CardTitle>
+        </CardHeader>
+        <CardContent><p className="text-sm leading-6 text-slate-300">{text}</p></CardContent>
+      </Card>
+    </TiltSurface>
   );
 }

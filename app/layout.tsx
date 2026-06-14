@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AdsenseScript } from "@/components/ads/adsense-script";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { AmbientPointer } from "@/components/motion/ambient-pointer";
 import { siteConfig } from "@/lib/seo";
 import "./globals.css";
 
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body>
         <AdsenseScript />
+        <AmbientPointer />
         <SiteHeader />
         {children}
         <SiteFooter />

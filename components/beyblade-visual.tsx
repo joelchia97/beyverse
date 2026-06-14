@@ -51,7 +51,7 @@ export function BeybladeVisual({ name, type, imageUrl, className }: BeybladeVisu
             height={480}
             loading="lazy"
             decoding="async"
-            className="h-full max-h-60 w-full object-contain drop-shadow-[0_0_24px_rgba(56,189,248,0.25)]"
+            className="beyblade-spin h-full max-h-60 w-full object-contain drop-shadow-[0_0_24px_rgba(139,92,246,0.3)]"
           />
         ) : (
           <div className="relative flex h-36 w-36 items-center justify-center rounded-full border border-sky-200/40 bg-slate-900 shadow-glow md:h-44 md:w-44">
