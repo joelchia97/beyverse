@@ -255,13 +255,19 @@ a {
   }
 
   .hero-stage {
-    min-height: 500px;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
   }
 
   .hero-meta-card {
-    right: 50%;
-    width: min(360px, 94%);
-    transform: translateX(50%) !important;
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    transform: none !important;
   }
 
   .tilt-surface {
