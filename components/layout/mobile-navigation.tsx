@@ -2,20 +2,15 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, Search, X } from "lucide-react";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
-
-const nav = [
-  ["Database", "/beyblades"],
-  ["Parts", "/parts"],
-  ["Combos", "/combo-builder"],
-  ["Guides", "/guides"],
-  ["Tier List", "/tier-list"],
-  ["Lore", "/anime-lore"]
-];
+import { localeFromPath, localizedNavigation } from "@/lib/localized-navigation";
 
 export function MobileNavigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+  const nav = localizedNavigation(localeFromPath(pathname));
 
   return (
     <div className="md:hidden">
@@ -32,7 +27,7 @@ export function MobileNavigation() {
       {isOpen ? (
         <div className="absolute inset-x-0 top-16 border-b bg-slate-950/98 shadow-2xl">
           <nav className="container-page grid gap-1 py-4" aria-label="Mobile navigation">
-            {nav.map(([label, href]) => (
+            {nav.items.map(([label, href]) => (
               <Link
                 key={href}
                 href={href}
@@ -43,12 +38,12 @@ export function MobileNavigation() {
               </Link>
             ))}
             <Link
-              href="/search"
+              href={nav.search}
               className="mt-2 inline-flex items-center gap-2 rounded-md border px-3 py-3 text-sm font-semibold text-slate-100 hover:bg-slate-800"
               onClick={() => setIsOpen(false)}
             >
               <Search className="h-4 w-4" />
-              Search
+              {nav.labels.search}
             </Link>
             <div className="mt-2 flex items-center gap-2 border-t pt-4 text-sm font-semibold text-slate-300">
               <LanguageSwitcher />

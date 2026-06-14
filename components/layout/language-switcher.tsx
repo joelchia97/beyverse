@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { localizedGuides, type GuideLocale } from "@/lib/localized-guides";
 import { cn } from "@/lib/utils";
 
-const localizedStaticRoutes = new Set(["about", "contact", "guides", "privacy", "terms"]);
+const localizedStaticRoutes = new Set(["about", "beyblades", "contact", "guides", "parts", "privacy", "terms"]);
 
 function guideExists(locale: GuideLocale, slug: string) {
   return localizedGuides[locale].some((guide) => guide.slug === slug);
@@ -32,6 +32,10 @@ function getLanguagePath(pathname: string, locale: "en" | GuideLocale) {
 
   if (section === "guides" && slug) {
     return guideExists(locale, slug) ? `/${locale}/guides/${slug}` : `/${locale}/guides`;
+  }
+
+  if ((section === "beyblades" || section === "parts") && slug) {
+    return `/${locale}/${section}/${slug}`;
   }
 
   if (localizedStaticRoutes.has(section) && !slug) {

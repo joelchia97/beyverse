@@ -11,13 +11,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/zh",
     "/ms",
     "/zh/about",
+    "/zh/beyblades",
     "/zh/contact",
     "/zh/guides",
+    "/zh/parts",
     "/zh/privacy",
     "/zh/terms",
     "/ms/about",
+    "/ms/beyblades",
     "/ms/contact",
     "/ms/guides",
+    "/ms/parts",
     "/ms/privacy",
     "/ms/terms",
     "/beyblades",
@@ -33,7 +37,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     ...staticRoutes.map((route) => ({ url: `${siteConfig.url}${route}`, lastModified: contentUpdatedAt })),
     ...beyblades.map((item) => ({ url: `${siteConfig.url}/beyblades/${item.slug}`, lastModified: new Date(item.release_date) })),
+    ...beyblades.flatMap((item) => [
+      { url: `${siteConfig.url}/zh/beyblades/${item.slug}`, lastModified: new Date(item.release_date) },
+      { url: `${siteConfig.url}/ms/beyblades/${item.slug}`, lastModified: new Date(item.release_date) }
+    ]),
     ...parts.map((item) => ({ url: `${siteConfig.url}/parts/${item.slug}`, lastModified: contentUpdatedAt })),
+    ...parts.flatMap((item) => [
+      { url: `${siteConfig.url}/zh/parts/${item.slug}`, lastModified: contentUpdatedAt },
+      { url: `${siteConfig.url}/ms/parts/${item.slug}`, lastModified: contentUpdatedAt }
+    ]),
     ...guides.map((item) => ({ url: `${siteConfig.url}/guides/${item.slug}`, lastModified: new Date(item.published_at) })),
     ...localizedGuides.zh.map((guide) => ({
       url: `${siteConfig.url}/zh/guides/${guide.slug}`,

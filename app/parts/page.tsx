@@ -3,10 +3,12 @@ import { AdBanner } from "@/components/ads/ad-banner";
 import { PageHeading } from "@/components/page-heading";
 import { PartsDatabaseClient } from "@/components/parts-database-client";
 import { getParts } from "@/lib/content";
+import { siteConfig } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Parts Database",
-  description: "Browse Beyblade blades, ratchets, and bits with weights, advantages, disadvantages, and recommended uses."
+  description: "Browse Beyblade blades, ratchets, and bits with weights, advantages, disadvantages, and recommended uses.",
+  alternates: { canonical: `${siteConfig.url}/parts`, languages: { en: `${siteConfig.url}/parts`, zh: `${siteConfig.url}/zh/parts`, ms: `${siteConfig.url}/ms/parts` } }
 };
 
 export default async function PartsDatabasePage() {
