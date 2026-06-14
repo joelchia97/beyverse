@@ -201,7 +201,7 @@ export function BeybladeDatabaseClient({ beyblades, locale = "en" }: { beyblades
               title={item.name}
               badge={item.product_code || item.type}
               meta={`${cleanSeries(item.series)} / ${text.types[item.type]} / ${item.weight}g / ${item.release_date}`}
-              description={item.description}
+              description={localizedBeybladeSummary(item, locale)}
               visualType={item.type}
               imageUrl={item.image_url}
               details={[
@@ -312,6 +312,25 @@ function bestUseCase(type: string, locale: DatabaseLocale) {
     ms: { Attack: "tekanan kalah mati awal", Defense: "menahan hentaman dan serangan balas", Stamina: "ujian putaran dan kawalan akhir", Balance: "pelarasan padanan campuran" }
   };
   return values[locale][type as Beyblade["type"]] ?? "general testing";
+}
+
+function localizedBeybladeSummary(item: Pick<Beyblade, "name" | "type" | "description">, locale: DatabaseLocale) {
+  if (locale === "en") return item.description;
+  const summaries = {
+    zh: {
+      Attack: `${item.name} 属于攻击型，重点是利用速度和早期碰撞制造击飞机会。测试时应观察首次接触、Xtreme Dash 路线和自爆出界风险。`,
+      Defense: `${item.name} 属于防御型，重点是承受对手的前期重击并保持稳定。测试时应同时比较抗击飞能力、回弹控制和后段续航。`,
+      Stamina: `${item.name} 属于持久型，重点是减少无效移动和旋转损耗。测试时应先确认它能否安全度过开局，再评估后段持久力。`,
+      Balance: `${item.name} 属于平衡型，可在攻击、防御和持久之间调整。组合时最好先确定主要获胜方式，再用其他能力弥补弱点。`
+    },
+    ms: {
+      Attack: `${item.name} ialah jenis serangan yang menggunakan kelajuan dan sentuhan awal untuk mencari peluang knockout. Uji sentuhan pertama, laluan Xtreme Dash dan risiko keluar stadium sendiri.`,
+      Defense: `${item.name} ialah jenis pertahanan yang direka untuk menahan hentaman awal dan kekal stabil. Bandingkan rintangan knockout, kawalan recoil dan stamina akhir.`,
+      Stamina: `${item.name} ialah jenis stamina yang mahu mengurangkan pergerakan serta kehilangan putaran. Pastikan ia selamat pada awal pertarungan sebelum menilai prestasi akhir.`,
+      Balance: `${item.name} ialah jenis seimbang yang boleh dilaras antara serangan, pertahanan dan stamina. Pilih satu cara kemenangan utama sebelum menutup kelemahannya.`
+    }
+  };
+  return summaries[locale][item.type];
 }
 
 function beginnerRating(type: string) {

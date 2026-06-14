@@ -150,10 +150,10 @@ export function PartsDatabaseClient({ parts, locale = "en" }: { parts: Part[]; l
               title={item.name}
               badge={text.labels[item.category]}
               meta={`${item.weight}g / A${item.attack} D${item.defense} S${item.stamina} B${item.balance}`}
-              description={item.description}
+              description={localizedPartSummary(item, locale)}
               details={[
                 `${text.function}: ${partFunction(item.category, locale)}`,
-                `${text.best}: ${item.recommended_uses[0] || "general combo testing"}`,
+                `${text.best}: ${localizedPartUse(item, locale)}`,
                 `${text.beginner} ${beginnerValue(item.category)}/5 / ${text.competitive} ${competitiveValue(item)}/5`
               ]}
             />
@@ -208,7 +208,7 @@ export function PartsDatabaseClient({ parts, locale = "en" }: { parts: Part[]; l
                   <td className="px-4 py-3 font-mono text-sky-200">{item.defense}</td>
                   <td className="px-4 py-3 font-mono text-sky-200">{item.stamina}</td>
                   <td className="px-4 py-3 font-mono text-sky-200">{item.balance}</td>
-                  <td className="px-4 py-3 text-slate-300">{item.recommended_uses.slice(0, 3).join(", ")}</td>
+                  <td className="px-4 py-3 text-slate-300">{localizedPartUse(item, locale)}</td>
                 </tr>
               ))}
             </tbody>
@@ -226,6 +226,51 @@ function partFunction(category: string, locale: DatabaseLocale) {
     ms: { Blade: "bentuk sentuhan utama dan identiti pertarungan", Ratchet: "pelarasan tinggi, pendedahan dan risiko burst", Bit: "pergerakan, stamina dan rasa pelancaran" }
   };
   return values[locale][category as Part["category"]] ?? "combo tuning";
+}
+
+function localizedPartSummary(item: Part, locale: DatabaseLocale) {
+  if (locale === "en") return item.description;
+  const strongest = strongestStat(item);
+  const summaries = {
+    zh: {
+      Blade: `${item.name} 是刃片零件，主要决定撞击形状、回弹和战斗定位。它目前最高的能力倾向是${statLabel(strongest, locale)}，适合在固定棘轮和轴心下进行对比测试。`,
+      Ratchet: `${item.name} 是棘轮零件，主要影响高度、刃片接触位置和爆裂风险。它目前最高的能力倾向是${statLabel(strongest, locale)}，测试时应记录刮地和稳定性。`,
+      Bit: `${item.name} 是轴心零件，主要控制移动路线、摩擦力和后段持久表现。它目前最高的能力倾向是${statLabel(strongest, locale)}，应使用相同刃片与棘轮进行比较。`
+    },
+    ms: {
+      Blade: `${item.name} ialah Blade yang menentukan bentuk sentuhan, recoil dan identiti pertarungan. Kecenderungan statistik tertingginya ialah ${statLabel(strongest, locale)}; uji dengan Ratchet dan Bit yang sama.`,
+      Ratchet: `${item.name} ialah Ratchet yang mempengaruhi tinggi, titik sentuhan Blade dan risiko burst. Kecenderungan tertingginya ialah ${statLabel(strongest, locale)}; rekod scraping dan kestabilan.`,
+      Bit: `${item.name} ialah Bit yang mengawal corak pergerakan, geseran dan stamina akhir. Kecenderungan tertingginya ialah ${statLabel(strongest, locale)}; bandingkan dengan Blade dan Ratchet yang sama.`
+    }
+  };
+  return summaries[locale][item.category];
+}
+
+function localizedPartUse(item: Part, locale: DatabaseLocale) {
+  if (locale === "en") return item.recommended_uses[0] || "general combo testing";
+  const strongest = strongestStat(item);
+  return locale === "zh"
+    ? `用于${statLabel(strongest, locale)}向组合与同类别对比测试`
+    : `Kombo berfokus ${statLabel(strongest, locale)} dan ujian perbandingan kategori sama`;
+}
+
+function strongestStat(item: Pick<Part, "attack" | "defense" | "stamina" | "balance">) {
+  const stats = [
+    ["attack", item.attack],
+    ["defense", item.defense],
+    ["stamina", item.stamina],
+    ["balance", item.balance]
+  ] as const;
+  return stats.reduce((best, current) => current[1] > best[1] ? current : best)[0];
+}
+
+function statLabel(stat: ReturnType<typeof strongestStat>, locale: DatabaseLocale) {
+  const labels = {
+    en: { attack: "attack", defense: "defense", stamina: "stamina", balance: "balance" },
+    zh: { attack: "攻击", defense: "防御", stamina: "持久", balance: "平衡" },
+    ms: { attack: "serangan", defense: "pertahanan", stamina: "stamina", balance: "keseimbangan" }
+  };
+  return labels[locale][stat];
 }
 
 function beginnerValue(category: string) {
