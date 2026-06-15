@@ -3,10 +3,12 @@ import { AdBanner } from "@/components/ads/ad-banner";
 import { GuidesDatabaseClient } from "@/components/guides-database-client";
 import { PageHeading } from "@/components/page-heading";
 import { getGuides } from "@/lib/content";
+import { siteConfig } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Strategy Guides",
-  description: "Beyblade strategy guides for launch control, combo theory, matchup planning, and tournament prep."
+  description: "Beyblade strategy guides for launch control, combo theory, matchup planning, and tournament prep.",
+  alternates: { canonical: `${siteConfig.url}/guides` }
 };
 
 export default async function GuidesPage() {

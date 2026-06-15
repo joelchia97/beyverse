@@ -27,6 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/beyblades",
     "/parts",
     "/combo-builder",
+    "/guides",
     "/tier-list",
     "/anime-lore",
     "/about",

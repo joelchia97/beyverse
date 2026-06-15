@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import { PageHeading } from "@/components/page-heading";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { siteConfig } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "About", description: "About BEYBUKU, a Beyblade encyclopedia for fans and competitive players." };
+export const metadata: Metadata = {
+  title: "About",
+  description: "About BEYBUKU, a Beyblade encyclopedia for fans and competitive players.",
+  alternates: { canonical: `${siteConfig.url}/about` }
+};
 
 export default function AboutPage() {
   return (

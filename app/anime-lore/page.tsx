@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import { PageHeading } from "@/components/page-heading";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getCharacters } from "@/lib/content";
+import { siteConfig } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Anime Lore",
-  description: "Beyblade anime character notes, signature Beyblades, and story context."
+  description: "Beyblade anime character notes, signature Beyblades, and story context.",
+  alternates: { canonical: `${siteConfig.url}/anime-lore` }
 };
 
 export default async function AnimeLorePage() {

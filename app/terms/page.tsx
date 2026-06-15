@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeading } from "@/components/page-heading";
+import { siteConfig } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Terms of Service", description: "BEYBUKU terms of service and fan-site disclaimer." };
+export const metadata: Metadata = {
+  title: "Terms of Service",
+  description: "BEYBUKU terms of service and fan-site disclaimer.",
+  alternates: { canonical: `${siteConfig.url}/terms` }
+};
 
 export default function TermsPage() {
   return (

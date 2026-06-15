@@ -8,7 +8,8 @@ import { siteConfig } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Best Beyblade X Tier List 2026",
-  description: "Fan-made BEYBUKU Beyblade X tier list for 2026 combo testing, matchup planning, and competitive preparation."
+  description: "Fan-made BEYBUKU Beyblade X tier list for 2026 combo testing, matchup planning, and competitive preparation.",
+  alternates: { canonical: `${siteConfig.url}/tier-list` }
 };
 
 export default async function TierListPage() {

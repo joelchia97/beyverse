@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeading } from "@/components/page-heading";
+import { siteConfig } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Privacy Policy", description: "BEYBUKU privacy policy and advertising disclosure." };
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description: "BEYBUKU privacy policy and advertising disclosure.",
+  alternates: { canonical: `${siteConfig.url}/privacy` }
+};
 
 export default function PrivacyPage() {
   return (

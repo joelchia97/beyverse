@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
+
 import { AdminDashboardClient } from "@/components/admin-dashboard-client";
 import { PageHeading } from "@/components/page-heading";
 import { getBeyblades, getGuides, getParts, getTierList } from "@/lib/content";
+
+export const metadata: Metadata = {
+  title: "Admin Dashboard",
+  robots: { index: false, follow: false }
+};
 
 export default async function AdminDashboardPage() {
   const [beyblades, parts, guides, tierList] = await Promise.all([getBeyblades(), getParts(), getGuides(), getTierList()]);

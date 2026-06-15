@@ -3,8 +3,13 @@ import Link from "next/link";
 import { Mail, MessageSquare, ShieldCheck } from "lucide-react";
 import { PageHeading } from "@/components/page-heading";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { siteConfig } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Contact", description: "Contact BEYBUKU for corrections, guide ideas, and database suggestions." };
+export const metadata: Metadata = {
+  title: "Contact",
+  description: "Contact BEYBUKU for corrections, guide ideas, and database suggestions.",
+  alternates: { canonical: `${siteConfig.url}/contact` }
+};
 
 const contactEmail = "majorjdebeat@gmail.com";
 const correctionMail = `mailto:${contactEmail}?subject=${encodeURIComponent("BEYBUKU Correction Request")}&body=${encodeURIComponent(
