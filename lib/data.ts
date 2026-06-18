@@ -17,10 +17,17 @@ type PartRecord = {
   role: Beyblade["type"];
 };
 
-const catalogUpdated = "2026-06-05";
+const catalogUpdated = "2026-06-19";
 
 const beyRecords: BeyRecord[] = [
   { code: "BXG-01", name: "Dranzer Spiral 3-80T", series: "X-Over Project", type: "Balance", release: "2023-07-15" },
+  { code: "BX-00", name: "Driger Slash 4-80P", series: "X-Over Project", type: "Balance", release: "2024-04-27" },
+  { code: "BX-00", name: "Lightning L-Drago 1-60F", series: "X-Over Project", type: "Attack", release: "2024-09-14" },
+  { code: "BX-00", name: "Lightning L-Drago 1-60R", series: "X-Over Project", type: "Attack", release: "2024-09-14" },
+  { code: "UX-00", name: "Xeno Xcalibur 3-60GF", series: "X-Over Project", type: "Attack", release: "2025-03-21" },
+  { code: "BX-00", name: "Rock Leone 5-70WB", series: "X-Over Project", type: "Defense", release: "2025-12-27" },
+  { code: "BX-00", name: "Dragoon Storm 4-60RA", series: "X-Over Project", type: "Attack", release: "2026-05-23" },
+  { code: "BX-00", name: "Storm Pegasus 3-70RA", series: "X-Over Project", type: "Attack", release: "2026-07-18" },
   { code: "BX-01", name: "Dran Sword 3-60F", series: "Basic Line", type: "Attack", release: "2023-07-15" },
   { code: "BX-02", name: "Hells Scythe 4-60T", series: "Basic Line", type: "Balance", release: "2023-07-15" },
   { code: "BX-03", name: "Wizard Arrow 4-80B", series: "Basic Line", type: "Stamina", release: "2023-07-15" },
@@ -49,6 +56,10 @@ const beyRecords: BeyRecord[] = [
   { code: "BX-48", name: "Hells Scythe 3-85GB", series: "Basic Line", type: "Balance", release: "2026-02-14" },
   { code: "BX-48", name: "Dran Buster 2-80Q", series: "Basic Line", type: "Attack", release: "2026-02-14" },
   { code: "BX-49", name: "Dran Strike 4-50FF", series: "Basic Line", type: "Attack", release: "2026-05-16" },
+  { code: "BX-50", name: "Hells Reaper T4-70K", series: "Basic Line", type: "Attack", release: "2026-07-18" },
+  { code: "BX-50", name: "Shark Scale 3-60F", series: "Basic Line", type: "Attack", release: "2026-07-18" },
+  { code: "BX-50", name: "Dran Dagger 4-55GU", series: "Basic Line", type: "Balance", release: "2026-07-18" },
+  { code: "BX-50", name: "Mammoth Tusk 7-60Z", series: "Basic Line", type: "Defense", release: "2026-07-18" },
   { code: "BX-00", name: "Samurai Steel 5-70GF", series: "Event Release", type: "Attack", release: "2025-06-15" },
   { code: "BX-00", name: "Storm Spriggan 2-70M", series: "X-Over Project", type: "Balance", release: "2026-03-28", weight: 40.7 },
   { code: "UX-00", name: "Aero Pegasus 3-70A", series: "Unique Line", type: "Attack", release: "2024-07-30" },
@@ -71,6 +82,7 @@ const beyRecords: BeyRecord[] = [
   { code: "UX-17", name: "Meteor Dragoon 3-70J", series: "Unique Line", type: "Attack", release: "2025-12-27" },
   { code: "UX-18", name: "Mummy Curse 7-55W", series: "Unique Line", type: "Defense", release: "2025-12-27" },
   { code: "UX-19", name: "Bullet Griffon H", series: "Unique Line", type: "Balance", release: "2026-04-25" },
+  { code: "UX-20", name: "Glory Valkyrie 4-70V", series: "Unique Line", type: "Attack", release: "2026-07-18" },
   { code: "UX-00", name: "Samurai Saber 5-60K", series: "Event Release", type: "Balance", release: "2026-06-13" },
   { code: "CX-01", name: "Dran Brave S6-60V", series: "Custom Line", type: "Attack", release: "2025-03-29" },
   { code: "CX-02", name: "Wizard Arc R4-55LO", series: "Custom Line", type: "Stamina", release: "2025-03-29" },
@@ -88,6 +100,7 @@ const beyRecords: BeyRecord[] = [
   { code: "CX-17", name: "Tyranno Beat 3-60N", series: "Custom Line", type: "Attack", release: "2026-04-25" },
   { code: "CX-17", name: "Crimson Garuda 7-80GU", series: "Custom Line", type: "Balance", release: "2026-04-25" },
   { code: "CX-18", name: "Brachio Whip OW5-70Nr", series: "Custom Line", type: "Stamina", release: "2026-06-13" },
+  { code: "CX-16", name: "Heavens Ring T4-80HN", series: "Custom Line", type: "Defense", release: "2026-07-18" },
   { code: "BX-00", name: "Iron Man 4-80B", series: "Event Release", type: "Stamina", release: "2025-04-26", weight: 41.1 },
   { code: "BX-00", name: "Thanos 4-60P", series: "Event Release", type: "Balance", release: "2025-04-26" },
   { code: "BX-00", name: "Spider-Man 3-60F", series: "Event Release", type: "Stamina", release: "2025-04-26", weight: 33.2 },
@@ -98,6 +111,8 @@ const beyRecords: BeyRecord[] = [
   { code: "BX-00", name: "Moff Gideon 3-80N", series: "Event Release", type: "Defense", release: "2025-04-26" },
   { code: "BX-00", name: "Optimus Prime 4-60P", series: "Event Release", type: "Balance", release: "2025-05-17" },
   { code: "BX-00", name: "Megatron 4-80B", series: "Event Release", type: "Stamina", release: "2025-05-17" },
+  { code: "CX-00", name: "Optimus Primal B4-60SB", series: "Event Release", type: "Defense", release: "2025-10-25" },
+  { code: "CX-00", name: "Starscream B6-80TB", series: "Event Release", type: "Balance", release: "2025-10-25" },
   { code: "CX-00", name: "Eva Arc B0-70E", series: "Event Release", type: "Defense", release: "2026-08-29" },
   { code: "CX-00", name: "Eva Brave A1-70V", series: "Event Release", type: "Attack", release: "2026-08-29" },
   { code: "CX-00", name: "Eva Brush T2-70A", series: "Event Release", type: "Balance", release: "2026-08-29" },
@@ -155,6 +170,12 @@ const beyRecords: BeyRecord[] = [
 
 const partRecords: PartRecord[] = [
   { code: "BX-00", name: "Dranzer Spiral", category: "Blade", system: "X-Over Project", role: "Balance" },
+  { code: "BX-00", name: "Driger Slash", category: "Blade", system: "X-Over Project", role: "Balance" },
+  { code: "BX-00", name: "Lightning L-Drago", category: "Blade", system: "X-Over Project", role: "Attack" },
+  { code: "UX-00", name: "Xeno Xcalibur", category: "Blade", system: "X-Over Project", role: "Attack" },
+  { code: "BX-00", name: "Rock Leone", category: "Blade", system: "X-Over Project", role: "Defense" },
+  { code: "BX-00", name: "Dragoon Storm", category: "Blade", system: "X-Over Project", role: "Attack" },
+  { code: "BX-00", name: "Storm Pegasus", category: "Blade", system: "X-Over Project", role: "Attack" },
   { code: "BX-00", name: "Cobalt Drake", category: "Blade", system: "Basic Line", role: "Attack" },
   { code: "BX-00", name: "Phoenix Feather", category: "Blade", system: "Basic Line", role: "Attack" },
   { code: "BX-00", name: "Samurai Steel", category: "Blade", system: "Basic Line", role: "Attack" },
@@ -182,6 +203,8 @@ const partRecords: PartRecord[] = [
   { code: "BX-45", name: "Samurai Calibur", category: "Blade", system: "Basic Line", role: "Attack" },
   { code: "BX-48", name: "Mammoth Tusk", category: "Blade", system: "Basic Line", role: "Defense" },
   { code: "BX-49", name: "Dran Strike", category: "Blade", system: "Basic Line", role: "Attack" },
+  { code: "BX-50", name: "Heavens Ring", category: "Blade", system: "Basic Line", role: "Defense" },
+  { code: "BX-50", name: "Hells Reaper", category: "Blade", system: "Basic Line", role: "Attack" },
   { code: "BX-00", name: "Storm Spriggan", category: "Blade", system: "X-Over Project", role: "Balance" },
   { code: "UX-00", name: "Aero Pegasus", category: "Blade", system: "Unique Line", role: "Attack" },
   { code: "UX-00", name: "Wyvern Hover", category: "Blade", system: "Unique Line", role: "Defense" },
@@ -203,6 +226,7 @@ const partRecords: PartRecord[] = [
   { code: "UX-17", name: "Meteor Dragoon", category: "Blade", system: "Unique Line", role: "Attack" },
   { code: "UX-18", name: "Mummy Curse", category: "Blade", system: "Unique Line", role: "Defense" },
   { code: "UX-19", name: "Bullet Griffon", category: "Blade", system: "Unique Line", role: "Balance" },
+  { code: "UX-20", name: "Glory Valkyrie", category: "Blade", system: "Unique Line", role: "Attack" },
   { code: "CX-01", name: "Dran Brave", category: "Blade", system: "Custom Line", role: "Attack" },
   { code: "CX-02", name: "Wizard Arc", category: "Blade", system: "Custom Line", role: "Stamina" },
   { code: "CX-03", name: "Perseus Dark", category: "Blade", system: "Custom Line", role: "Balance" },
@@ -217,6 +241,8 @@ const partRecords: PartRecord[] = [
   { code: "CX-17", name: "Unicorn Delta", category: "Blade", system: "Custom Line", role: "Balance" },
   { code: "CX-17", name: "Tyranno Beat", category: "Blade", system: "Custom Line", role: "Attack" },
   { code: "CX-18", name: "Brachio Whip", category: "Blade", system: "Custom Line", role: "Stamina" },
+  { code: "CX-00", name: "Optimus Primal", category: "Blade", system: "Custom Line", role: "Defense" },
+  { code: "CX-00", name: "Starscream", category: "Blade", system: "Custom Line", role: "Balance" },
   { code: "BX-00", name: "Iron Man", category: "Blade", system: "Basic Line", role: "Stamina" },
   { code: "BX-00", name: "Thanos", category: "Blade", system: "Basic Line", role: "Balance" },
   { code: "BX-00", name: "Spider-Man", category: "Blade", system: "Basic Line", role: "Stamina" },

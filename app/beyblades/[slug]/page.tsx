@@ -335,7 +335,7 @@ function QuickFacts({ item }: { item: Beyblade }) {
     ["System / Line", item.series],
     ["Type", item.type],
     ["Weight", `${item.weight}g`],
-    ["Release", item.release_date],
+    ["Release", `${item.release_date}${new Date(`${item.release_date}T23:59:59Z`).getTime() > Date.now() ? " (Announced)" : ""}`],
     ["Best Role", `${item.type} testing`]
   ];
 

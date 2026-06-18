@@ -28,7 +28,7 @@ const copy = {
     showMore: "Show more", remaining: "remaining", table: "Filtered Catalog Table",
     tableHelp: "The table follows the filters above for quick code, region, type, weight, and date comparisons.",
     code: "Code", beyblade: "Beyblade", category: "Category", line: "Line", type: "Type", weightLabel: "Weight", release: "Release",
-    releaseLabel: "Release", bestUse: "Best use", beginner: "Beginner", competitive: "Competitive",
+    releaseLabel: "Release", upcoming: "Announced", bestUse: "Best use", beginner: "Beginner", competitive: "Competitive",
     categories: { All: "All", "Takara Tomy": "Takara Tomy", Hasbro: "Hasbro", "Special / Collab": "Special / Collab" },
     types: { All: "All", Attack: "Attack", Defense: "Defense", Stamina: "Stamina", Balance: "Balance" }
   },
@@ -40,7 +40,7 @@ const copy = {
     showMore: "显示更多", remaining: "款剩余", table: "筛选目录表",
     tableHelp: "此表会跟随上方筛选，方便比较型号、版本、类型、重量和发售日期。",
     code: "型号", beyblade: "陀螺", category: "版本", line: "产品线", type: "类型", weightLabel: "重量", release: "发售日期",
-    releaseLabel: "版本", bestUse: "适合用途", beginner: "新手", competitive: "竞技",
+    releaseLabel: "版本", upcoming: "即将推出", bestUse: "适合用途", beginner: "新手", competitive: "竞技",
     categories: { All: "全部", "Takara Tomy": "Takara Tomy", Hasbro: "Hasbro", "Special / Collab": "特别版 / 联名款" },
     types: { All: "全部", Attack: "攻击型", Defense: "防御型", Stamina: "持久型", Balance: "平衡型" }
   },
@@ -52,7 +52,7 @@ const copy = {
     showMore: "Papar lagi", remaining: "baki", table: "Jadual Katalog Ditapis",
     tableHelp: "Jadual ini mengikut penapis di atas untuk perbandingan kod, pasaran, jenis, berat dan tarikh.",
     code: "Kod", beyblade: "Beyblade", category: "Kategori", line: "Barisan", type: "Jenis", weightLabel: "Berat", release: "Keluaran",
-    releaseLabel: "Keluaran", bestUse: "Kegunaan terbaik", beginner: "Pemula", competitive: "Kompetitif",
+    releaseLabel: "Keluaran", upcoming: "Diumumkan", bestUse: "Kegunaan terbaik", beginner: "Pemula", competitive: "Kompetitif",
     categories: { All: "Semua", "Takara Tomy": "Takara Tomy", Hasbro: "Hasbro", "Special / Collab": "Khas / Kolaborasi" },
     types: { All: "Semua", Attack: "Serangan", Defense: "Pertahanan", Stamina: "Stamina", Balance: "Seimbang" }
   }
@@ -200,7 +200,7 @@ export function BeybladeDatabaseClient({ beyblades, locale = "en" }: { beyblades
               href={`${hrefPrefix}/beyblades/${item.slug}`}
               title={item.name}
               badge={item.product_code || item.type}
-              meta={`${cleanSeries(item.series)} / ${text.types[item.type]} / ${item.weight}g / ${item.release_date}`}
+              meta={`${cleanSeries(item.series)} / ${text.types[item.type]} / ${item.weight}g / ${item.release_date}${isUpcoming(item.release_date) ? ` / ${text.upcoming}` : ""}`}
               description={localizedBeybladeSummary(item, locale)}
               visualType={item.type}
               imageUrl={item.image_url}
@@ -259,7 +259,10 @@ export function BeybladeDatabaseClient({ beyblades, locale = "en" }: { beyblades
                   <td className="px-4 py-3 text-slate-300">{cleanSeries(item.series)}</td>
                   <td className="px-4 py-3"><Badge>{text.types[item.type]}</Badge></td>
                   <td className="whitespace-nowrap px-4 py-3 text-slate-300">{item.weight}g</td>
-                  <td className="whitespace-nowrap px-4 py-3 text-slate-300">{item.release_date}</td>
+                  <td className="whitespace-nowrap px-4 py-3 text-slate-300">
+                    {item.release_date}
+                    {isUpcoming(item.release_date) ? <Badge className="ml-2">{text.upcoming}</Badge> : null}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -268,6 +271,10 @@ export function BeybladeDatabaseClient({ beyblades, locale = "en" }: { beyblades
       </section>
     </div>
   );
+}
+
+function isUpcoming(releaseDate: string) {
+  return new Date(`${releaseDate}T23:59:59Z`).getTime() > Date.now();
 }
 
 function releaseCategory(item: Pick<Beyblade, "name" | "series">): Exclude<ReleaseCategory, "All"> {
