@@ -13,7 +13,7 @@ export type DatabaseLocale = "zh" | "ms";
 const copy = {
   zh: {
     database: "陀螺数据库", partsDatabase: "零件数据库", quickFacts: "快速资料",
-    series: "系列", type: "类型", weight: "重量", release: "发售日期", code: "型号",
+    series: "系列", type: "类型", weight: "重量", estimated: "估算", unverified: "未核实", release: "发售日期", code: "型号",
     strengths: "优点", weaknesses: "缺点", combos: "推荐组合", anime: "动画资料",
     category: "类别", attack: "攻击", defense: "防御", stamina: "持久", balance: "平衡",
     advantages: "优势", disadvantages: "劣势", uses: "推荐用途", relatedBeys: "相关陀螺",
@@ -24,7 +24,7 @@ const copy = {
   },
   ms: {
     database: "Pangkalan Data Beyblade", partsDatabase: "Pangkalan Data Parts", quickFacts: "Fakta Ringkas",
-    series: "Siri", type: "Jenis", weight: "Berat", release: "Tarikh keluaran", code: "Kod",
+    series: "Siri", type: "Jenis", weight: "Berat", estimated: "anggaran", unverified: "belum disahkan", release: "Tarikh keluaran", code: "Kod",
     strengths: "Kekuatan", weaknesses: "Kelemahan", combos: "Kombo disyorkan", anime: "Info anime",
     category: "Kategori", attack: "Serangan", defense: "Pertahanan", stamina: "Stamina", balance: "Keseimbangan",
     advantages: "Kelebihan", disadvantages: "Kekurangan", uses: "Kegunaan disyorkan", relatedBeys: "Beyblade berkaitan",
@@ -67,7 +67,7 @@ export async function LocalizedBeybladeDetail({ locale, slug }: { locale: Databa
           <AdBanner slot="beyblade-detail-page-ad" label={text.ad} />
           <FactCard title={text.quickFacts} facts={[
             [text.code, item.product_code || "TBA"], [text.series, item.series], [text.type, text.types[item.type]],
-            [text.weight, `${item.weight}g`], [text.release, item.release_date]
+            [text.weight, formatLocalizedWeight(item, text)], [text.release, item.release_date]
           ]} />
           <div className="mt-4 grid gap-4 md:grid-cols-2">
             <ListCard title={text.strengths} items={localizedBeybladePoints(item.type, locale).strengths} />
@@ -152,7 +152,16 @@ function SourceCard({ title, help, description, sections }: { title: string; hel
 }
 
 function RelatedBeyblades({ locale, title, items, text }: { locale: DatabaseLocale; title: string; items: Beyblade[]; text: typeof copy[DatabaseLocale] }) {
-  return <Card className="mt-4"><CardHeader><CardTitle>{title}</CardTitle></CardHeader><CardContent className="grid gap-3 md:grid-cols-2">{items.map((item) => <Link key={item.slug} href={`/${locale}/beyblades/${item.slug}`} className="rounded-md border bg-slate-950/45 p-3 hover:border-sky-400/60"><div className="flex justify-between gap-3"><span className="font-semibold text-white">{item.name}</span><Badge>{item.product_code || item.type}</Badge></div><p className="mt-1 text-sm text-slate-400">{text.types[item.type]} / {item.weight}g</p></Link>)}</CardContent></Card>;
+  return <Card className="mt-4"><CardHeader><CardTitle>{title}</CardTitle></CardHeader><CardContent className="grid gap-3 md:grid-cols-2">{items.map((item) => <Link key={item.slug} href={`/${locale}/beyblades/${item.slug}`} className="rounded-md border bg-slate-950/45 p-3 hover:border-sky-400/60"><div className="flex justify-between gap-3"><span className="font-semibold text-white">{item.name}</span><Badge>{item.product_code || item.type}</Badge></div><p className="mt-1 text-sm text-slate-400">{text.types[item.type]} / {formatLocalizedWeight(item, text)}</p></Link>)}</CardContent></Card>;
+}
+
+function formatLocalizedWeight(
+  item: Pick<Beyblade, "weight" | "weight_status">,
+  text: { estimated: string; unverified: string }
+) {
+  if (item.weight_status === "Estimated") return `~${item.weight}g (${text.estimated})`;
+  if (item.weight_status === "Unverified") return `${item.weight}g (${text.unverified})`;
+  return `${item.weight}g`;
 }
 
 function beybladeAnalysis(item: Beyblade, locale: DatabaseLocale) {

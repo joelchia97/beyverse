@@ -64,11 +64,13 @@ export default async function BeybladeDetailPage({ params }: Props) {
       identifier: item.product_code,
       description: item.description,
       url: pageUrl,
-      weight: {
-        "@type": "QuantitativeValue",
-        value: item.weight,
-        unitText: "g"
-      },
+      weight: item.weight_status === "Recorded"
+        ? {
+            "@type": "QuantitativeValue",
+            value: item.weight,
+            unitText: "g"
+          }
+        : undefined,
       additionalProperty: [
         { "@type": "PropertyValue", name: "Series", value: item.series },
         { "@type": "PropertyValue", name: "Battle Type", value: item.type },
@@ -334,7 +336,7 @@ function QuickFacts({ item }: { item: Beyblade }) {
     ["Product Code", item.product_code || "TBA"],
     ["System / Line", item.series],
     ["Type", item.type],
-    ["Weight", `${item.weight}g`],
+    ["Weight", formatWeight(item)],
     ["Release", `${item.release_date}${new Date(`${item.release_date}T23:59:59Z`).getTime() > Date.now() ? " (Announced)" : ""}`],
     ["Best Role", `${item.type} testing`]
   ];
@@ -354,6 +356,12 @@ function QuickFacts({ item }: { item: Beyblade }) {
       </CardContent>
     </Card>
   );
+}
+
+function formatWeight(item: Pick<Beyblade, "weight" | "weight_status">) {
+  if (item.weight_status === "Estimated") return `~${item.weight}g (estimated)`;
+  if (item.weight_status === "Unverified") return `${item.weight}g (unverified)`;
+  return `${item.weight}g`;
 }
 
 function InfoList({ title, items, className }: { title: string; items: string[]; className?: string }) {

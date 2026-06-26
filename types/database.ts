@@ -6,6 +6,7 @@ export type Beyblade = {
   series: string;
   type: "Attack" | "Defense" | "Stamina" | "Balance";
   weight: number;
+  weight_status?: "Recorded" | "Estimated" | "Unverified";
   release_date: string;
   image_url: string;
   description: string;

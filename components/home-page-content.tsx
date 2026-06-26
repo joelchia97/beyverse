@@ -16,8 +16,9 @@ type HomeCopy = (typeof homeTranslations)[keyof typeof homeTranslations];
 
 export async function HomePageContent({ copy }: { copy: HomeCopy }) {
   const [beyblades, combos, guides, tierList] = await Promise.all([getBeyblades(), getCombos(), getGuides(), getTierList()]);
+  const today = new Date().toISOString().slice(0, 10);
   const latestBeyblades = [...beyblades]
-    .filter((item) => !Number.isNaN(Date.parse(item.release_date)))
+    .filter((item) => !Number.isNaN(Date.parse(item.release_date)) && item.release_date <= today)
     .sort((a, b) => b.release_date.localeCompare(a.release_date))
     .slice(0, 6);
   const displayedGuides =

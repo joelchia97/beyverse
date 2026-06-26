@@ -55,7 +55,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
                   href={`/beyblades/${item.slug}`}
                   title={item.name}
                   badge={item.product_code || item.type}
-                  meta={`${item.series} / ${item.type} / ${item.weight}g / ${item.release_date}`}
+                  meta={`${item.series} / ${item.type} / ${formatBeybladeWeight(item)} / ${item.release_date}`}
                   description={item.description}
                   visualType={item.type}
                   imageUrl={item.image_url}
@@ -149,6 +149,12 @@ function ComboResult({ combo }: { combo: Combo }) {
 
 function normalizeSearch(value: string) {
   return value.trim().toLowerCase();
+}
+
+function formatBeybladeWeight(item: Pick<Beyblade, "weight" | "weight_status">) {
+  if (item.weight_status === "Estimated") return `~${item.weight}g (estimated)`;
+  if (item.weight_status === "Unverified") return `${item.weight}g (unverified)`;
+  return `${item.weight}g`;
 }
 
 function searchText(values: Array<string | number | string[]>) {

@@ -82,6 +82,7 @@ function normalizeBeyblades(items: Beyblade[]) {
     product_code: item.product_code || extractProductCode(item.series),
     series: cleanSeries(item.series),
     weight: Number(item.weight || 0),
+    weight_status: item.weight_status || "Unverified",
     image_url: resolveBeybladeImage(item),
     strengths: item.strengths || [],
     weaknesses: item.weaknesses || [],
